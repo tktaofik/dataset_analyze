@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import {Layout, Menu, Breadcrumb, Icon} from 'antd';
 
-import './styles/app.css';
+import './styles/index.css';
 
 const {Header, Content, Footer, Sider} = Layout;
 const SubMenu = Menu.SubMenu;
