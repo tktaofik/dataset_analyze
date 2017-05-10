@@ -4,7 +4,7 @@ import {Layout, Menu, Breadcrumb, Icon} from 'antd';
 const {Header, Content, Footer, Sider} = Layout;
 const SubMenu = Menu.SubMenu;
 
-class Main extends React.Component {
+class App extends React.Component {
     state = {
         collapsed: false,
         mode: 'inline',
@@ -67,4 +67,4 @@ class Main extends React.Component {
     }
 }
 
-export default Main;
+export default App;
