@@ -1,11 +1,10 @@
 import React from 'react';
-import './app.css';
 import {Layout, Menu, Breadcrumb, Icon} from 'antd';
+
 const {Header, Content, Footer, Sider} = Layout;
 const SubMenu = Menu.SubMenu;
 
-
-class App extends React.Component {
+class Main extends React.Component {
     state = {
         collapsed: false,
         mode: 'inline',
@@ -68,4 +67,4 @@ class App extends React.Component {
     }
 }
 
-export default App;
+export default Main;
