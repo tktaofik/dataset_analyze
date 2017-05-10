@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "antd": "^2.9.3",
+    "antd": "^2.10.0",
     "grommet": "^1.4.0",
     "grommet-css": "^1.0.0",
     "prop-types": "^15.5.8",
