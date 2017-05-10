@@ -2,7 +2,7 @@
 @import '~antd/dist/antd.css';
 
 /* Scenes */
-@import './scenes/login.scss';
+@import 'containers/login-container.scss';
 
 /* Components */
 @import './components/navbar.scss';
