@@ -11,7 +11,7 @@ import {
 const App = () => (
     <Router>
         <div className="app-component">
-            <Route exact path="/" component={InsightsContainer}/>
+            <Route exact path="/" component={LoginContainer}/>
             <Route exact path="/insights" component={InsightsContainer}/>
             <Route path="/login" component={LoginContainer}/>
             <Route path="/add-data" component={AddDataContainer}/>

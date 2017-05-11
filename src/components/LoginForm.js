@@ -1,4 +1,10 @@
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  withRouter
+} from 'react-router-dom'
 
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 
@@ -7,6 +13,10 @@ import '../styles/index.css';
 const FormItem = Form.Item;
 
 class NormalLoginForm extends React.Component {
+  state = {
+    redirectToReferrer: false
+  };
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -14,9 +24,18 @@ class NormalLoginForm extends React.Component {
         console.log('Received values of form: ', values);
       }
     });
+    this.setState({ redirectToReferrer: true})
   }
   render() {
     const { getFieldDecorator } = this.props.form;
+    const { redirectToReferrer } = this.state;
+    const { insights } = { insights: { pathname: '/insights' } }
+
+    if(redirectToReferrer) {
+      return (
+        <Redirect to={ insights }/>
+      );
+    }
     return (
       <Form onSubmit={this.handleSubmit} className="login-form">
         <FormItem>
