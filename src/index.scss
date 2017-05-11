@@ -1,12 +1,5 @@
 /* External Lib */
-@import '~antd/dist/antd.css';
-
-/* Scenes */
-@import 'containers/login-container.scss';
-
-/* Components */
-@import './components/navbar.scss';
-@import './components/loginform.scss';
+@import '../node_modules/antd/dist/antd.css';
 
 body {
   margin: 0;

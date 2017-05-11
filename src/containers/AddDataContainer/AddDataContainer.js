@@ -1,4 +1,5 @@
 import React from 'react';
+import './AddDataContainer.css';
 
 class AddDataContainer extends React.Component {
     render() {

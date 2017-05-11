@@ -1,7 +1,7 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom'
 import {Form, Icon, Input, Button, Checkbox} from 'antd';
-import '../styles/index.css';
+import '../../index.css';
 
 const FormItem = Form.Item;
 

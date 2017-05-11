@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Layout, Menu, Breadcrumb, Icon} from 'antd';
 
-import '../styles/index.css';
+import '../../index.css';
 
 const {Header, Content, Footer, Sider} = Layout;
 const SubMenu = Menu.SubMenu;
