@@ -1,8 +1,6 @@
 import React from 'react';
-
 import {Layout, Menu, Breadcrumb, Icon} from 'antd';
-
-import '../../index.css';
+import './InsightsContainer.css';
 
 const {Header, Content, Footer, Sider} = Layout;
 const SubMenu = Menu.SubMenu;

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom'
 import {Form, Icon, Input, Button, Checkbox} from 'antd';
-import '../../index.css';
+import './LoginForm.css';
 
 const FormItem = Form.Item;
 

@@ -9,6 +9,8 @@ import {
     Switch
 } from 'react-router-dom'
 
+import './index.css'
+
 const App = () => (
     <Router>
         <div className="app-component">
