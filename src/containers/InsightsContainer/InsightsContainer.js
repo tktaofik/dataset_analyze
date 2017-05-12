@@ -1,62 +1,55 @@
-import React from 'react';
-import {Layout, Menu, Breadcrumb, Icon} from 'antd';
+import React, {PropTypes} from 'react';
+import {Layout, Menu, Icon, Button} from 'antd';
 import './InsightsContainer.css';
 
-const {Header, Content, Footer, Sider} = Layout;
-const SubMenu = Menu.SubMenu;
+const {Content, Footer, Sider} = Layout;
 
 class InsightsContainer extends React.Component {
-    state = {
-        collapsed: false,
-        mode: 'inline',
-    };
-    onCollapse = (collapsed) => {
-        console.log(collapsed);
-        this.setState({
-            collapsed,
-            mode: collapsed ? 'vertical' : 'inline',
-        });
-    };
+
+    constructor(props, context) {
+        super(props, context);
+
+        this.state = {};
+        this.onClickTest = this.onClickTest.bind(this);
+    }
+
+    onClickTest(){
+        alert('qlik analyze');
+    }
 
     render() {
         return (
             <Layout>
                 <Sider
-                    collapsible
-                    collapsed={this.state.collapsed}
-                    onCollapse={this.onCollapse}>
+                    breakpoint="lg"
+                    collapsedWidth="0"
+                    onCollapse={(collapsed, type) => {
+                        console.log(collapsed, type);
+                    }}>
                     <div className="logo"/>
-                    <Menu theme="dark" mode={this.state.mode} defaultSelectedKeys={['6']}>
-                        <SubMenu
-                            key="sub1"
-                            title={<span><Icon type="user"/><span className="nav-text">User</span></span>}>
-                            <Menu.Item key="1">Tom</Menu.Item>
-                            <Menu.Item key="2">Bill</Menu.Item>
-                            <Menu.Item key="3">Alex</Menu.Item>
-                        </SubMenu>
-                        <SubMenu
-                            key="sub2"
-                            title={<span><Icon type="team"/><span className="nav-text">Team</span></span>}>
-                            <Menu.Item key="4">Team 1</Menu.Item>
-                            <Menu.Item key="5">Team 2</Menu.Item>
-                        </SubMenu>
-                        <Menu.Item key="6">
-              <span>
-                <Icon type="file"/>
-                <span className="nav-text">File</span>
-              </span>
+                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+                        <Menu.Item key="1">
+                            <Icon type="user"/>
+                            <span className="nav-text">nav 1</span>
+                        </Menu.Item>
+                        <Menu.Item key="2">
+                            <Icon type="video-camera"/>
+                            <span className="nav-text">nav 2</span>
+                        </Menu.Item>
+                        <Menu.Item key="3">
+                            <Icon type="upload"/>
+                            <span className="nav-text">nav 3</span>
+                        </Menu.Item>
+                        <Menu.Item key="4">
+                            <Icon type="user"/>
+                            <span className="nav-text">nav 4</span>
                         </Menu.Item>
                     </Menu>
                 </Sider>
                 <Layout>
-                    <Header style={{background: '#fff', padding: 0}}/>
-                    <Content style={{margin: '0 16px'}}>
-                        <Breadcrumb style={{margin: '12px 0'}}>
-                            <Breadcrumb.Item>User</Breadcrumb.Item>
-                            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-                        </Breadcrumb>
-                        <div style={{padding: 24, background: '#fff', minHeight: 360}}>
-                            Bill is a cat.
+                    <Content style={{margin: '5px 35px 0'}}>
+                        <div>
+                            <Button type="primary" onClick={this.onClickTest}>Primary</Button>
                         </div>
                     </Content>
                     <Footer style={{textAlign: 'center'}}>
