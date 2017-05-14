@@ -6,3 +6,10 @@ export function loginUser({email, password}) {
         userCredentials: {email, password},
     };
 }
+
+export function alertMessage(message) {
+    return {
+        type: types.ALERT_MESSAGE,
+        message
+    };
+}

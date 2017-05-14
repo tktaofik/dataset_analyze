@@ -1,6 +1,9 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import {Layout, Menu, Icon, Button} from 'antd';
 import './InsightsContainer.css';
+import * as UsersActions from "../../actions/UsersActions.js"
 
 const {Content, Footer, Sider} = Layout;
 
@@ -13,8 +16,8 @@ class InsightsContainer extends React.Component {
         this.onClickTest = this.onClickTest.bind(this);
     }
 
-    onClickTest(){
-        alert('qlik analyze');
+    onClickTest() {
+        this.props.actions.alertMessage("Qlik Analyze");
     }
 
     render() {
@@ -31,18 +34,6 @@ class InsightsContainer extends React.Component {
                         <Menu.Item key="1">
                             <Icon type="user"/>
                             <span className="nav-text">nav 1</span>
-                        </Menu.Item>
-                        <Menu.Item key="2">
-                            <Icon type="video-camera"/>
-                            <span className="nav-text">nav 2</span>
-                        </Menu.Item>
-                        <Menu.Item key="3">
-                            <Icon type="upload"/>
-                            <span className="nav-text">nav 3</span>
-                        </Menu.Item>
-                        <Menu.Item key="4">
-                            <Icon type="user"/>
-                            <span className="nav-text">nav 4</span>
                         </Menu.Item>
                     </Menu>
                 </Sider>
@@ -61,4 +52,16 @@ class InsightsContainer extends React.Component {
     }
 }
 
-export default InsightsContainer;
+function mapStateToProps(state, ownProps) {
+    return {
+        user: state.user
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(UsersActions, dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(InsightsContainer);

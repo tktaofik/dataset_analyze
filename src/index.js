@@ -18,11 +18,11 @@ const App = () => (
         <Router>
             <div className="app-component">
                 <Switch>
-                    <Route exact path="/" component={LoginContainer}/>
+                    <Route exact path="/" component={InsightsContainer}/>
                     <Route exact path="/insights" component={InsightsContainer}/>
                     <Route exact path="/login" component={LoginContainer}/>
                     <Route exact path="/add-data" component={AddDataContainer}/>
-                    <Route component={LoginContainer}/>
+                    <Route component={InsightsContainer}/>
                 </Switch>
             </div>
         </Router>
