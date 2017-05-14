@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {Layout, Menu, Icon, Button} from 'antd';
 import './InsightsContainer.css';
 
