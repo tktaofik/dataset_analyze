@@ -13,6 +13,7 @@ export function alertMessage(message) {
         message
     };
 }
+
 export function loadCoursesSuccess(courses) {
     return {
         type: types.LOAD_COURSES_SUCCESS,

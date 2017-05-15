@@ -8,3 +8,17 @@
   border-radius: 6px;
   margin: 16px;
 }
+
+.insights{
+  overflow: hidden;
+  height: 100%;
+  margin: 5px 35px 0;
+  .data-table{
+    height: 50%;
+    overflow: auto;
+  }
+  .insight-charts{
+    height: 50%;
+    background-color: yellow;
+  }
+}

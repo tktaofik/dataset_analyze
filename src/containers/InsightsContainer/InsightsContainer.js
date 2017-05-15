@@ -4,8 +4,10 @@ import {bindActionCreators} from 'redux';
 import {Layout, Menu, Icon, Button} from 'antd';
 import './InsightsContainer.css';
 import * as UsersActions from "../../actions/UsersActions.js"
+import DataTable from '../../components/DataTable/DataTable';
 
-const {Content, Footer, Sider} = Layout;
+
+const {Content, Sider} = Layout;
 
 class InsightsContainer extends React.Component {
 
@@ -31,26 +33,30 @@ class InsightsContainer extends React.Component {
                     breakpoint="lg"
                     collapsedWidth="0"
                     onCollapse={(collapsed, type) => {
-                        console.log(collapsed, type);
                     }}>
                     <div className="logo"/>
                     <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
                         <Menu.Item key="1">
                             <Icon type="user"/>
-                            <span className="nav-text">nav 1</span>
+                            <span className="nav-text">Data - set 1</span>
+                        </Menu.Item>
+                        <Menu.Item key="2">
+                            <Icon type="user"/>
+                            <span className="nav-text">Data - set 2</span>
                         </Menu.Item>
                     </Menu>
                 </Sider>
                 <Layout>
-                    <Content style={{margin: '5px 35px 0'}}>
-                        <div>
+                    <Content className="insights">
+                        <div className="data-table">
+                            <DataTable/>
+                        </div>
+                        <div className="insight-charts">
+                            <h2>insight charts</h2>
                             <Button type="primary" onClick={this.onClickTest}>Primary</Button>
                             <h1>{this.props.courses.map(this.courseRow)}</h1>
                         </div>
                     </Content>
-                    <Footer style={{textAlign: 'center'}}>
-                        Qlik Analyze ©2017 Created by TK
-                    </Footer>
                 </Layout>
             </Layout>
         );
@@ -63,7 +69,6 @@ InsightsContainer.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-    console.log(state.user);
     const {user, courses} = state.user;
 
     return {
