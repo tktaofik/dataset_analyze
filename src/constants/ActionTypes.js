@@ -1,2 +1,3 @@
 export const LOGIN_USER = 'LOGIN_USER';
 export const ALERT_MESSAGE = 'ALERT_MESSAGE';
+export const LOAD_COURSES_SUCCESS = 'LOAD_COURSES_SUCCESS';

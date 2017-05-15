@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Layout, Menu, Icon, Button} from 'antd';
@@ -14,6 +14,10 @@ class InsightsContainer extends React.Component {
 
         this.state = {};
         this.onClickTest = this.onClickTest.bind(this);
+    }
+
+    courseRow(course, i) {
+        return <div key={i}>{course.title}</div>
     }
 
     onClickTest() {
@@ -41,6 +45,7 @@ class InsightsContainer extends React.Component {
                     <Content style={{margin: '5px 35px 0'}}>
                         <div>
                             <Button type="primary" onClick={this.onClickTest}>Primary</Button>
+                            <h1>{this.props.courses.map(this.courseRow)}</h1>
                         </div>
                     </Content>
                     <Footer style={{textAlign: 'center'}}>
@@ -52,9 +57,18 @@ class InsightsContainer extends React.Component {
     }
 }
 
+InsightsContainer.propTypes = {
+    user: PropTypes.object.isRequired,
+    courses: PropTypes.array.isRequired
+};
+
 function mapStateToProps(state, ownProps) {
+    console.log(state.user);
+    const {user, courses} = state.user;
+
     return {
-        user: state.user
+        user,
+        courses
     };
 }
 

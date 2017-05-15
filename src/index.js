@@ -5,6 +5,7 @@ import configureStore from './store/configureStore';
 import LoginContainer from './containers/LoginContainer/LoginContainer';
 import AddDataContainer from './containers/AddDataContainer/AddDataContainer';
 import InsightsContainer from './containers/InsightsContainer/InsightsContainer';
+import {loadCourses} from './actions/UsersActions';
 import './index.css'
 import {
     BrowserRouter as Router,
@@ -13,6 +14,8 @@ import {
 } from 'react-router-dom'
 
 const store = configureStore();
+store.dispatch(loadCourses());
+
 const App = () => (
     <Provider store={store}>
         <Router>
