@@ -12,13 +12,12 @@
 .insights{
   overflow: hidden;
   height: 100%;
-  margin: 5px 35px 0;
+  margin-left: 35px;
   .data-table{
-    height: 50%;
+    height: 60%;
     overflow: auto;
   }
   .insight-charts{
-    height: 50%;
-    background-color: yellow;
+    height: 40%;
   }
 }

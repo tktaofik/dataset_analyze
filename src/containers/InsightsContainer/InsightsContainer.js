@@ -10,19 +10,18 @@ import DataTable from '../../components/DataTable/DataTable';
 const {Content, Sider} = Layout;
 
 class InsightsContainer extends React.Component {
+    PropTypes = {
+        user: PropTypes.object.isRequired,
+        courses: PropTypes.array.isRequired
+    };
 
-    constructor(props, context) {
-        super(props, context);
-
-        this.state = {};
-        this.onClickTest = this.onClickTest.bind(this);
-    }
+    state = {};
 
     courseRow(course, i) {
         return <div key={i}>{course.title}</div>
     }
 
-    onClickTest() {
+    onClickTest = () =>  {
         this.props.actions.alertMessage("Qlik Analyze");
     }
 
@@ -62,11 +61,6 @@ class InsightsContainer extends React.Component {
         );
     }
 }
-
-InsightsContainer.propTypes = {
-    user: PropTypes.object.isRequired,
-    courses: PropTypes.array.isRequired
-};
 
 function mapStateToProps(state, ownProps) {
     const {user, courses} = state.user;
