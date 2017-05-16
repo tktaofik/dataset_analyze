@@ -1,12 +1,7 @@
 import * as types from '../constants/ActionTypes';
+import initialStates from './initialStates';
 
-const initialState = {
-    user: {},
-    courses:[],
-    files: []
-};
-
-export default function userReducer(state = initialState, action) {
+export default function userReducer(state = initialStates, action) {
     switch (action.type) {
         case types.LOAD_COURSES_SUCCESS:
             return Object.assign({}, state, {
