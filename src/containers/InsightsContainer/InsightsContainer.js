@@ -1,27 +1,30 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {Layout, Menu, Icon, Button, Select} from 'antd';
+import {Layout, Menu, Icon, Button, Dropdown, Row, Col, Input} from 'antd';
 import './InsightsContainer.css';
 import * as UsersActions from "../../actions/UsersActions.js"
 import DataTable from '../../components/DataTable/DataTable';
 
 const {Content, Sider} = Layout;
-const Option = Select.Option;
+const tables = (
+    <Menu onClick={handleMenuClick}>
+        <Menu.Item key="1">1st menu item</Menu.Item>
+        <Menu.Item key="2">2nd menu item</Menu.Item>
+        <Menu.Item key="3">3d menu item</Menu.Item>
+    </Menu>
+);
+
+function handleMenuClick(e) {
+    console.log('click', e);
+}
 
 class TablesSelectDropDown extends React.Component {
-    handleChange(value) {
-        console.log(`selected ${value}`);
-    }
 
     render() {
         return (
             <div>
-                <Select defaultValue="lucy" style={{width: 120}} onChange={this.handleChange}>
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
-                    <Option value="Yiminghe">yiminghe</Option>
-                </Select>
+                <Dropdown.Button style={{ width: 200 }} overlay={tables}>Select Table</Dropdown.Button>
             </div>
         )
     }
@@ -66,8 +69,24 @@ class InsightsContainer extends React.Component {
                 <Layout>
                     <Content className="insights">
                         <div className="table-selection-drop-down">
-                            <span>Select table: </span>
-                            <TablesSelectDropDown/>
+                            <div className="gutter-example">
+                                <Row gutter={16}>
+                                    <Col className="gutter-row" span={4}>
+                                        <div className="gutter-box select-table-button">
+                                            <TablesSelectDropDown/>
+                                        </div>
+                                    </Col>
+                                    <Col className="gutter-row" span={16}>
+                                        <div className="gutter-box">
+                                            <Input placeholder="Table name"/>
+                                        </div>
+                                    </Col>
+                                    <Col className="gutter-row" span={4}>
+                                        <div className="gutter-box"><Button type="danger" icon="delete">Delete</Button>
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </div>
                         </div>
 
                         <div className="data-table">
