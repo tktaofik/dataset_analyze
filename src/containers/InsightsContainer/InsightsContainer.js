@@ -1,13 +1,31 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {Layout, Menu, Icon, Button} from 'antd';
+import {Layout, Menu, Icon, Button, Select} from 'antd';
 import './InsightsContainer.css';
 import * as UsersActions from "../../actions/UsersActions.js"
 import DataTable from '../../components/DataTable/DataTable';
 
-
 const {Content, Sider} = Layout;
+const Option = Select.Option;
+
+class TablesSelectDropDown extends React.Component {
+    handleChange(value) {
+        console.log(`selected ${value}`);
+    }
+
+    render() {
+        return (
+            <div>
+                <Select defaultValue="lucy" style={{width: 120}} onChange={this.handleChange}>
+                    <Option value="jack">Jack</Option>
+                    <Option value="lucy">Lucy</Option>
+                    <Option value="Yiminghe">yiminghe</Option>
+                </Select>
+            </div>
+        )
+    }
+}
 
 class InsightsContainer extends React.Component {
     PropTypes = {
@@ -21,7 +39,7 @@ class InsightsContainer extends React.Component {
         return <div key={i}>{course.title}</div>
     }
 
-    onClickTest = () =>  {
+    onClickTest = () => {
         this.props.actions.alertMessage("Qlik Analyze");
     }
 
@@ -47,9 +65,15 @@ class InsightsContainer extends React.Component {
                 </Sider>
                 <Layout>
                     <Content className="insights">
+                        <div className="table-selection-drop-down">
+                            <span>Select table: </span>
+                            <TablesSelectDropDown/>
+                        </div>
+
                         <div className="data-table">
                             <DataTable/>
                         </div>
+
                         <div className="insight-charts">
                             <h2>insight charts</h2>
                             <Button type="primary" onClick={this.onClickTest}>Primary</Button>

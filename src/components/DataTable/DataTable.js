@@ -1,11 +1,13 @@
 import React from 'react';
 import {Table} from 'antd';
+import './DataTable.css';
 
 const columns = [{
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
     width: 200,
+    className: '',
     onCellClick: () => {
         console.log('Name')
     },
@@ -45,12 +47,12 @@ class DataTable extends React.Component {
         pagination: false,
         size: 'middle',
         showHeader: true,
-        scroll: {y: 240},
+        scroll: {y: 250},
     };
 
     render() {
         return (
-            <div>
+            <div className="data-table-container">
                 <Table {...this.state} columns={columns} dataSource={data}/>
             </div>
         );
