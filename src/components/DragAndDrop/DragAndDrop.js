@@ -4,8 +4,7 @@ import Dropzone from 'react-dropzone'
 
 class DragAndDrop extends React.Component {
     handleFileDrop = (files) => {
-      debugger
-      this.props.onAdd(files);
+        this.props.onAdd(files);
     }
 
     render() {
