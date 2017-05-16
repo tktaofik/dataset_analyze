@@ -9,9 +9,9 @@ import DataTable from '../../components/DataTable/DataTable';
 const {Content, Sider} = Layout;
 const tables = (
     <Menu onClick={handleMenuClick}>
-        <Menu.Item key="1">1st menu item</Menu.Item>
-        <Menu.Item key="2">2nd menu item</Menu.Item>
-        <Menu.Item key="3">3d menu item</Menu.Item>
+        <Menu.Item key="1">Employees</Menu.Item>
+        <Menu.Item key="2">Categories</Menu.Item>
+        <Menu.Item key="3">Customers</Menu.Item>
     </Menu>
 );
 
@@ -81,9 +81,11 @@ class InsightsContainer extends React.Component {
                                             <Input placeholder="Table name"/>
                                         </div>
                                     </Col>
-                                    <Col className="gutter-row" span={4}>
-                                        <div className="gutter-box"><Button type="danger" icon="delete">Delete</Button>
-                                        </div>
+                                    <Col className="" span={2}>
+                                        <div className="gutter-box"><Button type="primary" icon="save">Update</Button></div>
+                                    </Col>
+                                    <Col className="" span={2}>
+                                        <div className="gutter-box"><Button type="danger" icon="delete">Delete</Button></div>
                                     </Col>
                                 </Row>
                             </div>
