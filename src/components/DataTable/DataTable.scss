@@ -1,0 +1,9 @@
+.data-table-container{
+  height: 100%;
+  .data-table{
+    height: 100%;
+    .active-column{
+      background-color: pink;
+    }
+  }
+}

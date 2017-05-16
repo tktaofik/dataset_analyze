@@ -1,13 +1,34 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {Layout, Menu, Icon, Button} from 'antd';
+import {Layout, Menu, Icon, Button, Dropdown, Row, Col, Input} from 'antd';
 import './InsightsContainer.css';
 import * as UsersActions from "../../actions/UsersActions.js"
 import DataTable from '../../components/DataTable/DataTable';
 
-
 const {Content, Sider} = Layout;
+const tables = (
+    <Menu onClick={handleMenuClick}>
+        <Menu.Item key="1">Employees</Menu.Item>
+        <Menu.Item key="2">Categories</Menu.Item>
+        <Menu.Item key="3">Customers</Menu.Item>
+    </Menu>
+);
+
+function handleMenuClick(e) {
+    console.log('click', e);
+}
+
+class TablesSelectDropDown extends React.Component {
+
+    render() {
+        return (
+            <div>
+                <Dropdown.Button style={{ width: 200 }} overlay={tables}>Select Table</Dropdown.Button>
+            </div>
+        )
+    }
+}
 
 class InsightsContainer extends React.Component {
     PropTypes = {
@@ -21,7 +42,7 @@ class InsightsContainer extends React.Component {
         return <div key={i}>{course.title}</div>
     }
 
-    onClickTest = () =>  {
+    onClickTest = () => {
         this.props.actions.alertMessage("Qlik Analyze");
     }
 
@@ -47,9 +68,33 @@ class InsightsContainer extends React.Component {
                 </Sider>
                 <Layout>
                     <Content className="insights">
+                        <div className="table-selection-drop-down">
+                            <div className="gutter-example">
+                                <Row gutter={16}>
+                                    <Col className="gutter-row" span={4}>
+                                        <div className="gutter-box select-table-button">
+                                            <TablesSelectDropDown/>
+                                        </div>
+                                    </Col>
+                                    <Col className="gutter-row" span={16}>
+                                        <div className="gutter-box">
+                                            <Input placeholder="Table name"/>
+                                        </div>
+                                    </Col>
+                                    <Col className="" span={2}>
+                                        <div className="gutter-box"><Button type="primary" icon="save">Update</Button></div>
+                                    </Col>
+                                    <Col className="" span={2}>
+                                        <div className="gutter-box"><Button type="danger" icon="delete">Delete</Button></div>
+                                    </Col>
+                                </Row>
+                            </div>
+                        </div>
+
                         <div className="data-table">
                             <DataTable/>
                         </div>
+
                         <div className="insight-charts">
                             <h2>insight charts</h2>
                             <Button type="primary" onClick={this.onClickTest}>Primary</Button>

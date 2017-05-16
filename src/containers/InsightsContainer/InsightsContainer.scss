@@ -12,12 +12,18 @@
 .insights{
   overflow: hidden;
   height: 100%;
-  margin-left: 35px;
+  margin-left: 38px;
+  .table-selection-drop-down{
+    margin: 10px;
+    text-align: center;
+  }
   .data-table{
-    height: 60%;
-    overflow: auto;
+    height: 50%;
   }
   .insight-charts{
     height: 40%;
+  }
+  .select-table-button{
+    margin-top: 0px;
   }
 }
