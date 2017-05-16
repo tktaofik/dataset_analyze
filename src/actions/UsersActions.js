@@ -30,3 +30,11 @@ export function loadCourses() {
         })
     }
 }
+
+export function addFile(files) {
+    debugger
+    return {
+      type: types.ADD_FILE,
+      files
+    }
+}

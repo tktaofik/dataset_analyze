@@ -2,7 +2,8 @@ import * as types from '../constants/ActionTypes';
 
 const initialState = {
     user: {},
-    courses:[]
+    courses:[],
+    files: []
 };
 
 export default function userReducer(state = initialState, action) {
@@ -20,6 +21,12 @@ export default function userReducer(state = initialState, action) {
         case types.ALERT_MESSAGE:
             alert(action.message);
             return state;
+
+        case types.ADD_FILE:
+          debugger
+            return Object.assign({}, state, {
+                files: state.files.concat(action.files),
+            });
 
         default:
             return state;
