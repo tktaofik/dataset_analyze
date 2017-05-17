@@ -19,7 +19,7 @@ export default function userReducer(state = initialStates, action) {
 
         case types.ADD_FILE:
             return Object.assign({}, state, {
-                files: state.files.concat(action.files),
+                files:  [...action.files, ...state.files],
             });
 
         default:
