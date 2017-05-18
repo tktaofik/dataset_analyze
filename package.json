@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "babel-plugin-import": "^1.1.1",
+    "excel-as-json": "^2.0.1",
     "node-sass": "^4.5.2",
     "npm-run-all": "^4.0.2",
     "react-scripts": "^0.9.5"

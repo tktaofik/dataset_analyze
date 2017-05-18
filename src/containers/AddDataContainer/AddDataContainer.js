@@ -1,33 +1,38 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as UsersActions from "../../actions/UsersActions.js"
+import {Button} from 'antd';
+import * as AddDataActions from "../../actions/AddDataActions"
 import DragAndDrop from '../../components/DragAndDrop/DragAndDrop';
 
 class AddDataContainer extends React.Component {
-    render () {
+
+    onClickTest = () => {
+        this.props.actions.alertMessage("Qlik Analyze");
+    };
+
+    render() {
         return (
             <div>
-                <DragAndDrop
-                  files={this.props.files}
-                  onAdd={this.props.actions.addFile}
-                />
+                <DragAndDrop uploadedFiles={this.props.uploadedFiles} onAdd={this.props.actions.addFile}/>
+                <Button type="primary" onClick={this.onClickTest}>Primary</Button>
             </div>
         );
     }
 }
 
 function mapStateToProps(state) {
-    const {files} = state.user;
+    console.log(state.addData)
+    const {uploadedFiles} = state.addData;
 
     return {
-        files
+        uploadedFiles
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(UsersActions, dispatch)
+        actions: bindActionCreators(AddDataActions, dispatch)
     };
 }
 
