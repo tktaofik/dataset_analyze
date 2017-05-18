@@ -8,7 +8,7 @@ import DragAndDrop from '../../components/DragAndDrop/DragAndDrop';
 class AddDataContainer extends React.Component {
 
     onClickTest = () => {
-        this.props.actions.alertMessage("Qlik Analyze");
+        this.props.actions.convertExcelToJson("In the add data ");
     };
 
     render() {

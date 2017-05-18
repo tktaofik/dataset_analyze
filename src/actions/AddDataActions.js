@@ -1,8 +1,9 @@
 import * as types from '../constants/ActionTypes';
 
-export function convertExcelToJson() {
+export function convertExcelToJson(message) {
     return {
-        type: types.CONVERT_EXCEL_JSON
+        type: types.CONVERT_EXCEL_JSON,
+        message
     }
 }
 
