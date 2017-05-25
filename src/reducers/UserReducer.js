@@ -17,11 +17,6 @@ export default function userReducer(state = initialStates, action) {
             alert(action.message);
             return state;
 
-        case types.ADD_FILE:
-            return Object.assign({}, state, {
-                files: state.files.concat(action.files),
-            });
-
         default:
             return state;
     }

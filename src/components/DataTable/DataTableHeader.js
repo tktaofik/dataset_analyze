@@ -29,20 +29,20 @@ class DataTableHeader extends React.Component {
         return (
             <div className="gutter-example">
                 <Row gutter={16}>
-                    <Col className="gutter-row" span={4}>
+                    <Col className="gutter-row" span={8}>
                         <div className="gutter-box select-table-button">
                             <TablesSelectDropDown/>
                         </div>
                     </Col>
-                    <Col className="gutter-row" span={16}>
+                    <Col className="gutter-row" span={8}>
                         <div className="gutter-box">
                             <Input placeholder="Table name"/>
                         </div>
                     </Col>
-                    <Col className="" span={2}>
+                    <Col className="" span={4}>
                         <div className="gutter-box"><Button type="primary" icon="save">Update</Button></div>
                     </Col>
-                    <Col className="" span={2}>
+                    <Col className="" span={4}>
                         <div className="gutter-box"><Button type="danger" icon="delete">Delete</Button></div>
                     </Col>
                 </Row>

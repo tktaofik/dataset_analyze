@@ -8,6 +8,9 @@ const columns = [{
     key: 'name',
     width: 200,
     className: '',
+    filters: [
+        { text: 'Select Column', value: 'male' },
+    ],
     onCellClick: () => {
         console.log('Name')
     },
