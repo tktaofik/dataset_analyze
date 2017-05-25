@@ -2,3 +2,4 @@ export const LOGIN_USER = 'LOGIN_USER';
 export const LOAD_COURSES_SUCCESS = 'LOAD_COURSES_SUCCESS';
 export const ADD_FILE = 'ADD_FILE';
 export const CONVERT_EXCEL_JSON = 'CONVERT_EXCEL_JSON';
+export const ALERT_MESSAGE = 'ALERT_MESSAGE';

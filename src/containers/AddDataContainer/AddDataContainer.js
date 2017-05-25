@@ -22,7 +22,7 @@ class AddDataContainer extends React.Component {
 }
 
 function mapStateToProps(state) {
-    console.log(state.addData)
+    // console.log(state.addData)
     const {uploadedFiles} = state.addData;
 
     return {

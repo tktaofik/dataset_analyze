@@ -7,6 +7,7 @@
     "grommet": "^1.4.0",
     "grommet-css": "^1.0.0",
     "prop-types": "^15.5.8",
+    "proptypes": "^1.0.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-dropzone": "^3.13.1",
@@ -15,14 +16,15 @@
     "react-router-dom": "^4.1.1",
     "redux": "^3.6.0",
     "redux-immutable-state-invariant": "^2.0.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "xlsx": "^0.10.3"
   },
   "devDependencies": {
     "babel-plugin-import": "^1.1.1",
     "excel-as-json": "^2.0.1",
     "node-sass": "^4.5.2",
     "npm-run-all": "^4.0.2",
-    "react-scripts": "^0.9.5"
+    "react-scripts": "^1.0.6"
   },
   "scripts": {
     "build-css": "node-sass src/ -o src/",
