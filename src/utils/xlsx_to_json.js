@@ -10,12 +10,8 @@ export function xlsx_to_json(file) {
 
             dataSet.name = file.name;
             dataSet.xlsxRawData = workbook;
-            dataSet.data = [];
-            dataSet.xlsxRawData.SheetNames.forEach(name => {
-                dataSet.data.push({
-                    tableName: name,
-                    rows: xlsx.utils.sheet_to_json(dataSet.xlsxRawData.Sheets[name])
-                });
+            dataSet.tables = workbook.SheetNames.map(name => {
+                return {tableName: name, rows: xlsx.utils.sheet_to_json(dataSet.xlsxRawData.Sheets[name])}
             });
 
             resolve(dataSet);
