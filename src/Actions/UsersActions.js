@@ -1,5 +1,6 @@
 import * as types from '../constants/ActionTypes';
 import courseApi from '../api/mockCourseApi'
+
 export function loginUser({email, password}) {
     return {
         type: types.LOGIN_USER,
