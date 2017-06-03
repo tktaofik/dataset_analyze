@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Layout, Button} from 'antd';
 import './InsightsContainer.css';
-import * as UsersActions from "../../Actions/UsersActions.js"
+import * as UsersActions from "../../actions/UsersActions.js"
 import DataTable from '../../components/DataTable/DataTable';
 import DataTableHeader from '../../components/DataTable/DataTableHeader';
 import InsightSideBar from '../../components/InsightSideBar/InsightSideBar';
