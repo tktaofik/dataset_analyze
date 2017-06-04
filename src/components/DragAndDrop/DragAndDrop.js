@@ -1,13 +1,31 @@
 import React from 'react';
-
-import Dropzone from 'react-dropzone'
+import Dropzone from 'react-dropzone';
+import FileList from '../FileList/FileList';
+import {Redirect} from 'react-router-dom'
 
 class DragAndDrop extends React.Component {
+    state = {
+        redirectToReferrer: false
+    };
+
     handleFileDrop = (uploadedFiles) => {
         this.props.onAdd(uploadedFiles);
+    };
+
+    handleClick = (index) => {
+        this.setState({redirectToReferrer: true})
     }
 
     render() {
+        const {redirectToReferrer} = this.state;
+        //const {insights} = {insights: {pathname: '/insights'}};
+
+        if (redirectToReferrer) {
+            return (
+                <Redirect to={ '/insights' }/>
+            );
+        }
+
         return (
             <section>
                 <div className="dropzone">
@@ -15,12 +33,10 @@ class DragAndDrop extends React.Component {
                         <p>Try dropping some files here, or click to select files to upload.</p>
                     </Dropzone>
                 </div>
-                <aside>
-                    <h2>Dropped files</h2>
-                    <ul>
-                    {this.props.uploadedFiles.map((f, i) => <li key={i}>{f.name} - {f.size} bytes</li>)}
-                    </ul>
-                </aside>
+                <FileList 
+                    dataSets={this.props.dataSets}
+                    onClick={this.handleClick}
+                />
             </section>
           );
     }

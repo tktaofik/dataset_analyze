@@ -15,7 +15,6 @@ export function addFile(uploadedFiles) {
         Q.all(uploadedFiles.map(file => {
             return xlsx_to_json(file)
         })).then(dataSets => {
-            debugger
             dispatch(saveDataSets(dataSets));
         }).catch(error => {
             throw(error);

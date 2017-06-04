@@ -8,10 +8,13 @@ export function xlsx_to_json(file) {
             let workbook = xlsx.read(e.target.result, {type: 'binary'});
             let dataSet = {};
 
-            dataSet.name = file.name;
+            dataSet.fileName = file.name;
+            dataSet.fileSize = file.size;
             dataSet.xlsxRawData = workbook;
             dataSet.tables = workbook.SheetNames.map(name => {
-                return {tableName: name, rows: xlsx.utils.sheet_to_json(dataSet.xlsxRawData.Sheets[name])}
+                return {
+                    tableName: name,
+                    rows: xlsx.utils.sheet_to_json(dataSet.xlsxRawData.Sheets[name])}
             });
 
             resolve(dataSet);
