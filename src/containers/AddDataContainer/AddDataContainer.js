@@ -2,20 +2,14 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Button} from 'antd';
-import * as AddDataActions from "../../Actions/AddDataActions"
+import * as AddDataActions from "../../actions/AddDataActions"
 import DragAndDrop from '../../components/DragAndDrop/DragAndDrop';
 
 class AddDataContainer extends React.Component {
-
-    onClickTest = () => {
-        this.props.actions.convertExcelToJson("In the add data ");
-    };
-
     render() {
         return (
             <div>
-                <DragAndDrop uploadedFiles={this.props.uploadedFiles} onAdd={this.props.actions.addFile}/>
-                <Button type="primary" onClick={this.onClickTest}>Primary</Button>
+                <DragAndDrop dataSets={this.props.dataSets} onAdd={this.props.actions.addFile}/>
             </div>
         );
     }
@@ -23,10 +17,10 @@ class AddDataContainer extends React.Component {
 
 function mapStateToProps(state) {
     // console.log(state.addData)
-    const {uploadedFiles} = state.addData;
+    const {dataSets} = state.addData;
 
     return {
-        uploadedFiles
+        dataSets
     };
 }
 

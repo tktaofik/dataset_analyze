@@ -1,10 +1,11 @@
 import React from 'react';
+import { Route } from 'react-router-dom'
 import PropTypes from 'proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Layout, Button} from 'antd';
 import './InsightsContainer.css';
-import * as UsersActions from "../../Actions/UsersActions.js"
+import * as UsersActions from "../../actions/UsersActions.js"
 import DataTable from '../../components/DataTable/DataTable';
 import DataTableHeader from '../../components/DataTable/DataTableHeader';
 import InsightSideBar from '../../components/InsightSideBar/InsightSideBar';
@@ -26,6 +27,10 @@ class InsightsContainer extends React.Component {
     courseRow(course, i) {
         return <div key={i}>{course.title}</div>
     }
+
+    // findDataSet = (index) => {
+    //     return this.props.dataSets[index];
+    // }
 
     onClickTest = () => {
         this.props.actions.alertMessage("Qlik Analyze");
@@ -63,10 +68,12 @@ function mapStateToProps(state, ownProps) {
     console.log(userId);
 
     const {user, courses} = state.user;
+    const {dataSets} = state.addData;
 
     return {
         user,
-        courses
+        courses,
+        dataSets
     };
 }
 
