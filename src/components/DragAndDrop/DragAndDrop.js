@@ -4,28 +4,11 @@ import FileList from '../FileList/FileList';
 import {Redirect} from 'react-router-dom'
 
 class DragAndDrop extends React.Component {
-    state = {
-        redirectToReferrer: false
-    };
-
     handleFileDrop = (uploadedFiles) => {
         this.props.onAdd(uploadedFiles);
     };
 
-    handleClick = (index) => {
-        this.setState({redirectToReferrer: true})
-    }
-
     render() {
-        const {redirectToReferrer} = this.state;
-        //const {insights} = {insights: {pathname: '/insights'}};
-
-        if (redirectToReferrer) {
-            return (
-                <Redirect to={ '/insights' }/>
-            );
-        }
-
         return (
             <section>
                 <div className="dropzone">
