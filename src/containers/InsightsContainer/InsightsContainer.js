@@ -42,22 +42,20 @@ class InsightsContainer extends React.Component {
                 <Sider breakpoint="lg" collapsedWidth="0" onCollapse={(collapsed, type) => { }}>
                     <InsightSideBar/>
                 </Sider>
-                <Layout>
-                    <Content className="insights">
-                        <div className="table-selection-drop-down">
-                            <DataTableHeader/>
-                        </div>
-
-                        <div className="data-table">
-                            <DataTable/>
-                        </div>
-                        <div className="insight-charts">
-                            <h2>insight charts</h2>
-                            <Button type="primary" onClick={this.onClickTest}>Primary</Button>
-                            <h1>{this.props.courses.map(this.courseRow)}</h1>
-                        </div>
-                    </Content>
-                </Layout>
+                <Content className="insights">
+                    <div>{this.props.match.params.fileName}</div>
+                    <div className="table-selection-drop-down">
+                        <DataTableHeader/>
+                    </div>
+                    <div className="data-table">
+                        <DataTable/>
+                    </div>
+                    <div className="insight-charts">
+                        <h2>insight charts</h2>
+                        <Button type="primary" onClick={this.onClickTest}>Primary</Button>
+                        <h1>{this.props.courses.map(this.courseRow)}</h1>
+                    </div>
+                </Content>
             </Layout>
         );
     }
