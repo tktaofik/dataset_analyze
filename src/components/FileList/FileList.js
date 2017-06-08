@@ -1,9 +1,7 @@
 import React from 'react';
 import {
-    Route,
     Link
 } from 'react-router-dom'
-import InsightsContainer from '../../containers/InsightsContainer/InsightsContainer';
 
 class FileList extends React.Component {
     render () {
@@ -17,8 +15,6 @@ class FileList extends React.Component {
                         </Link>
                     </div>
                 ))}
-
-                <Route path="/insights/:fileName" component={InsightsContainer}/>
             </aside>
         );
     }
