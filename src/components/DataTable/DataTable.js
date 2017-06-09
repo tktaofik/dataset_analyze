@@ -54,8 +54,14 @@ class DataTable extends React.Component {
     };
 
     render() {
+        console.log("selected table: ", this.props.table);
+        const text = this.props.table.tableName ?
+            <div>It's time to display {this.props.table.tableName} table!</div> :
+            <div>No table is selected</div>
+
         return (
             <div className="data-table-container">
+                {text}
                 <Table {...this.state} columns={columns} dataSource={data}/>
             </div>
         );

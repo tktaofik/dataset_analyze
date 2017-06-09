@@ -1,5 +1,6 @@
 export default {
     userStates:{},
     courses:[],
-    dataSets: []
+    dataSets: [],
+    selectedTable: {}
 }

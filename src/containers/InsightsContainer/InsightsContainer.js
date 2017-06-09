@@ -1,5 +1,4 @@
 import React from 'react';
-import { Route } from 'react-router-dom'
 import PropTypes from 'proptypes';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -15,10 +14,12 @@ const {Content, Sider} = Layout;
 class InsightsContainer extends React.Component {
     PropTypes = {
         user: PropTypes.object.isRequired,
-        courses: PropTypes.array.isRequired
+        courses: PropTypes.array.isRequired,
+        dataSets: PropTypes.array.isRequired,
+        currentDataSet: PropTypes.object.isRequired,
+        tables: PropTypes.array.isRequired,
+        selectedTable: PropTypes.object.isRequired
     };
-
-    state = {};
 
     componentWillReceiveProps(nextProps) {
 
@@ -28,12 +29,15 @@ class InsightsContainer extends React.Component {
         return <div key={i}>{course.title}</div>
     }
 
-    // findDataSet = (index) => {
-    //     return this.props.dataSets[index];
-    // }
-
     onClickTest = () => {
         this.props.actions.alertMessage("Qlik Analyze");
+    }
+
+    handleSelect = (tableName) => {
+        const selectedTable = Object.assign({}, this.props.tables.find(table => {
+            return table.tableName === tableName;
+        }))
+        this.props.actions.selectTable(selectedTable)
     }
 
     render() {
@@ -45,10 +49,10 @@ class InsightsContainer extends React.Component {
                 <Content className="insights">
                     <div>{this.props.match.params.fileName}</div>
                     <div className="table-selection-drop-down">
-                        <DataTableHeader/>
+                        <DataTableHeader onSelect={this.handleSelect} tables={this.props.tables}/>
                     </div>
                     <div className="data-table">
-                        <DataTable/>
+                        <DataTable table={this.props.selectedTable}/>
                     </div>
                     <div className="insight-charts">
                         <h2>insight charts</h2>
@@ -65,13 +69,22 @@ function mapStateToProps(state, ownProps) {
     const userId = ownProps.params && ownProps.params.id ? ownProps.params.id : '';
     console.log(userId);
 
-    const {user, courses} = state.user;
+    const {user, courses, selectedTable} = state.user;
+
+    const fileName = ownProps.match.params.fileName;
     const {dataSets} = state.addData;
+    const currentDataSet = dataSets.find(dataSet => {
+         return dataSet.fileName === fileName;
+    })
+    const {tables} = currentDataSet;
 
     return {
         user,
         courses,
-        dataSets
+        dataSets,
+        currentDataSet,
+        tables,
+        selectedTable
     };
 }
 

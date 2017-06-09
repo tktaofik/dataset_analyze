@@ -1,7 +1,6 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import FileList from '../FileList/FileList';
-import {Redirect} from 'react-router-dom'
 
 class DragAndDrop extends React.Component {
     handleFileDrop = (uploadedFiles) => {
