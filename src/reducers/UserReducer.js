@@ -17,6 +17,11 @@ export default function userReducer(state = initialStates, action) {
             alert(action.message);
             return state;
 
+        case types.SELECT_TABLE:
+            return Object.assign({}, state, {
+                selectedTable: action.table
+            });
+
         default:
             return state;
     }

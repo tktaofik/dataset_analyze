@@ -21,7 +21,7 @@ const App = () => (
         <Router>
             <div className="app-component">
                 <Switch>
-                    <Route exact path="/" component={InsightsContainer}/>
+                    <Route exact path="/" component={AddDataContainer}/>
                     <Route exact path="/login" component={LoginContainer}/>
                     <Route exact path="/add-data" component={AddDataContainer}/>
                     <Route exact path="/insights/:fileName" component={InsightsContainer}/>

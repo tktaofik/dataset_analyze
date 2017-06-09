@@ -4,3 +4,4 @@ export const ADD_FILE = 'ADD_FILE';
 export const SAVE_DATA_SETS = 'SAVE_DATA_SETS';
 export const CONVERT_EXCEL_JSON = 'CONVERT_EXCEL_JSON';
 export const ALERT_MESSAGE = 'ALERT_MESSAGE';
+export const SELECT_TABLE = 'SELECT_TABLE';

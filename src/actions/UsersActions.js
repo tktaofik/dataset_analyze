@@ -31,3 +31,10 @@ export function loadCourses() {
         })
     }
 }
+
+export function selectTable(table) {
+    return {
+        type: types.SELECT_TABLE,
+        table
+    }
+}
