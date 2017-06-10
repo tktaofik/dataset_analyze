@@ -11,10 +11,9 @@ class TablesSelectDropDown extends React.Component {
 
     render() {
         const Option = Select.Option;
-
         const options = this.props.tables.map((table, index) => {
             return <Option key={index} value={`${table.tableName}`}> {table.tableName}</Option>
-        })
+        });
 
         return (
             <Select
@@ -23,8 +22,8 @@ class TablesSelectDropDown extends React.Component {
                 placeholder="Select a table"
                 optionFilterProp="children"
                 onChange={this.handleChange}
-                filterOption={(input, option) => option.props.value.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-              >
+                filterOption={(input, option) => option.props.value.toLowerCase().indexOf(input.toLowerCase()) >= 0}>
+
                 {options}
             </Select>
         )

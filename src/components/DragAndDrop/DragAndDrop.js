@@ -6,20 +6,17 @@ import {addFiles} from '../../actions/DataActions';
 
 
 const propTypes = {
-    dispatch: PropTypes.func.isRequired
+    dispatch: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired,
 };
 
 class DragAndDrop extends React.Component {
     handleFileDrop = (uploadedFiles) => {
-        console.log(uploadedFiles);
-
         const {dispatch} = this.props;
         dispatch(addFiles(uploadedFiles));
     };
 
     render() {
-        console.log(this.props);
-
         return (
             <section>
                 <div className="dropzone">
@@ -27,7 +24,7 @@ class DragAndDrop extends React.Component {
                         <p>Try dropping some files here, or click to select files to upload.</p>
                     </Dropzone>
                 </div>
-                <FileList dataSets={this.props.data.dataSets}  onClick={this.handleClick} />
+                <FileList {...this.props} />
             </section>
           );
     }
