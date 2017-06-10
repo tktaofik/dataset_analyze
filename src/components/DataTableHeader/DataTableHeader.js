@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col, Select } from 'antd';
 
-import './DataTable.css';
+import '../DataTable/DataTable.css';
 
 class TablesSelectDropDown extends React.Component {
     handleChange = (value) => {

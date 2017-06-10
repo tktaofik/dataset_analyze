@@ -1,9 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {Button} from 'antd';
 import * as AddDataActions from "../../actions/AddDataActions"
-import DragAndDrop from '../../components/DragAndDrop/DragAndDrop';
+import {DragAndDrop} from '../../components';
 
 class AddDataContainer extends React.Component {
     render() {
