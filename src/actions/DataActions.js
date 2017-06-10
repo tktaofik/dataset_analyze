@@ -10,7 +10,7 @@ export function saveDataSets(dataSets) {
     }
 }
 
-export function addFile(uploadedFiles) {
+export function addFiles(uploadedFiles) {
     return function (dispatch) {
         Q.all(uploadedFiles.map(file => {
             return xlsx_to_json(file)

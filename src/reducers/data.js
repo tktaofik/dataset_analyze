@@ -1,14 +1,14 @@
 import * as types from '../constants/ActionTypes';
-import initialStates from './initialStates';
+
+let initialStates = {
+    dataSets: []
+};
 
 export default function addDataReducer(state = initialStates, action) {
 
     switch (action.type) {
         case types.SAVE_DATA_SETS:
-            const dataSets = action.dataSets;
-            return Object.assign({}, state, {
-                dataSets: [...state.dataSets, ...dataSets]
-            });
+            return [...state.dataSets, ...action.dataSets];
 
         default:
             return state;

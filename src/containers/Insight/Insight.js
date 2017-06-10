@@ -8,20 +8,17 @@ import * as UsersActions from "../../actions/UsersActions.js"
 import {DataTable, DataTableHeader, InsightSideBar} from '../../components';
 
 const {Content, Sider} = Layout;
-
+const propTypes = {
+    user: PropTypes.object.isRequired,
+    courses: PropTypes.array.isRequired,
+    dataSets: PropTypes.array.isRequired,
+    currentDataSet: PropTypes.object.isRequired,
+    tables: PropTypes.array.isRequired,
+    selectedTable: PropTypes.object.isRequired
+};
 class InsightsContainer extends React.Component {
-    PropTypes = {
-        user: PropTypes.object.isRequired,
-        courses: PropTypes.array.isRequired,
-        dataSets: PropTypes.array.isRequired,
-        currentDataSet: PropTypes.object.isRequired,
-        tables: PropTypes.array.isRequired,
-        selectedTable: PropTypes.object.isRequired
-    };
 
-    componentWillReceiveProps(nextProps) {
-
-    }
+    componentWillReceiveProps(nextProps) {}
 
     courseRow(course, i) {
         return <div key={i}>{course.title}</div>
@@ -29,14 +26,14 @@ class InsightsContainer extends React.Component {
 
     onClickTest = () => {
         this.props.actions.alertMessage("Qlik Analyze");
-    }
+    };
 
     handleSelect = (tableName) => {
         const selectedTable = Object.assign({}, this.props.tables.find(table => {
             return table.tableName === tableName;
-        }))
+        }));
         this.props.actions.selectTable(selectedTable)
-    }
+    };
 
     render() {
         return (
@@ -91,5 +88,7 @@ function mapDispatchToProps(dispatch) {
         actions: bindActionCreators(UsersActions, dispatch)
     };
 }
+
+InsightsContainer.propTypes = propTypes;
 
 export default connect(mapStateToProps, mapDispatchToProps)(InsightsContainer);

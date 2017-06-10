@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import configureStore from './store/configureStore';
+import store from './utils/configureStore';
 import LoginContainer from './containers/Login/Login';
 import AddDataContainer from './containers/AddData/AddData';
 import InsightsContainer from './containers/Insight/Insight';
@@ -13,7 +13,6 @@ import {
     Switch
 } from 'react-router-dom'
 
-const store = configureStore();
 store.dispatch(loadCourses());
 
 const App = () => (

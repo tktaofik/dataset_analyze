@@ -1,10 +1,9 @@
 import {combineReducers} from 'redux';
 import user from './user';
-import addData from './data';
+import data from './data';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
     user,
-    addData
+    data
 });
 
-export default rootReducer;

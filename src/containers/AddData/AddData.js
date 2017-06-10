@@ -1,32 +1,21 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import * as AddDataActions from "../../actions/AddDataActions"
 import {DragAndDrop} from '../../components';
 
 class AddDataContainer extends React.Component {
     render() {
         return (
-            <div>
-                <DragAndDrop dataSets={this.props.dataSets} onAdd={this.props.actions.addFile}/>
-            </div>
+            <div><DragAndDrop {...this.props}/></div>
         );
     }
 }
 
 function mapStateToProps(state) {
-    // console.log(state.addData)
-    const {dataSets} = state.addData;
+    const {data} = state;
 
     return {
-        dataSets
+        data
     };
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(AddDataActions, dispatch)
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddDataContainer);
+export default connect(mapStateToProps)(AddDataContainer);
