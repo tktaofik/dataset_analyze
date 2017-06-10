@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col, Select } from 'antd';
 import PropTypes from 'proptypes';
-import {addFiles} from '../../actions/DataActions';
+import {selectTable} from '../../actions/DataActions';
 import '../DataTable/DataTable.css';
 
 const propTypes = {
@@ -10,17 +10,9 @@ const propTypes = {
 };
 
 class TablesSelectDropDown extends React.Component {
-    handleChange = (value) => {
-        console.log(`selected ${value}`);
-        this.props.onSelect(value);
-    };
-
-    handleSelect = (tableName) => {
-        console.log(tableName);
-        // const selectedTable = Object.assign({}, this.props.tables.find(table => {
-        //     return table.tableName === tableName;
-        // }));
-        // this.props.actions.selectTable(selectedTable)
+    changeTable = (value) => {
+        const {dispatch} = this.props;
+        dispatch(selectTable(value));
     };
 
     render() {
@@ -35,7 +27,7 @@ class TablesSelectDropDown extends React.Component {
                 style={{ width: 200 }}
                 placeholder="Select a table"
                 optionFilterProp="children"
-                onChange={this.handleChange}
+                onChange={this.changeTable}
                 defaultValue={this.props.data.selectedDataSet.tables[0].tableName}
                 filterOption={(input, option) => option.props.value.toLowerCase().indexOf(input.toLowerCase()) >= 0}>
                 {Tables}

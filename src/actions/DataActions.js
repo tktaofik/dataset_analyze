@@ -10,7 +10,7 @@ export function updateDataSets(dataSets) {
 }
 
 export function addFiles(uploadedFiles) {
-    return function (dispatch) {
+    return (dispatch) => {
         Q.all(uploadedFiles.map(file => {
             return xlsx_to_json(file)
         })).then(dataSets => {
@@ -23,14 +23,24 @@ export function addFiles(uploadedFiles) {
 }
 
 export function saveDataSets(dataSets) {
-    return function (dispatch) {
+    return (dispatch) => {
         //todo: save the datasets to the database and
     };
 }
 
-export function selectTable(table) {
+export function switchTable(table) {
     return {
         type: types.SELECT_TABLE,
         table
     }
+}
+
+export function selectTable(tableName) {
+    return (dispatch, getState) => {
+        const {data} = getState();
+        const selectedTableName = data.selectedDataSet.tables.find(table => {
+            return table.tableName === tableName;
+        });
+        dispatch(switchTable(selectedTableName));
+    };
 }

@@ -15,7 +15,7 @@ export default function addDataReducer(state = initialStates, action) {
 
         case types.SELECT_TABLE:
             return Object.assign({}, state, {
-                selectedTable: action.table
+                selectedDataSetTable: action.table
             });
 
         default:
