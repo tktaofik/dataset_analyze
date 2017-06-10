@@ -19,8 +19,8 @@ class DataTable extends React.Component {
     };
 
     render() {
-        if (this.props.data.selectedDataset && this.props.data.selectedDataset.tables && this.props.data.selectedDataset.tables.length > 0) {
-            const table = this.props.data.selectedDataset.tables[0];
+        if (this.props.data.selectedDataSet && this.props.data.selectedDataSet.tables && this.props.data.selectedDataSet.tables.length > 0) {
+            const table = this.props.data.selectedDataSetTable ? this.props.data.selectedDataSetTable : this.props.data.selectedDataSet.tables[0];
             const {rows, columns} = table;
 
             return (

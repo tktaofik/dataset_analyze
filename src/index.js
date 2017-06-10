@@ -5,15 +5,12 @@ import store from './utils/configureStore';
 import LoginContainer from './containers/Login/Login';
 import AddDataContainer from './containers/AddData/AddData';
 import InsightsContainer from './containers/Insight/Insight';
-import {loadCourses} from './actions/UsersActions';
 import './index.css'
 import {
     BrowserRouter as Router,
     Route,
     Switch
 } from 'react-router-dom'
-
-store.dispatch(loadCourses());
 
 const App = () => (
     <Provider store={store}>

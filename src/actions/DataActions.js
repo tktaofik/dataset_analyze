@@ -27,3 +27,10 @@ export function saveDataSets(dataSets) {
         //todo: save the datasets to the database and
     };
 }
+
+export function selectTable(table) {
+    return {
+        type: types.SELECT_TABLE,
+        table
+    }
+}
