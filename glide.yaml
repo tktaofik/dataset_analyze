@@ -2,3 +2,4 @@ package: github.com/tktaofik/qlik_analyze
 import:
 - package: github.com/labstack/echo
   version: v3.1.0
+- package: github.com/pilu/fresh

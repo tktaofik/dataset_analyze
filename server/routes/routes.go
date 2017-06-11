@@ -10,6 +10,7 @@ import (
 func Setup(r *echo.Echo) *echo.Echo {
 	// Dataset routes
 	r.GET("/", controller.SaveDataset)
+	r.POST("/dataset/:id", controller.GetDataset)
 
 	return r
 }
