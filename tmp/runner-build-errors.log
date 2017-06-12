@@ -1,5 +1,4 @@
-# github.com/tktaofik/qlik_analyze
-./main.go:16: undefined: dbSession
-./main.go:23: not enough arguments in call to routes.Setup
-	have (*echo.Echo)
-	want (*echo.Echo, *mgo.Session)
+# github.com/tktaofik/qlik_analyze/api/dao
+api/dao/datasetdao.go:22: cannot use datasets (type models.Datasets) as type models.Dataset in return argument
+api/dao/datasetdao.go:32: cannot use datasets (type models.Datasets) as type models.Dataset in return argument
+api/dao/datasetdao.go:35: cannot use datasets (type models.Datasets) as type models.Dataset in return argument
