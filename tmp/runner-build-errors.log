@@ -1,4 +1,0 @@
-# github.com/tktaofik/qlik_analyze/api/dao
-api/dao/datasetdao.go:22: cannot use datasets (type models.Datasets) as type models.Dataset in return argument
-api/dao/datasetdao.go:32: cannot use datasets (type models.Datasets) as type models.Dataset in return argument
-api/dao/datasetdao.go:35: cannot use datasets (type models.Datasets) as type models.Dataset in return argument

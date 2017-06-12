@@ -12,7 +12,7 @@ import (
 const collection string = "datasets"
 
 // Get all the datasets
-func GetAllDataSets() (model.Dataset, error) {
+func GetAllDataSets() (model.Datasets, error) {
 	db := config.DB{}
 	datasets := model.Datasets{}
 
