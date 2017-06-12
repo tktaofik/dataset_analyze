@@ -9,6 +9,13 @@ export function updateDataSets(dataSets) {
     }
 }
 
+export function switchDataSet(dataSet) {
+    return {
+        type: types.SWITCH_DATASET,
+        dataSet
+    }
+}
+
 export function addFiles(uploadedFiles) {
     return (dispatch) => {
         Q.all(uploadedFiles.map(file => {

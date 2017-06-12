@@ -13,6 +13,11 @@ export default function addDataReducer(state = initialStates, action) {
                 dataSets: [...state.dataSets, ...action.dataSets],
             });
 
+        case types.SWITCH_DATASET:
+            return Object.assign({}, state, {
+                selectedDataSet: action.dataSet
+            });
+
         case types.SELECT_TABLE:
             return Object.assign({}, state, {
                 selectedDataSetTable: action.table
