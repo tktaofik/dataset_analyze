@@ -1,20 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import configureStore from './store/configureStore';
-import LoginContainer from './containers/LoginContainer/LoginContainer';
-import AddDataContainer from './containers/AddDataContainer/AddDataContainer';
-import InsightsContainer from './containers/InsightsContainer/InsightsContainer';
-import {loadCourses} from './actions/UsersActions';
+import store from './utils/configureStore';
+import LoginContainer from './containers/Login/Login';
+import AddDataContainer from './containers/AddData/AddData';
+import InsightsContainer from './containers/Insight/Insight';
 import './index.css'
 import {
     BrowserRouter as Router,
     Route,
     Switch
 } from 'react-router-dom'
-
-const store = configureStore();
-store.dispatch(loadCourses());
 
 const App = () => (
     <Provider store={store}>

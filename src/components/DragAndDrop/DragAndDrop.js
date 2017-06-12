@@ -1,10 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
-import FileList from '../FileList/FileList';
+import {FileList} from '../index';
+import {addFiles} from '../../actions/DataActions';
+
+
+const propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired,
+};
 
 class DragAndDrop extends React.Component {
     handleFileDrop = (uploadedFiles) => {
-        this.props.onAdd(uploadedFiles);
+        const {dispatch} = this.props;
+        dispatch(addFiles(uploadedFiles));
     };
 
     render() {
@@ -15,13 +24,12 @@ class DragAndDrop extends React.Component {
                         <p>Try dropping some files here, or click to select files to upload.</p>
                     </Dropzone>
                 </div>
-                <FileList 
-                    dataSets={this.props.dataSets}
-                    onClick={this.handleClick}
-                />
+                <FileList {...this.props} />
             </section>
           );
     }
 }
+
+DragAndDrop.propTypes = propTypes;
 
 export default DragAndDrop;

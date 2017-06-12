@@ -18,7 +18,9 @@ export function xlsx_to_json(file) {
                     })
                 });
 
-                const columns = []
+                //todo: refactor as it is causing errors
+                //////////////////////////////////////////////
+                const columns = [];
                 Object.keys( rows[0] ).forEach( key => {
                     if(key !== "key") {
                         const column = {
@@ -26,16 +28,16 @@ export function xlsx_to_json(file) {
                             dataIndex: key,
                             key: key,
                             width: 300
-                        }
+                        };
                         columns.push(column);
                     }
                 });
-
                 return {
                     tableName: name,
                     rows,
                     columns,
                 }
+                /////////////////////////////////////////////
             });
             resolve(dataSet);
         };

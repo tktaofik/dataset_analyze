@@ -1,15 +1,15 @@
 package controller
 
 import (
-	"fmt"
-	"github.com/julienschmidt/httprouter"
 	"net/http"
+	"github.com/labstack/echo"
 )
 
-func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	fmt.Fprint(w, "Welcome!\n")
+func GetDataset(c echo.Context) error {
+	id := c.Param("id")
+	return c.String(http.StatusOK, id)
 }
 
-func Hello(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	fmt.Fprintf(w, "hello, %s!\n", ps.ByName("name"))
+func SaveDataset(c echo.Context) error {
+	return c.String(http.StatusOK, "Hello, World!")
 }

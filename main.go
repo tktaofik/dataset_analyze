@@ -1,29 +1,18 @@
 package main
 
 import (
-	"log"
-	"runtime"
-
-	"github.com/tktaofik/qlik_analyze_app/server"
-	"github.com/tktaofik/qlik_analyze_app/server/route"
+	"github.com/tktaofik/qlik_analyze/server/routes"
+	"github.com/labstack/echo"
 )
 
-// *****************************************************************************
-// Application Logic
-// *****************************************************************************
+func main() {
+	port := "8081"
+	server := echo.New()
 
-func init() {
-	// Verbose logging with file name and line number
-	log.SetFlags(log.Lshortfile)
-
-	// Use all CPU cores
-	runtime.GOMAXPROCS(runtime.NumCPU())
+	startServer(port, server)
 }
 
-func main() {
-
-	port := "8081"
-
-	// Start the listener
-	server.Run(route.Load(), port)
+func startServer(port string, server *echo.Echo)  {
+	server = routes.Setup(server)
+	server.Logger.Fatal(server.Start(":" + port))
 }
