@@ -22,8 +22,10 @@ func GetDatasets(c echo.Context) error {
 func SaveDataset(c echo.Context) error {
 	dataset := new(model.Dataset)
 
-	c.Bind(dataset)
-
+	if err := c.Bind(dataset); err != nil {
+		return err
+	}
+	
 	result, _ := dao.NewDataSet(*dataset)
 
 	return c.JSON(http.StatusOK, result)

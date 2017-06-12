@@ -7,13 +7,14 @@ import (
 )
 
 type Dataset struct {
-	Id          bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
-	DataSetName string        `json:"dataSetName,omitempty" bson:"dataSetName"`
-	CreatedAt   time.Time     `json:"createdAt,omitempty" bson:"createdAt"`
+	Id        bson.ObjectId `json:"id,omitempty" bson:"id,omitempty"`
+	Name      string        `json:"name,omitempty" bson:"name"`
+	CreatedAt time.Time     `json:"createdAt,omitempty" bson:"createdAt"`
+	Data      string        `json:"data" bson:"data"`
 }
 
 func (d Dataset) IsValid() bool {
-	if len(d.DataSetName) > 0 {
+	if len(d.Name) > 0 {
 		return true
 	}
 
