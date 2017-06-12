@@ -6,5 +6,6 @@ Installation and set-up
 * Install client dependencies `npm install`
 * Install server dependencies `glide install`
 * Install fresh for server hot reload (https://github.com/pilu/fresh)
+* Install Mongodb locally `sudo npm i -g mongodb-runner`
 * Start client `npm start`
 * Start server `npm server` or `fresh` or `go run main.go`
