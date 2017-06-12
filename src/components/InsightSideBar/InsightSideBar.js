@@ -1,19 +1,46 @@
 import React from 'react';
+import { Redirect } from 'react-router'
 import {Menu, Icon} from 'antd';
+import {switchDataSet} from '../../actions/DataActions';
+const SubMenu = Menu.SubMenu;
+
+
 class InsightSideBar extends React.Component {
+    state = {
+        current: this.props.data.selectedDataSet.fileName,
+        redirectRef: false
+    }
+
+    handleClick = (e) => {
+        console.log('click ', e);
+        this.setState({
+          current: e.key,
+        });
+        const {dispatch} = this.props;
+        dispatch(switchDataSet(e.key));
+    }
+
     render() {
+        const {dataSets} = this.props.data;
+        const items = dataSets.map((dataSet) => {
+            const fileName = dataSet.fileName
+            return (
+                <Menu.Item key={`${fileName}`}>{fileName}</Menu.Item>
+            );
+        })
+
         return (
             <div>
-                <div className="logo"/>
-                <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
-                    <Menu.Item key="1">
-                        <Icon type="user"/>
-                        <span className="nav-text">Data - set 1</span>
-                    </Menu.Item>
-                    <Menu.Item key="2">
-                        <Icon type="user"/>
-                        <span className="nav-text">Data - set 2</span>
-                    </Menu.Item>
+                <Menu
+                    theme="dark"
+                    mode="inline"
+                    defaultOpenKeys={['sub1']}
+                    selectedKeys={[this.state.current]}
+                    onClick={this.handleClick}
+                >
+                    <SubMenu key="sub1" title={<span><Icon type="file" /><span>Uploaded Files</span></span>}>
+                        {items}
+                    </SubMenu>
                 </Menu>
             </div>
         );
