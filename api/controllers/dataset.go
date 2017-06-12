@@ -14,8 +14,9 @@ func Welcome(c echo.Context) error {
 }
 
 func GetDatasets(c echo.Context) error {
-	id := c.Param("id")
-	return c.String(http.StatusOK, id)
+	result, _ := dao.GetDatasets()
+
+	return c.JSON(http.StatusOK, result)
 }
 
 func SaveDataset(c echo.Context) error {
