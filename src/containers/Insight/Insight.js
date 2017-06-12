@@ -11,7 +11,7 @@ class InsightsContainer extends React.Component {
         return (
             <Layout>
                 <Sider breakpoint="lg" collapsedWidth="0" onCollapse={(collapsed, type) => { }}>
-                    <InsightSideBar/>
+                    <InsightSideBar {...this.props}/>
                 </Sider>
                 <Content className="insights">
                     <div>{this.props.data.selectedDataSet.fileName}</div>
