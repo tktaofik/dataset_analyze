@@ -14,6 +14,8 @@ type Dataset struct {
 	Data      json.RawMessage       `json:"data" bson:"data"`
 }
 
+type Datasets []Dataset
+
 func (d Dataset) IsValid() bool {
 	if len(d.Name) > 0 {
 		return true
@@ -21,5 +23,3 @@ func (d Dataset) IsValid() bool {
 
 	return false
 }
-
-type Datasets []Dataset
