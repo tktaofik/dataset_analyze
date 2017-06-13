@@ -17,6 +17,10 @@ func main() {
 
 func startServer(port string, server *echo.Echo)  {
 	server.Use(middleware.Logger())
+	server.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{echo.GET, echo.PUT, echo.POST, echo.DELETE},
+	}))
 
 	routes.Init(server)
 
