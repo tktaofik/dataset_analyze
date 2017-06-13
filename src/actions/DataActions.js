@@ -1,7 +1,7 @@
 import * as types from '../constants/ActionTypes';
 import {xlsx_to_json}from '../utils/xlsx_to_json'
 import Q from 'q';
-import {saveDataSet} from '../api/dataset';
+import {saveDataSet, getDataSets} from '../api/dataset';
 
 export function updateDataSets(dataSets) {
     return {
@@ -35,6 +35,16 @@ export function saveDataSets(dataSets) {
         Q.all(dataSets.map(data => {
             return saveDataSet (data)
         })).then(dataSets => {
+            console.log(dataSets)
+        }).catch(error => {
+            throw(error);
+        });
+    };
+}
+
+export function getDataSetsFromAPI() {
+    return (dispatch) => {
+        getDataSets().then(dataSets => {
             console.log(dataSets)
         }).catch(error => {
             throw(error);

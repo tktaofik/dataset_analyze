@@ -38,8 +38,13 @@ function mapStateToProps(state, ownProps) {
          return dataSet.fileName === fileName;
     });
 
-    if (!data.selectedDataSet){
+    data.selectedDataSetTable = data.selectedDataSet.tables.find(table => {
+        return table.tableName === data.selectedDataSetTable.tableName;
+    });
+
+    if (!data.selectedDataSet) {
         data.selectedDataSet = data.dataSets[0];
+        data.selectedDataSetTable = data.dataSets[0].tables[0];
     }
 
     return {
