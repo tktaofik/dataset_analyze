@@ -11,6 +11,8 @@ import (
 
 const collection string = "datasets"
 
+//Todo: make this more general for other collections
+
 // Get all the datasets
 func GetDatasets() (model.Datasets, error) {
 	db := config.DB{}

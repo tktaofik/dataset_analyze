@@ -32,8 +32,8 @@ func SaveDataset(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	value := jsonParsed.Path("outter.inner.value1").Data()
-	fmt.Print(value)
+	fileName := jsonParsed.Path("fileName").Data()
+	fmt.Print(fileName)
 
 	result, err := dao.NewDataSet(*dataset); if err != nil{
 		return c.JSON(http.StatusInternalServerError, result)
