@@ -4,3 +4,5 @@ import:
   version: v3.1.0
 - package: github.com/pilu/fresh
 - package: gopkg.in/mgo.v2
+- package: github.com/Jeffail/gabs
+  version: "1.0"

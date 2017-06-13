@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router'
+// import { Redirect } from 'react-router'
 import {Menu, Icon} from 'antd';
 import {switchDataSet} from '../../actions/DataActions';
 const SubMenu = Menu.SubMenu;

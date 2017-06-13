@@ -1,8 +1,10 @@
-hash: 8c255e10cc0973a303b1775851bf9e9ac23909f3010d5f587d126ed30aba7e9a
-updated: 2017-06-11T19:24:52.502268582-04:00
+hash: 63adf0affaaa6cda2ad7d3e9258a6072a708a894a79e78fdc734581e4d46f538
+updated: 2017-06-13T11:14:40.032259209-04:00
 imports:
 - name: github.com/dgrijalva/jwt-go
-  version: a539ee1a749a2b895533f979515ac7e6e0f5b650
+  version: d2709f9f1f31ebcda9651b03077758c1f3a0018c
+- name: github.com/Jeffail/gabs
+  version: 2a3aa15961d5fee6047b8151b67ac2f08ba2c48c
 - name: github.com/labstack/echo
   version: 1049c9613cd371b7ea8f219404c9a821734781ed
   subpackages:
@@ -25,14 +27,18 @@ imports:
 - name: github.com/valyala/fasttemplate
   version: dcecefd839c4193db0d35b88ec65b4c12d360ab0
 - name: golang.org/x/crypto
-  version: e7ba82683099cae71475961448ab8f903ea77c26
+  version: fea6c2c83557701d46ea1cc0ea4c8272632fa3bd
   subpackages:
   - acme
   - acme/autocert
 - name: golang.org/x/sys
-  version: 0b25a408a50076fbbcae6b7ac0ea5fbb0b085e79
+  version: b699b7032584f0953262cb2788a0ca19bb494703
   subpackages:
   - unix
 - name: gopkg.in/mgo.v2
-  version: 3f83fa5005286a7fe593b055f0d7771a7dce4655
+  version: b6e2fa371e64216a45e61072a96d4e3859f169da
+  subpackages:
+  - bson
+  - internal/sasl
+  - internal/scram
 testImports: []
