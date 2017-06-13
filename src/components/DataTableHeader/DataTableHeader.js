@@ -21,6 +21,9 @@ class TablesSelectDropDown extends React.Component {
             return <Option key={index} value={`${table.tableName}`}> {table.tableName}</Option>
         });
 
+        const selectedDataSetTable = this.props.data.selectedDataSetTable;
+        const defaultTableName = selectedDataSetTable ? selectedDataSetTable.tableName : this.props.data.selectedDataSet.tables[0].tableName;
+
         return (
             <Select
                 showSearch
@@ -28,7 +31,7 @@ class TablesSelectDropDown extends React.Component {
                 placeholder="Select a table"
                 optionFilterProp="children"
                 onChange={this.changeTable}
-                defaultValue={this.props.data.selectedDataSet.tables[0].tableName}
+                defaultValue={defaultTableName}
                 filterOption={(input, option) => option.props.value.toLowerCase().indexOf(input.toLowerCase()) >= 0}>
                 {Tables}
             </Select>
