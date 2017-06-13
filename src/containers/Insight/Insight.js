@@ -38,13 +38,9 @@ function mapStateToProps(state, ownProps) {
          return dataSet.fileName === fileName;
     });
 
-    debugger
-
     data.selectedDataSetTable = data.selectedDataSet.tables.find(table => {
         return table.tableName === data.selectedDataSetTable.tableName;
     });
-
-    debugger
 
     if (!data.selectedDataSet) {
         data.selectedDataSet = data.dataSets[0];
