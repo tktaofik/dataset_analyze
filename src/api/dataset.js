@@ -1,4 +1,4 @@
-export function saveDataSet(data) {
+export function saveDataSetAPI(data) {
     return fetch('http://localhost:8081/api/datasets/', {
         method: 'POST',
         headers: {
@@ -10,13 +10,14 @@ export function saveDataSet(data) {
             data: data
         })
     }).then((response) => response.json()).then((responseJson) => {
+        debugger
         return responseJson;
     }).catch((error) => {
         throw error;
     });
 }
 
-export function getDataSets() {
+export function getDataSetsAPI() {
     return fetch('http://localhost:8081/api/datasets/', {
         method: 'GET',
         headers: {
@@ -24,6 +25,7 @@ export function getDataSets() {
             'Content-Type': 'application/json',
         }
     }).then((response) => response.json()).then((responseJson) => {
+        debugger
         return responseJson;
     }).catch((error) => {
         throw error;
