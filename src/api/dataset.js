@@ -10,7 +10,6 @@ export function saveDataSetAPI(data) {
             data: data
         })
     }).then((response) => response.json()).then((responseJson) => {
-        debugger
         return responseJson;
     }).catch((error) => {
         throw error;
@@ -25,7 +24,6 @@ export function getDataSetsAPI() {
             'Content-Type': 'application/json',
         }
     }).then((response) => response.json()).then((responseJson) => {
-        debugger
         return responseJson;
     }).catch((error) => {
         throw error;
