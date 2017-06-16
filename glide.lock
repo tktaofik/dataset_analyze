@@ -1,8 +1,10 @@
-hash: 63adf0affaaa6cda2ad7d3e9258a6072a708a894a79e78fdc734581e4d46f538
-updated: 2017-06-13T11:14:40.032259209-04:00
+hash: f7ffb33f0d6b6d542de4e2d7dbace5e8b5bba0f03f0ad73beed3fbeeedb6af9e
+updated: 2017-06-16T09:03:52.513689944-04:00
 imports:
 - name: github.com/dgrijalva/jwt-go
   version: d2709f9f1f31ebcda9651b03077758c1f3a0018c
+- name: github.com/google/jsonapi
+  version: ebb79233134caefd9f6705f0176a59822c0451b7
 - name: github.com/Jeffail/gabs
   version: 2a3aa15961d5fee6047b8151b67ac2f08ba2c48c
 - name: github.com/labstack/echo

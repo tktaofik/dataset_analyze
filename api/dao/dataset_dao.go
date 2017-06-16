@@ -15,11 +15,10 @@ const collection string = "datasets"
 
 // Get all the datasets
 func GetDatasets() (model.Datasets, error) {
-	db := config.DB{}
 	datasets := model.Datasets{}
-
+	
+	db := config.DB{}
 	s, err := db.DoDial()
-
 	if err != nil {
 		return datasets, errors.New("There was an error trying to connect with the DB.")
 	}
@@ -38,13 +37,12 @@ func GetDatasets() (model.Datasets, error) {
 }
 
 // Create a new dataset
-func NewDataSet(dataset model.Dataset) (model.Dataset, error) {
-	db := config.DB{}
+func CreateDataSet(dataset model.Dataset) (model.Dataset, error) {
 	dataset.Id = bson.NewObjectId()
 	dataset.CreatedAt = time.Now()
 
+	db := config.DB{}
 	s, err := db.DoDial()
-
 	if err != nil {
 		return dataset, errors.New("There was an error trying to connect to the DB.")
 	}

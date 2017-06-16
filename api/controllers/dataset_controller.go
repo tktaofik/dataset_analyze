@@ -2,14 +2,16 @@ package dataset
 
 import (
 	"net/http"
-	"fmt"
 
 	"github.com/labstack/echo"
-	"github.com/Jeffail/gabs"
 
 	"github.com/tktaofik/qlik_analyze/api/dao"
 	model "github.com/tktaofik/qlik_analyze/api/models"
 )
+
+type Error struct {
+	message string `json:"name" xml:"name"`
+}
 
 func Welcome(c echo.Context) error {
 	return c.String(http.StatusOK, "Qlik Analyze")
@@ -25,18 +27,11 @@ func SaveDataset(c echo.Context) error {
 	dataset := new(model.Dataset)
 
 	if err := c.Bind(dataset); err != nil {
-		return err
+		return echo.NewHTTPError(http.StatusInternalServerError, "Unable to Bind echo dataset source")
 	}
-	// JSON copy of the data
-	jsonParsed, err := gabs.ParseJSON([]byte(dataset.Data))
-	if err != nil {
-		return err
-	}
-	fileName := jsonParsed.Path("fileName").Data()
-	fmt.Print(fileName)
 
-	result, err := dao.NewDataSet(*dataset); if err != nil{
-		return c.JSON(http.StatusInternalServerError, result)
+	result, err := dao.CreateDataSet(*dataset); if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, "Unable to create dataset source")
 	}
 
 	return c.JSON(http.StatusOK, result)
