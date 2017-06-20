@@ -1,4 +1,4 @@
-package dataset
+package controllers
 
 import (
 	"net/http"
@@ -23,7 +23,7 @@ func GetDatasets(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
-func SaveDataset(c echo.Context) error {
+func SaveDataSet(c echo.Context) error {
 	dataset := new(model.Dataset)
 
 	if err := c.Bind(dataset); err != nil {
@@ -34,5 +34,5 @@ func SaveDataset(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, "Unable to create dataset source")
 	}
 
-	return c.JSON(http.StatusOK, result)
+	return c.JSON(http.StatusCreated, result)
 }

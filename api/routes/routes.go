@@ -10,6 +10,6 @@ import (
 func Init(r *echo.Echo)  {
 	r.GET("/", controller.Welcome)
 	r.GET("/api/datasets/", controller.GetDatasets)
-	r.POST("/api/datasets/", controller.SaveDataset)
-	r.PUT("/api/datasets/:id", controller.SaveDataset)
+	r.POST("/api/datasets/", controller.SaveDataSet)
+	r.PUT("/api/datasets/:id", controller.SaveDataSet)
 }

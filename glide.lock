@@ -1,10 +1,8 @@
-hash: f7ffb33f0d6b6d542de4e2d7dbace5e8b5bba0f03f0ad73beed3fbeeedb6af9e
-updated: 2017-06-16T09:03:52.513689944-04:00
+hash: fdf5c8875865ad3ed5b65920b726b27ced2d3b553d65aa38ca796e515f2687cc
+updated: 2017-06-16T16:04:36.575054078-04:00
 imports:
 - name: github.com/dgrijalva/jwt-go
   version: d2709f9f1f31ebcda9651b03077758c1f3a0018c
-- name: github.com/google/jsonapi
-  version: ebb79233134caefd9f6705f0176a59822c0451b7
 - name: github.com/Jeffail/gabs
   version: 2a3aa15961d5fee6047b8151b67ac2f08ba2c48c
 - name: github.com/labstack/echo
@@ -24,6 +22,10 @@ imports:
   version: fc9e8d8ef48496124e79ae0df75490096eccf6fe
 - name: github.com/pilu/fresh
   version: 9c0092493eff2825c3abf64e087b3383dec939c3
+- name: github.com/stretchr/testify
+  version: 69483b4bd14f5845b5a1e55bca19e954e827f1d0
+  subpackages:
+  - assert
 - name: github.com/valyala/bytebufferpool
   version: e746df99fe4a3986f4d4f79e13c1e0117ce9c2f7
 - name: github.com/valyala/fasttemplate
@@ -43,4 +45,12 @@ imports:
   - bson
   - internal/sasl
   - internal/scram
-testImports: []
+testImports:
+- name: github.com/davecgh/go-spew
+  version: 6d212800a42e8ab5c146b8ace3490ee17e5225f9
+  subpackages:
+  - spew
+- name: github.com/pmezard/go-difflib
+  version: d8ed2627bdf02c080bf22230dbb337003b7aba2d
+  subpackages:
+  - difflib
