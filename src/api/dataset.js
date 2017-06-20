@@ -1,4 +1,4 @@
-export function saveDataSet(data) {
+export function saveDataSetAPI(data) {
     return fetch('http://localhost:8081/api/datasets/', {
         method: 'POST',
         headers: {
@@ -16,7 +16,7 @@ export function saveDataSet(data) {
     });
 }
 
-export function getDataSets() {
+export function getDataSetsAPI() {
     return fetch('http://localhost:8081/api/datasets/', {
         method: 'GET',
         headers: {
