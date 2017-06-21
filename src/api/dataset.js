@@ -7,7 +7,18 @@ export function saveDataSetAPI(data) {
         },
         body: JSON.stringify({
             name: data.fileName,
-            data: data
+            data_source: {
+                fileName: data.fileName,
+                fileSize: data.fileSize,
+                xlsxRawData: data.xlsxRawData,
+                tables: data.tables.map(table => {
+                    return {
+                        tableName: table.tableName,
+                        rows: table.rows
+                    }
+                })
+            },
+            user: {}
         })
     }).then((response) => response.json()).then((responseJson) => {
         return responseJson;

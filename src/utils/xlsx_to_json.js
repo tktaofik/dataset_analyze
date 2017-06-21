@@ -18,26 +18,10 @@ export function xlsx_to_json(file) {
                     })
                 });
 
-                //todo: refactor as it is causing errors
-                //////////////////////////////////////////////
-                const columns = [];
-                Object.keys( rows[0] ).forEach( key => {
-                    if(key !== "key") {
-                        const column = {
-                            title: key,
-                            dataIndex: key,
-                            key: key,
-                            width: 300
-                        };
-                        columns.push(column);
-                    }
-                });
                 return {
                     tableName: name,
-                    rows,
-                    columns,
+                    rows
                 }
-                /////////////////////////////////////////////
             });
             resolve(dataSet);
         };
