@@ -27,7 +27,7 @@ func SaveDataSet(c echo.Context) error {
 	dataset := new(model.Dataset)
 
 	if err := c.Bind(dataset); err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, "Unable to Bind echo dataset source")
+		return echo.NewHTTPError(http.StatusInternalServerError, "Unable to Bind SaveDataSet request body to dataset model struct")
 	}
 
 	result, err := dao.CreateDataSet(*dataset); if err != nil {
