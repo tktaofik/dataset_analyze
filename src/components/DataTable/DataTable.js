@@ -8,12 +8,6 @@ const propTypes = {
     data: PropTypes.object.isRequired,
 };
 
-const styles = {
-  text: {
-      color: "red"
-  }
-};
-
 class DataTable extends React.Component {
     state = {
         bordered: true,
