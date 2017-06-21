@@ -18,11 +18,11 @@ type Dataset struct {
 		RawData string `json:"raw_data,omitempty"`
 		Tables  interface{} `json:"tables,omitempty"`
 		Link    string `json:"link,omitempty"`
-	}
+	} `json:"attributes"`
 	User struct {
 		Id   string `json:"id,omitempty"`
 		Link string `json:"link,omitempty"`
-	}
+	} `json:"user"`
 	Link string                         `json:"link,omitempty"`
 }
 
