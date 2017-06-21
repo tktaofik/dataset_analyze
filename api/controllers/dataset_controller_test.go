@@ -9,40 +9,14 @@ import (
 	"github.com/labstack/echo"
 	"github.com/tktaofik/qlik_analyze/api/models"
 	"github.com/stretchr/testify/assert"
+	"github.com/tktaofik/qlik_analyze/api/test_data"
 )
-
-const mock_dataset = `{
-  "type": "dataset",
-  "attributes": {
-  	"name":"text.xlx",
-  	"size":12333,
-  	"rawData":{},
-  	"tables":[{
-  		"tableName":"order",
-  		"rows":[{
-  			"title":"name",
-  			"dataIndex":1,
-  			"key":"name",
-  			"width":300
-  		},
-  		{
-  			"title":"username",
-  			"dataIndex":2,
-  			"key":"username",
-  			"width":300
-  		}]
-  	}]},
-  "user":{
-  	"id":"d3b3b3b3b3b3",
-  	"link":"/api/datasets/d3b3b3b3b3b3"
-  	}
-}`
 
 func TestSaveDataSet(t *testing.T) {
 	api := echo.New()
-
-	payload := []byte(mock_dataset)
+	payload := []byte(test_data.SampleDataset())
 	expected_res := &models.Dataset{}
+
 	err := json.Unmarshal([]byte(payload), &expected_res)
 	if err != nil {
 		t.Error("Unable to marshal TestSaveDataSet expected JSON response'")
@@ -93,7 +67,8 @@ func TestGetUser(t *testing.T) {
 			t.Error("Unable to GetDatasets unmarshal JSON response body'")
 		}
 
-		assert.Equal(t, http.StatusOK, res.Code)
-		assert.NotEmpty(t, res_body)
+		assert.Equal(t, http.StatusOK, res.Code, "Expected status code 200")
+		assert.IsType(t , models.Datasets{}, res_body, "Expected data type Dataset")
+		assert.NotEmpty(t, res_body, "Expected response body to not be empty")
 	}
 }
