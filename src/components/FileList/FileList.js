@@ -11,16 +11,17 @@ const propTypes = {
 
 class FileList extends React.Component {
     render() {
+        console.log(this.props.data.dataSets);
         return (
             <aside>
                 <h2>Dropped files</h2>
-                {/*{this.props.data.dataSets.map((dataSet, index) => (
+                {this.props.data.dataSets.map((dataSet, index) => (
                     <div key={index}>
                         <Link to={`/insights/${dataSet.fileName}`}>
                             {dataSet.fileName} - {dataSet.fileSize} bytes
                         </Link>
                     </div>
-                ))}*/}
+                ))}
             </aside>
         );
     }
