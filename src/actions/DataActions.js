@@ -4,9 +4,13 @@ import Q from 'q';
 import {saveDataSetAPI, getDataSetsAPI} from '../api/dataset';
 
 export function updateDataSets(arrayRes) {
-    const dataSets = arrayRes.map(dataset => {
-        return dataset.data;
-    });
+    let dataSets = [];
+
+    if(arrayRes.length) {
+        dataSets = arrayRes.map(dataset => {
+            return dataset.data_source;
+        });
+    }
     return {
         type: types.UPDATE_DATA_SETS,
         dataSets

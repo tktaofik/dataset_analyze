@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Layout} from 'antd';
+import {Layout, Spin} from 'antd';
 import './Insight.css';
 import {DataTable, DataTableHeader, InsightSideBar} from '../../components';
 import {getDataSets} from '../../actions/DataActions';
@@ -37,7 +37,14 @@ class InsightsContainer extends React.Component {
             );
         } else {
             return (
-                <div>loading</div>
+                <Layout>
+                    <Sider breakpoint="lg" collapsedWidth="0" onCollapse={(collapsed, type) => { }}>
+                        <Spin size="large"/>
+                    </Sider>
+                    <Content className="insights">
+                        <Spin size="large"/>
+                    </Content>
+                </Layout>
             );
         }
     }
