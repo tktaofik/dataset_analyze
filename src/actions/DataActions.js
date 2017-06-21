@@ -4,13 +4,8 @@ import Q from 'q';
 import {saveDataSetAPI, getDataSetsAPI} from '../api/dataset';
 
 export function updateDataSets(arrayRes) {
-    let dataSets = [];
+    let dataSets = arrayRes.length ? arrayRes : [];
 
-    if(arrayRes.length) {
-        dataSets = arrayRes.map(dataset => {
-            return dataset.data_source;
-        });
-    }
     return {
         type: types.UPDATE_DATA_SETS,
         dataSets
@@ -68,7 +63,8 @@ export function switchTable(table) {
 export function selectTable(tableName) {
     return (dispatch, getState) => {
         const {data} = getState();
-        const selectedTableName = data.selectedDataSet.tables.find(table => {
+        const tables = data.selectedDataSet.attributes.tables;
+        const selectedTableName = tables.find(table => {
             return table.tableName === tableName;
         });
         dispatch(switchTable(selectedTableName));

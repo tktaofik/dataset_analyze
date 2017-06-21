@@ -17,12 +17,13 @@ class TablesSelectDropDown extends React.Component {
 
     render() {
         const Option = Select.Option;
-        const Tables = this.props.data.selectedDataSet.tables.map((table, index) => {
+        const tables = this.props.data.selectedDataSet.attributes.tables.map((table, index) => {
             return <Option key={index} value={`${table.tableName}`}> {table.tableName}</Option>
         });
 
+        const selectedDataSet = this.props.data.selectedDataSet;
         const selectedDataSetTable = this.props.data.selectedDataSetTable;
-        const defaultTableName = selectedDataSetTable ? selectedDataSetTable.tableName : this.props.data.selectedDataSet.tables[0].tableName;
+        const defaultTable = selectedDataSetTable ? selectedDataSetTable.tableName : selectedDataSet.attributes.tables[0].tableName;
 
         return (
             <Select
@@ -31,9 +32,9 @@ class TablesSelectDropDown extends React.Component {
                 placeholder="Select a table"
                 optionFilterProp="children"
                 onChange={this.changeTable}
-                defaultValue={defaultTableName}
+                defaultValue={defaultTable}
                 filterOption={(input, option) => option.props.value.toLowerCase().indexOf(input.toLowerCase()) >= 0}>
-                {Tables}
+                {tables}
             </Select>
         )
     }

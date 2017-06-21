@@ -6,11 +6,11 @@ export function saveDataSetAPI(data) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            name: data.fileName,
-            data_source: {
-                fileName: data.fileName,
-                fileSize: data.fileSize,
-                xlsxRawData: data.xlsxRawData,
+            type: 'dataset',
+            attributes: {
+                name: data.fileName,
+                size: data.fileSize,
+                rowData: data.xlsxRawData,
                 tables: data.tables.map(table => {
                     return {
                         tableName: table.tableName,

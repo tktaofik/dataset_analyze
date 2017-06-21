@@ -54,20 +54,23 @@ function mapStateToProps(state, ownProps) {
     const {data} = state;
     const fileName = ownProps.match.params.fileName;
 
-    if(data.dataSets && data.dataSets.length) {
+    if(data.dataSets.length) {
         data.selectedDataSet = data.dataSets.find(dataSet => {
-            return dataSet.fileName === fileName;
+            return dataSet.attributes.name === fileName;
         });
 
         if(data.selectedDataSetTable) {
-            data.selectedDataSetTable = data.selectedDataSet.tables.find(table => {
-                return table.tableName === data.selectedDataSetTable.tableName;
+            const tables = data.selectedDataSet.attributes.tables;
+            const selectedTableName = data.selectedDataSetTable.tableName;
+
+            data.selectedDataSetTable = tables.find(table => {
+                return table.tableName === selectedTableName;
             });
         }
 
         if (!data.selectedDataSet) {
             data.selectedDataSet = data.dataSets[0];
-            data.selectedDataSetTable = data.dataSets[0].tables[0];
+            data.selectedDataSetTable = data.dataSets[0].attributes.tables[0];
         }
     }
 
