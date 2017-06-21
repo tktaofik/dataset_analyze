@@ -7,7 +7,7 @@ const SubMenu = Menu.SubMenu;
 
 class InsightSideBar extends React.Component {
     state = {
-        current: this.props.data.selectedDataSet.attributes.name,
+        current: this.props.data.selectedDataSet.id,
         redirectRef: false
     }
 
@@ -23,9 +23,10 @@ class InsightSideBar extends React.Component {
     render() {
         const {dataSets} = this.props.data;
         const items = dataSets.map((dataSet) => {
-            const name = dataSet.attributes.name
+            const name = dataSet.attributes.name;
+            const id = dataSet.id;
             return (
-                <Menu.Item key={`${name}`}>{name}</Menu.Item>
+                <Menu.Item key={id}>{name}</Menu.Item>
             );
         })
 
