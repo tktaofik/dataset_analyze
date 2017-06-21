@@ -17,8 +17,8 @@ class FileList extends React.Component {
                 <h2>Dropped files</h2>
                 {this.props.data.dataSets.map((dataSet, index) => (
                     <div key={index}>
-                        <Link to={`/insights/${dataSet.fileName}`}>
-                            {dataSet.fileName} - {dataSet.fileSize} bytes
+                        <Link to={`/insights/${dataSet.attributes.name}`}>
+                            {dataSet.attributes.name} - {dataSet.attributes.size} bytes
                         </Link>
                     </div>
                 ))}
