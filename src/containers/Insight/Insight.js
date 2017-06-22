@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Layout, Spin} from 'antd';
 import './Insight.css';
-import {DataTable, DataTableHeader, InsightSideBar} from '../../components';
+import {DataTable, DataTableHeader, InsightSideBar, DragAndDrop} from '../../components';
 import {getDataSets} from '../../actions/DataActions';
 
 const {Content, Sider} = Layout;
@@ -15,7 +15,7 @@ class InsightsContainer extends React.Component {
     }
 
     render() {
-        if(this.props.data.dataSets && this.props.data.dataSets.length) {
+        if(this.props.data.dataSets.length) {
             return (
                 <Layout>
                     <Sider breakpoint="lg" collapsedWidth="0" onCollapse={(collapsed, type) => { }}>
@@ -39,10 +39,10 @@ class InsightsContainer extends React.Component {
             return (
                 <Layout>
                     <Sider breakpoint="lg" collapsedWidth="0" onCollapse={(collapsed, type) => { }}>
-                        <Spin size="large"/>
+                        <InsightSideBar {...this.props}/>
                     </Sider>
                     <Content className="insights">
-                        <Spin size="large"/>
+                        <DragAndDrop {...this.props}/>
                     </Content>
                 </Layout>
             );
