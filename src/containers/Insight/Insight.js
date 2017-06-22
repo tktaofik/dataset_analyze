@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Layout, Spin} from 'antd';
+import {Layout} from 'antd';
 import './Insight.css';
 import {DataTable, DataTableHeader, InsightSideBar, DragAndDrop} from '../../components';
 import {getDataSets} from '../../actions/DataActions';
@@ -15,14 +15,14 @@ class InsightsContainer extends React.Component {
     }
 
     render() {
-        if(this.props.data.dataSets.length) {
+        if (this.props.dataState.datasets.length) {
             return (
                 <Layout>
-                    <Sider breakpoint="lg" collapsedWidth="0" onCollapse={(collapsed, type) => { }}>
+                    <Sider breakpoint="lg" collapsedWidth="0" onCollapse={(collapsed, type) => {
+                    }}>
                         <InsightSideBar {...this.props}/>
                     </Sider>
                     <Content className="insights">
-                        <div>{this.props.data.selectedDataSet.fileName}</div>
                         <div className="table-selection-drop-down">
                             <DataTableHeader {...this.props}/>
                         </div>
@@ -38,7 +38,8 @@ class InsightsContainer extends React.Component {
         } else {
             return (
                 <Layout>
-                    <Sider breakpoint="lg" collapsedWidth="0" onCollapse={(collapsed, type) => { }}>
+                    <Sider breakpoint="lg" collapsedWidth="0" onCollapse={(collapsed, type) => {
+                    }}>
                         <InsightSideBar {...this.props}/>
                     </Sider>
                     <Content className="insights">
@@ -52,30 +53,14 @@ class InsightsContainer extends React.Component {
 
 function mapStateToProps(state, ownProps) {
     const {data} = state;
-    const fileName = ownProps.match.params.fileName;
-
-    if(data.dataSets.length) {
-        data.selectedDataSet = data.dataSets.find(dataSet => {
-            return dataSet.attributes.name === fileName;
-        });
-
-        if(data.selectedDataSetTable) {
-            const tables = data.selectedDataSet.attributes.tables;
-            const selectedTableName = data.selectedDataSetTable.tableName;
-
-            data.selectedDataSetTable = tables.find(table => {
-                return table.tableName === selectedTableName;
-            });
-        }
-
-        if (!data.selectedDataSet) {
-            data.selectedDataSet = data.dataSets[0];
-            data.selectedDataSetTable = data.dataSets[0].attributes.tables[0];
-        }
-    }
+    const defaultDatasetId = data.datasets.length ? data.datasets[0].id : "";
+    const selectedDataSetId = ownProps.match.params.datasetId ? ownProps.match.params.datasetId : defaultDatasetId;
+    const selectedTableIndex = ownProps.match.params.tableIndex ? ownProps.match.params.tableIndex : 0;
 
     return {
-        data
+        dataState: data,
+        selectedDataSetId,
+        selectedTableIndex
     };
 }
 

@@ -9,6 +9,8 @@ import (
 	model "github.com/tktaofik/qlik_analyze/api/models"
 )
 
+//TODO: I should actually have an interface here of the controller type, this will let me create custom testing functions instead so i don't pollute my database
+
 type Error struct {
 	message string `json:"name" xml:"name"`
 }

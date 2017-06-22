@@ -1,42 +1,5 @@
-// import React from 'react';
-// import PropTypes from 'prop-types';
-// import Dropzone from 'react-dropzone';
-// import {FileList} from '../index';
-// import {addFiles} from '../../actions/DataActions';
-
-
-// const propTypes = {
-//     dispatch: PropTypes.func.isRequired,
-//     data: PropTypes.object.isRequired,
-// };
-
-// class DragAndDrop extends React.Component {
-//     handleFileDrop = (uploadedFiles) => {
-//         debugger
-//         const {dispatch} = this.props;
-//         dispatch(addFiles(uploadedFiles));
-//     };
-
-//     render() {
-//         return (
-//             <section>
-//                 <div className="dropzone">
-//                     <Dropzone onDrop={this.handleFileDrop}>
-//                         <p>Try dropping some files here, or click to select files to upload.</p>
-//                     </Dropzone>
-//                 </div>
-//                 <FileList {...this.props} />
-//             </section>
-//           );
-//     }
-// }
-
-// DragAndDrop.propTypes = propTypes;
-
-// export default DragAndDrop;
-
 import React from 'react';
-import { Upload, Icon, message } from 'antd';
+import { Upload, Icon } from 'antd';
 import {addFile} from '../../actions/DataActions';
 const Dragger = Upload.Dragger;
 
@@ -44,7 +7,7 @@ class DragAndDrop extends React.Component {
     onCustomRequest = (params) => {
         const {dispatch} = this.props;
         dispatch(addFile(params.file));
-    }
+    };
 
     render () {
         const props = {
@@ -71,5 +34,3 @@ class DragAndDrop extends React.Component {
 }
 
 export default DragAndDrop;
-
-

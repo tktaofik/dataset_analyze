@@ -3,17 +3,17 @@ import {xlsx_to_json}from '../utils/xlsx_to_json'
 import {saveDataSetAPI, getDataSetsAPI} from '../api/dataset';
 
 export function updateDataSets(res) {
-    let dataSets = res.length ? res : [];
+    let datasets = res.length ? res : [];
     return {
         type: types.UPDATE_DATA_SETS,
-        dataSets
+        datasets
     }
 }
 
-export function switchDataSet(dataSet) {
+export function switchDataSet(datasetId) {
     return {
         type: types.SWITCH_DATASET,
-        dataSet
+        datasetId
     }
 }
 
@@ -52,15 +52,4 @@ export function switchTable(table) {
         type: types.SELECT_TABLE,
         table
     }
-}
-
-export function selectTable(tableName) {
-    return (dispatch, getState) => {
-        const {data} = getState();
-        const tables = data.selectedDataSet.attributes.tables;
-        const selectedTableName = tables.find(table => {
-            return table.tableName === tableName;
-        });
-        dispatch(switchTable(selectedTableName));
-    };
 }

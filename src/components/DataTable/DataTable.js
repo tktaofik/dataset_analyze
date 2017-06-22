@@ -5,7 +5,7 @@ import './DataTable.css';
 
 const propTypes = {
     dispatch: PropTypes.func.isRequired,
-    data: PropTypes.object.isRequired,
+    dataState: PropTypes.object.isRequired,
 };
 
 class DataTable extends React.Component {
@@ -19,13 +19,15 @@ class DataTable extends React.Component {
     };
 
     render() {
-        const selectedDataSet = this.props.data.selectedDataSet;
-        const tables = selectedDataSet.attributes.tables;
-        const selectedDataSetTable = this.props.data.selectedDataSetTable;
 
-        if (selectedDataSet && tables && tables.length > 0) {
-            const table = selectedDataSetTable ? selectedDataSetTable : tables[0];
-            const {rows} = table;
+        const selectedDataset = this.props.dataState.datasets.find( data => {
+            return data.id ===  this.props.selectedDataSetId;
+        });
+        const tableIndex = this.props.selectedTableIndex;
+        const selectedDataSetTable = selectedDataset.attributes.tables[tableIndex];
+
+        if (selectedDataset.attributes.tables.length) {
+            const {rows} = selectedDataSetTable;
             const columns = [];
             Object.keys( rows[0] ).forEach( key => {
                 if(key !== "key") {
@@ -41,7 +43,7 @@ class DataTable extends React.Component {
 
             return (
                 <div className="data-table-container">
-                    {table.tableName}
+                    {selectedDataSetTable.tableName}
                     <Table {...this.state} columns={columns} dataSource={rows}/>
                 </div>
             );
