@@ -20,6 +20,7 @@ const App = () => (
                     <Route exact path="/" component={AddDataContainer}/>
                     <Route exact path="/login" component={LoginContainer}/>
                     <Route exact path="/add-data" component={AddDataContainer}/>
+                    <Route exact path="/insights" component={InsightsContainer}/>
                     <Route exact path="/insights/:fileName" component={InsightsContainer}/>
                 </Switch>
             </div>
