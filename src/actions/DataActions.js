@@ -47,9 +47,9 @@ export function getDataSets() {
     };
 }
 
-export function switchTable(table) {
+export function switchTable(tableIndex) {
     return {
-        type: types.SELECT_TABLE,
-        table
+        type: types.SWITCH_TABLE,
+        tableIndex
     }
 }

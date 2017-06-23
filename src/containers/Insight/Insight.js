@@ -15,7 +15,7 @@ class InsightsContainer extends React.Component {
     }
 
     render() {
-        if (this.props.dataState.datasets.length) {
+        if (this.props.selectedDataset) {
             return (
                 <Layout>
                     <Sider breakpoint="lg" collapsedWidth="0" onCollapse={(collapsed, type) => {
@@ -53,14 +53,18 @@ class InsightsContainer extends React.Component {
 
 function mapStateToProps(state, ownProps) {
     const {data} = state;
-    const defaultDatasetId = data.datasets.length ? data.datasets[0].id : "";
-    const selectedDataSetId = ownProps.match.params.datasetId ? ownProps.match.params.datasetId : defaultDatasetId;
-    const selectedTableIndex = ownProps.match.params.tableIndex ? ownProps.match.params.tableIndex : 0;
+    const selectedDataSetId = ownProps.match.params.datasetId ? ownProps.match.params.datasetId : null;
+
+    let selectedDataset;
+    if(selectedDataSetId) {
+        selectedDataset = data.datasets.find(data => {
+            return data.id === selectedDataSetId;
+        });
+    }
 
     return {
         dataState: data,
-        selectedDataSetId,
-        selectedTableIndex
+        selectedDataset
     };
 }
 

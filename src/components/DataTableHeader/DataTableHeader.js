@@ -1,10 +1,8 @@
 import React from 'react';
 import {Row, Col, Select} from 'antd';
 import PropTypes from 'proptypes';
-import {selectTable} from '../../actions/DataActions';
+import {switchTable} from '../../actions/DataActions';
 import '../DataTable/DataTable.css';
-import { Link} from 'react-router-dom'
-
 
 const Option = Select.Option;
 const propTypes = {
@@ -13,40 +11,22 @@ const propTypes = {
 };
 
 class TablesSelectDropDown extends React.Component {
-    state = {
-        changeTable: false,
-        link: ''
-    };
-
     changeTable = (tableIndex) => {
-        // const link = this.props.selectedDataSetId + '/' + tableIndex;
-        // this.setState({
-        //     "link": link,
-        //     "changeTable": true
-        // });
-        //
-        // BrowserRouter.push(link)
+        const {dispatch} = this.props;
+        dispatch(switchTable(tableIndex));
     };
 
     render() {
-        const selectedDataset = this.props.dataState.datasets.find(data => {
-            return data.id === this.props.selectedDataSetId;
-        });
-        const tables = selectedDataset.attributes.tables.map((table, index) => {
+        const {selectedDataset} = this.props
+        const selectedTableIndex = this.props.dataState.selectedTableIndex
+        const tables = this.props.selectedDataset.attributes.tables.map((table, index) => {
             return (
-                <Option
-                    key={index} value={`${index}`}>
+                <Option key={index} value={`${index}`}>
                     {table.tableName}
-                    <Link to={this.props.selectedDataSetId + this.props.selectedTableIndex}></Link>
                 </Option>
             )
         });
-        const defaultTable = selectedDataset.attributes.tables[0].tableName;
-
-        if (this.state.changeTable) {
-            // return <Link to={this.state.link}/>
-            // <Redirect to={this.state.link}/>
-        }
+        const selectedTableName = selectedDataset.attributes.tables[selectedTableIndex].tableName;
         return (
             <Select
                 showSearch
@@ -54,8 +34,8 @@ class TablesSelectDropDown extends React.Component {
                 placeholder="Select a table"
                 optionFilterProp="children"
                 onChange={this.changeTable}
-                defaultValue={defaultTable}
-                filterOption={(input, option) => option.props.value.toLowerCase().indexOf(input.toLowerCase()) >= 0}>
+                value={selectedTableName}
+            >
                 {tables}
             </Select>
         )
@@ -78,5 +58,3 @@ class DataTableHeader extends React.Component {
 
 DataTableHeader.proptypes = propTypes;
 export default DataTableHeader;
-
-// <Link to={"/" + this.props.selectedDataSetId + this.props.selectedTableIndex}></Link>
