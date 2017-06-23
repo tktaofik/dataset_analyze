@@ -9,33 +9,40 @@
   margin: 16px;
 }
 
-.example {
-  text-align: center;
-  background: rgba(0,0,0,0.05);
-  border-radius: 4px;
-  margin-bottom: 20px;
-  padding: 30px 50px;
-  margin: 20px 0;
+.spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  height: 100%;
+  background: #d9d9d9;
+  .spinner {
+    max-width: 50%;
+  }
 }
 
-.insights{
+.insights {
   overflow: hidden;
   height: 100%;
   margin-left: 38px;
-  .add-data-button{
+  .add-data-button {
     width: 50px;
   }
-  .table-selection-drop-down{
+  .table-selection-drop-down {
     margin: 10px;
     text-align: center;
   }
-  .data-table{
+  .data-table {
     height: 50%;
   }
-  .insight-charts{
+  .insight-charts {
     height: 40%;
   }
-  .select-table-button{
+  .select-table-button {
     margin-top: 0px;
   }
 }

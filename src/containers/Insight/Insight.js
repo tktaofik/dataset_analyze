@@ -15,11 +15,22 @@ class InsightsContainer extends React.Component {
     }
 
     render() {
+        const spinner = this.props.showSpinner ? (
+            <div className="spinner-container">
+                <div className="spinner">
+                    <Spin tip="We are working some magic for you ..."
+                          spinning={this.props.showSpinner}
+                          size="large"/>
+                </div>
+            </div>
+        ) : null;
+
+
         if (this.props.selectedDataset) {
             return (
                 <Layout>
-                    <Sider breakpoint="lg" collapsedWidth="0" onCollapse={(collapsed, type) => {
-                    }}>
+                    <Sider breakpoint="lg" collapsedWidth="0"
+                           onCollapse={(collapsed, type) => {}}>
                         <InsightSideBar {...this.props}/>
                     </Sider>
                     <Content className="insights">
@@ -36,7 +47,7 @@ class InsightsContainer extends React.Component {
                             <DataTable {...this.props}/>
                         </div>
                         <div className="insight-charts">
-                            {/*<h2>Show insight charts here</h2>*/}
+                            <h2>Show insight charts here</h2>
                         </div>
                     </Content>
                 </Layout>
@@ -44,16 +55,13 @@ class InsightsContainer extends React.Component {
         } else {
             return (
                 <Layout>
-                    <div className="example">
-                        <Spin tip="We are working some magic for you ..." spinning={this.props.showSpinner} size="large"/>
-                    </div>
-                    <Sider breakpoint="lg" collapsedWidth="0" onCollapse={(collapsed, type) => {
-                    }}>
+                    <Sider breakpoint="lg" collapsedWidth="0"
+                           onCollapse={(collapsed, type) => {}}>
                         <InsightSideBar {...this.props}/>
                     </Sider>
                     <Content className="insights">
-
                         <DragAndDrop {...this.props}/>
+                        {spinner}
                     </Content>
                 </Layout>
             );
