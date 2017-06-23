@@ -35,6 +35,7 @@ class TablesSelectDropDown extends React.Component {
                 optionFilterProp="children"
                 onChange={this.changeTable}
                 value={selectedTableName}
+                filterOption={(input, option) => option.props.value.toLowerCase().indexOf(input.toLowerCase()) >= 0}>
             >
                 {tables}
             </Select>
