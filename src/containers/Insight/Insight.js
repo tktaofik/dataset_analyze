@@ -1,9 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Layout} from 'antd';
+import {Layout, Button, Row, Col} from 'antd';
 import './Insight.css';
 import {DataTable, DataTableHeader, InsightSideBar, DragAndDrop} from '../../components';
 import {getDataSets} from '../../actions/DataActions';
+import { Router as BrowserRouter } from 'react-router-dom'
 
 const {Content, Sider} = Layout;
 const propTypes = {};
@@ -18,13 +19,15 @@ class InsightsContainer extends React.Component {
         if (this.props.selectedDataset) {
             return (
                 <Layout>
-                    <Sider breakpoint="lg" collapsedWidth="0" onCollapse={(collapsed, type) => {
-                    }}>
+                    <Sider breakpoint="lg" collapsedWidth="0" onCollapse={(collapsed, type) => {}}>
                         <InsightSideBar {...this.props}/>
                     </Sider>
                     <Content className="insights">
                         <div className="table-selection-drop-down">
-                            <DataTableHeader {...this.props}/>
+                            <Row type="flex" justify="space-around" align="middle">
+                                <Col span={12}><DataTableHeader {...this.props}/></Col>
+                                <Col span={6}><Button className=""  type="primary" icon="file-add" onClick={() =>{this.props.history.push('/')}}>Add Data</Button></Col>
+                            </Row>
                         </div>
                         <div className="data-table">
                             <DataTable {...this.props}/>

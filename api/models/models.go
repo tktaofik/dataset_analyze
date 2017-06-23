@@ -20,7 +20,7 @@ type Dataset struct {
 		Link    string `json:"link,omitempty"`
 	} `json:"attributes"`
 	User struct {
-		Id   string `json:"id,omitempty"`
+		Id   string `json:"id,omitempty" bson:"_id,omitempty" `
 		Link string `json:"link,omitempty"`
 	} `json:"user"`
 	Link string                         `json:"link,omitempty"`
@@ -28,11 +28,14 @@ type Dataset struct {
 
 type Datasets []Dataset
 
+//TODO: function to validate Dataset model
+
 /////////////////////////////////////////////////////////////////////////////////
 // User Model
 /////////////////////////////////////////////////////////////////////////////////
 type User struct {
 	Id        bson.ObjectId         `json:"id,omitempty" bson:"_id,omitempty" `
+	CreatedAt time.Time             `json:"created_at"`
 	FirstName string                `json:"first_name,omitempty"`
 	LastName  string                `json:"last_name,omitempty"`
 	Username  string                `json:"user_name"`
@@ -42,9 +45,4 @@ type User struct {
 
 type Users []User
 
-func (u User) IsValid() bool {
-	if len(u.Username) > 0 {
-		return true
-	}
-	return false
-}
+//TODO: function to validate User model
