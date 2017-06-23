@@ -1,4 +1,4 @@
 export const SAVE_DATA_SETS = 'SAVE_DATA_SETS';
-export const SELECT_TABLE = 'SELECT_TABLE';
+export const SWITCH_TABLE = 'SWITCH_TABLE';
 export const SWITCH_DATASET = 'SWITCH_DATASET';
 export const  UPDATE_DATA_SETS = 'UPDATE_DATA_SETS';

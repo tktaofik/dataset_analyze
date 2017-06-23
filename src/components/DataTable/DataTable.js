@@ -19,11 +19,8 @@ class DataTable extends React.Component {
     };
 
     render() {
-
-        const selectedDataset = this.props.dataState.datasets.find( data => {
-            return data.id ===  this.props.selectedDataSetId;
-        });
-        const tableIndex = this.props.selectedTableIndex;
+        const selectedDataset = this.props.selectedDataset
+        const tableIndex = this.props.dataState.selectedTableIndex;
         const selectedDataSetTable = selectedDataset.attributes.tables[tableIndex];
 
         if (selectedDataset.attributes.tables.length) {
@@ -47,8 +44,7 @@ class DataTable extends React.Component {
                     <Table {...this.state} columns={columns} dataSource={rows}/>
                 </div>
             );
-        }
-        else {
+        } else {
             return (<div className="data-table-container">Please load table</div>);
         }
     }

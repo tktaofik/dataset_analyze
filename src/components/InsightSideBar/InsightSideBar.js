@@ -8,11 +8,6 @@ import {switchDataSet} from '../../actions/DataActions';
 const SubMenu = Menu.SubMenu;
 
 class InsightSideBar extends React.Component {
-    state = {
-        selectedItemId: this.props.selectedDataSetId,
-        redirectRef: false
-    };
-
     selectDataset = (e) => {
         const {dispatch} = this.props;
         const datasetId = e.key;
@@ -26,17 +21,19 @@ class InsightSideBar extends React.Component {
 
     render() {
         const {datasets} = this.props.dataState;
+        const selectedItemId = this.props.selectedDataset ? this.props.selectedDataset.id : null;
         const datasetList = datasets.length ? datasets.map((dataset) => {
             return (
-                <Menu.Item key={dataset.id}>{dataset.attributes.name}
-                    <Link to={"/" + dataset.id}>Public Page</Link>
+                <Menu.Item key={dataset.id}>
+                    {dataset.attributes.name}
+                    <Link to={"/" + dataset.id}/>
                 </Menu.Item>
             );
         }) : null;
 
         return (
             <div>
-                <Menu theme="dark" mode="inline" defaultOpenKeys={['sub1']} selectedKeys={[this.state.selectedItemId]}
+                <Menu theme="dark" mode="inline" defaultOpenKeys={['sub1']} selectedKeys={[selectedItemId]}
                       onClick={this.selectDataset}>
                     <SubMenu key="sub1" title={<span><Icon type="file"/><span>Uploaded Files</span></span>}>
                         {datasetList}
