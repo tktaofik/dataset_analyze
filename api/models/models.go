@@ -9,7 +9,7 @@ import (
 // Dataset Model
 ////////////////////////////////////////////////////////////////////////////////
 type Dataset struct {
-	Id        bson.ObjectId         `json:"id"`
+	Id        bson.ObjectId 		`json:"id,omitempty" bson:"_id,omitempty" `
 	CreatedAt time.Time             `json:"created_at"`
 	Type      string                `json:"type"`
 	Attributes struct {
