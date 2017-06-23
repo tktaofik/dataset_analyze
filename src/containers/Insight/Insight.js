@@ -16,12 +16,11 @@ class InsightsContainer extends React.Component {
     }
 
     render() {
-
         if (this.props.notification){
             const args = {
                 message: 'Notification Title',
                 description: 'I will never close automatically. I will be close automatically. I will never close automatically.',
-                duration: 3000,
+                duration: 3,
             };
             notification.open(args);
         }

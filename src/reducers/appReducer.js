@@ -1,7 +1,8 @@
 import * as types from '../constants/ActionTypes';
 
 let initialStates = {
-    showSpinner: false
+    showSpinner: false,
+    notification: null
 };
 
 export default function appReducer(state = initialStates, action) {
@@ -9,6 +10,11 @@ export default function appReducer(state = initialStates, action) {
         case types.SHOW_SPINNER:
             return Object.assign({}, state, {
                 showSpinner: action.state,
+            });
+
+        case types.NOTIFICATION:
+            return Object.assign({}, state, {
+                notification: action.notification,
             });
 
         default:

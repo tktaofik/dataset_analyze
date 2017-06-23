@@ -1,4 +1,5 @@
 export const SHOW_SPINNER = 'SHOW_SPINNER';
+export const NOTIFICATION = 'NOTIFICATION';
 export const SWITCH_TABLE = 'SWITCH_TABLE';
 export const SWITCH_DATASET = 'SWITCH_DATASET';
 export const UPDATE_DATA_SETS = 'UPDATE_DATA_SETS';

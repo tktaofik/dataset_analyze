@@ -6,3 +6,9 @@ export function showSpinner(state) {
         state
     }
 }
+export function notification(notification) {
+    return {
+        type: types.NOTIFICATION,
+        notification
+    }
+}
