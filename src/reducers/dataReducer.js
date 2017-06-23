@@ -7,10 +7,10 @@ let initialStates = {
 
 export default function addDataReducer(state = initialStates, action) {
     switch (action.type) {
-        // case types.SAVE_DATA_SETS:
-        //     return Object.assign({}, state, {
-        //         dataSets: [...state.dataSets, ...action.dataSets],
-        //     });
+        case types.SHOW_SPINNER:
+            return Object.assign({}, state, {
+                showSpinner: action.state,
+            });
         case types.UPDATE_DATA_SETS:
             return Object.assign({}, state, {
                 datasets: [...state.datasets, ...action.datasets],

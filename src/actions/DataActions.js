@@ -1,6 +1,7 @@
 import * as types from '../constants/ActionTypes';
 import {xlsx_to_json}from '../utils/xlsx_to_json'
 import {saveDataSetAPI, getDataSetsAPI} from '../api/dataset';
+import {showSpinner} from './AppActions';
 
 export function updateDataSets(res) {
     let datasets = res.length ? res : [];
@@ -19,21 +20,26 @@ export function switchDataSet(datasetId) {
 
 export function addFile(uploadedFile) {
     return (dispatch) => {
-        return xlsx_to_json(uploadedFile).then(dataSet => {
-            dispatch(saveDataSet(dataSet))
-        }).catch(error => {
-            throw(error);
-        })
+        dispatch(showSpinner(true));
+        return xlsx_to_json(uploadedFile)
+            .then(dataSet => {
+                dispatch(saveDataSet(dataSet));
+                dispatch(showSpinner(false));
+            })
+            .catch(error => {
+                dispatch(showSpinner(false));
+                throw(error);
+            })
     };
 }
 
 export function saveDataSet(dataSet) {
     return (dispatch) => {
-            return saveDataSetAPI(dataSet).then(dataSetRes => {
-                dispatch(updateDataSets([dataSetRes]));
-            }).catch(error => {
-                throw(error);
-            });
+        return saveDataSetAPI(dataSet).then(dataSetRes => {
+            dispatch(updateDataSets([dataSetRes]));
+        }).catch(error => {
+            throw(error);
+        });
     };
 }
 
