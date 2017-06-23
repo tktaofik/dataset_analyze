@@ -45,9 +45,12 @@ export function saveDataSet(dataSet) {
 
 export function getDataSets() {
     return (dispatch) => {
+        dispatch(showSpinner(true));
         getDataSetsAPI().then(dataSetsRes => {
+            dispatch(showSpinner(false));
             dispatch(updateDataSets(dataSetsRes));
         }).catch(error => {
+            dispatch(showSpinner(false));
             throw(error);
         });
     };

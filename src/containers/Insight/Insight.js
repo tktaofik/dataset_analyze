@@ -1,10 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Layout, Button, Row, Col} from 'antd';
+import {Layout, Button, Row, Col, notification} from 'antd';
 import './Insight.css';
 import {DataTable, DataTableHeader, InsightSideBar, DragAndDrop} from '../../components';
 import {getDataSets} from '../../actions/DataActions';
 import {Spin} from 'antd';
+
 const {Content, Sider} = Layout;
 const propTypes = {};
 class InsightsContainer extends React.Component {
@@ -15,6 +16,16 @@ class InsightsContainer extends React.Component {
     }
 
     render() {
+
+        if (this.props.notification){
+            const args = {
+                message: 'Notification Title',
+                description: 'I will never close automatically. I will be close automatically. I will never close automatically.',
+                duration: 3000,
+            };
+            notification.open(args);
+        }
+
         const spinner = this.props.showSpinner ? (
             <div className="spinner-container">
                 <div className="spinner">
@@ -25,15 +36,10 @@ class InsightsContainer extends React.Component {
             </div>
         ) : null;
 
-
-        if (this.props.selectedDataset) {
-            return (
-                <Layout>
-                    <Sider breakpoint="lg" collapsedWidth="0"
-                           onCollapse={(collapsed, type) => {}}>
-                        <InsightSideBar {...this.props}/>
-                    </Sider>
-                    <Content className="insights">
+        const insightContent = () => {
+            if (this.props.selectedDataset) {
+                return (
+                    <Content className="insights-table">
                         <div className="table-selection-drop-down">
                             <Row type="flex" justify="space-around" align="middle">
                                 <Col span={12}><DataTableHeader {...this.props}/></Col>
@@ -50,22 +56,28 @@ class InsightsContainer extends React.Component {
                             <h2>Show insight charts here</h2>
                         </div>
                     </Content>
-                </Layout>
-            );
-        } else {
-            return (
-                <Layout>
-                    <Sider breakpoint="lg" collapsedWidth="0"
-                           onCollapse={(collapsed, type) => {}}>
-                        <InsightSideBar {...this.props}/>
-                    </Sider>
-                    <Content className="insights">
-                        <DragAndDrop {...this.props}/>
-                        {spinner}
+                )
+            }
+            else {
+                return (
+                    <Content className="insights-drag-drop">
+                        <DragAndDrop  {...this.props}/>
                     </Content>
-                </Layout>
-            );
-        }
+                )
+            }
+        };
+
+        return (
+            <Layout>
+                <Sider breakpoint="lg" collapsedWidth="0"
+                       onCollapse={(collapsed, type) => {
+                       }}>
+                    <InsightSideBar {...this.props}/>
+                </Sider>
+                {insightContent()}
+                {spinner}
+            </Layout>
+        );
     }
 }
 
@@ -83,7 +95,8 @@ function mapStateToProps(state, ownProps) {
     return {
         dataState: data,
         selectedDataset,
-        showSpinner: app.showSpinner
+        showSpinner: app.showSpinner,
+        notification: app.notification
     };
 }
 

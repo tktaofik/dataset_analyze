@@ -25,10 +25,17 @@
   }
 }
 
-.insights {
+.insights-drag-drop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.insights-table {
   overflow: hidden;
   height: 100%;
   margin-left: 38px;
+
   .add-data-button {
     width: 50px;
   }
