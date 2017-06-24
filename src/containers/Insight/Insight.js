@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Layout, Button, Row, Col, notification, Icon, Spin} from 'antd';
 import './Insight.css';
 import {DataTable, DataTableHeader, InsightSideBar, DragAndDrop} from '../../components';
-import {getDataSets} from '../../actions/DataActions';
+import {getDataSets, setSelectedDataSetId} from '../../actions/DataActions';
 import {hideNotification} from '../../actions/AppActions';
 
 const {Content, Sider, Header} = Layout;
@@ -20,7 +20,7 @@ class InsightsContainer extends React.Component {
             const {dispatch} = this.props;
             const args = {
                 message: this.props.notification.message,
-                description: 'Data has been uploaded',
+                description: this.props.notification.description,
                 duration: 4.5,
             };
             notification.open(args);
@@ -37,6 +37,13 @@ class InsightsContainer extends React.Component {
         this.setState({
             collapsed: !this.state.collapsed,
         });
+    };
+
+    navigateToAddData = () => {
+        const {dispatch} = this.props;
+        dispatch(setSelectedDataSetId(null));
+
+        this.props.history.push('/')
     };
 
     render() {
@@ -62,11 +69,8 @@ class InsightsContainer extends React.Component {
                         />
                     </Col>
                     <Col span={4}>
-                        <Button className="" type="primary" icon="file-add"
-                                size="large"
-                                onClick={() => {
-                                    this.props.history.push('/')
-                                }}>Add Data
+                        <Button className="" type="primary" icon="file-add" size="large" onClick={this.navigateToAddData}>
+                            Add Data
                         </Button>
                     </Col>
                 </Row>
@@ -109,7 +113,8 @@ class InsightsContainer extends React.Component {
                 <Sider collapsedWidth="0"
                        collapsed={this.state.collapsed}
                        onCollapse={this.onCollapse}
-                       width="250">
+                       width="250"
+                       style={{ overflow: 'auto' }}>
                     <InsightSideBar {...this.props}/>
                 </Sider>
                 {insightContent()}
@@ -121,7 +126,7 @@ class InsightsContainer extends React.Component {
 
 function mapStateToProps(state, ownProps) {
     const {data, app} = state;
-    const selectedDataSetId = ownProps.match.params.datasetId ? ownProps.match.params.datasetId : null;
+    const selectedDataSetId = ownProps.match.params.datasetId ? ownProps.match.params.datasetId : data.selectedDataSetId;
 
     let selectedDataset;
     if (selectedDataSetId) {

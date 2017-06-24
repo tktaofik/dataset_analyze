@@ -2,7 +2,8 @@ import * as types from '../constants/ActionTypes';
 
 let initialStates = {
     datasets: [],
-    selectedTableIndex: 0
+    selectedTableIndex: 0,
+    selectedDataSetId: null
 };
 
 export default function addDataReducer(state = initialStates, action) {
@@ -16,9 +17,9 @@ export default function addDataReducer(state = initialStates, action) {
                 datasets: [...state.datasets, ...action.datasets],
             });
 
-        case types.SWITCH_DATASET:
+        case types.SET_SELECTED_DATASET_ID:
             return Object.assign({}, state, {
-                selectedDataSet: action.datasetId,
+                selectedDataSetId: action.datasetId,
                 selectedTableIndex: 0
             });
 

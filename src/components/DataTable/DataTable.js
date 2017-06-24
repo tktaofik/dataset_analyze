@@ -15,11 +15,11 @@ class DataTable extends React.Component {
         pagination: true,
         size: 'small',
         showHeader: true,
-        scroll:{ x: '130%', y: 240 }
+        scroll:{ x: '200%', y: 190 }
     };
 
     render() {
-        const selectedDataset = this.props.selectedDataset
+        const selectedDataset = this.props.selectedDataset;
         const tableIndex = this.props.dataState.selectedTableIndex;
         const selectedDataSetTable = selectedDataset.attributes.tables[tableIndex];
 

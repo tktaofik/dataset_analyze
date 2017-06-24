@@ -3,7 +3,7 @@ import {Menu, Icon} from 'antd';
 import {
     Link,
 } from 'react-router-dom'
-import {switchDataSet} from '../../actions/DataActions';
+import {setSelectedDataSetId} from '../../actions/DataActions';
 
 const SubMenu = Menu.SubMenu;
 
@@ -16,7 +16,7 @@ class InsightSideBar extends React.Component {
             selectedItemId: e.key,
         });
 
-        dispatch(switchDataSet(datasetId));
+        dispatch(setSelectedDataSetId(datasetId));
     };
 
     render() {

@@ -1,19 +1,18 @@
 import * as types from '../constants/ActionTypes';
 import {xlsx_to_json}from '../utils/xlsx_to_json'
-import {saveDataSetAPI, getDataSetsAPI} from '../api/dataset';
+import {saveDataSetAPI, getDataSetsAPI,} from '../api/dataset';
 import {showSpinner, showNotification} from './AppActions';
 
-export function updateDataSets(res) {
-    let datasets = res.length ? res : [];
+export function appendToDatasets(dataset) {
     return {
         type: types.UPDATE_DATA_SETS,
-        datasets
+        datasets: [...dataset]
     }
 }
 
-export function switchDataSet(datasetId) {
+export function setSelectedDataSetId(datasetId) {
     return {
-        type: types.SWITCH_DATASET,
+        type: types.SET_SELECTED_DATASET_ID,
         datasetId
     }
 }
@@ -35,11 +34,15 @@ export function addFile(uploadedFile) {
 
 export function saveDataSet(dataSet) {
     return (dispatch) => {
-        return saveDataSetAPI(dataSet).then(dataSetRes => {
-            dispatch(updateDataSets([dataSetRes]));
+        return saveDataSetAPI(dataSet).then(dataset => {
+            dispatch(appendToDatasets([dataset]));
+            dispatch(setSelectedDataSetId(dataset.id));
             dispatch(showNotification({
-                message:dataSetRes.attributes.name
+                message: dataset.attributes.name,
+                description: `${dataset.attributes.name} has been uploaded`,
+                duration: 4.5
             }));
+
         }).catch(error => {
             dispatch(showNotification({message: error}));
             throw(error);
@@ -52,7 +55,7 @@ export function getDataSets() {
         dispatch(showSpinner(true));
         getDataSetsAPI().then(dataSetsRes => {
             dispatch(showSpinner(false));
-            dispatch(updateDataSets(dataSetsRes));
+            dispatch(appendToDatasets(dataSetsRes));
         }).catch(error => {
             dispatch(showSpinner(false));
             throw(error);
