@@ -7,7 +7,7 @@ export function showSpinner(spinnerState) {
     }
 }
 
-export function toggleSideBar(collapseSideBar) {
+export function collapseSideBar(collapseSideBar) {
     return {
         type: types.COLLAPSE_SIDE_BAR,
         collapseSideBar

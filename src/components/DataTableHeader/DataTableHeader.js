@@ -17,8 +17,8 @@ class TablesSelectDropDown extends React.Component {
     };
 
     render() {
-        const {selectedDataset} = this.props
-        const selectedTableIndex = this.props.dataState.selectedTableIndex
+        const {selectedDataset} = this.props;
+        const selectedTableIndex = this.props.dataState.selectedTableIndex;
         const tables = this.props.selectedDataset.attributes.tables.map((table, index) => {
             return (
                 <Option key={index} value={`${index}`}>

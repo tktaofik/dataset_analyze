@@ -21,6 +21,7 @@ class InsightsContainer extends React.Component {
                 message: this.props.notification.message,
                 description: this.props.notification.description,
                 duration: 4.5,
+                placement: 'topLeft',
             };
             notification.open(args);
             dispatch(hideNotification())
