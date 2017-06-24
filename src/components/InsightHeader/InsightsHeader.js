@@ -35,14 +35,17 @@ class InsightsHeader extends React.Component {
     render() {
         return (
             <Header style={{background: '#fff', padding: 0}}>
-                <Row type="flex">
-                    <Col span={20}>
+                <Row type="flex" justify="center">
+                    <Col span={4}>
                         <Icon
                             style={{fontSize: 30, marginTop: 20}}
                             className="trigger"
                             type={this.props.collapseSideBar ? 'menu-unfold' : 'menu-fold'}
                             onClick={this.toggle_sideBar}
                         />
+                    </Col>
+                    <Col span={16}>
+                        <h2 style={{textAlign:"center"}}>{this.props.selectedDataset ? this.props.selectedDataset.attributes.name : "Analyze Datasets"}</h2>
                     </Col>
                     <Col span={4}>
                         <AddDataButton {...this.props}/>
