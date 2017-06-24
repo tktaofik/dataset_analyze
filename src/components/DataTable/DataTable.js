@@ -42,7 +42,6 @@ class DataTable extends React.Component {
 
             return (
                 <div className="data-table-container">
-                    {selectedDataSetTable.tableName}
                     <Table  {...this.state} columns={columns} dataSource={rows}/>
                 </div>
             );
