@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Layout,notification} from 'antd';
+import {Layout, notification} from 'antd';
 import './Insight.css';
 import {InsightSideBar, InsightContent, Spinner} from '../../components';
 import {getDataSets} from '../../actions/DataActions';
@@ -10,8 +10,7 @@ const {Sider} = Layout;
 const propTypes = {};
 class InsightsContainer extends React.Component {
     state = {
-        collapsed: false,
-        mode: 'inline',
+        collapsed: false
     };
 
     componentWillMount() {
@@ -38,10 +37,15 @@ class InsightsContainer extends React.Component {
         });
     };
 
+    onCollapse = () => {
+       console.log("dfgds")
+    };
+
     render() {
         return (
             <Layout>
                 <Sider collapsedWidth="0"
+                       defaultCollapsed="false"
                        collapsed={this.state.collapsed}
                        onCollapse={this.onCollapse}
                        width="250"

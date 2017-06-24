@@ -1,15 +1,22 @@
 import React from 'react';
 import {Layout, Row, Col} from 'antd';
+import PropTypes from 'proptypes';
 import {DataTable, DataTableHeader, DragAndDrop, InsightsHeader} from '../index';
 
 const {Content} = Layout;
+const propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired,
+    toggleSidebar: PropTypes.func.isRequired,
+    collapsed: PropTypes.bool.isRequired,
+};
 
-class Spinner extends React.Component {
+class InsightContent extends React.Component {
     render() {
         if (this.props.selectedDataset) {
             return (
                 <Layout >
-                    <InsightsHeader {...this.props} collapsed={this.props.collapsed} toggleSidebar={this.props.toggleSidebar}/>
+                    <InsightsHeader {...this.props}/>
                     <Content className="insights-container" >
                         <Row className="table-selection-drop-down-container">
                             <Col className="table-selection-drop-down" span={6}><DataTableHeader {...this.props}/></Col>
@@ -27,7 +34,7 @@ class Spinner extends React.Component {
         else {
             return (
                 <Layout>
-                    <InsightsHeader {...this.props} collapsed={this.props.collapsed} toggleSidebar={this.props.toggleSidebar}/>
+                    <InsightsHeader {...this.props}/>
                     <Content className="insights-drag-drop">
                         <DragAndDrop  {...this.props}/>
                     </Content>
@@ -37,4 +44,5 @@ class Spinner extends React.Component {
     }
 }
 
-export default Spinner;
+InsightContent.proptypes = propTypes;
+export default InsightContent;
