@@ -34,23 +34,32 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   height: 100%;
 }
 
 .insights-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   overflow: hidden;
   height: 100%;
 
+  .table-selection-drop-down-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 5%;
+    margin: 0 2px;
 
-  .table-selection-drop-down {
-    margin: 10px;
-    text-align: center;
+    .table-selection-drop-down{
+      max-width: 50%;
+      margin: 0 2px;
+    }
   }
   .data-table {
-    height: 50%;
+    height: 40%;
   }
   .insight-charts {
-    height: 40%;
+    height: 55%;
   }
 }

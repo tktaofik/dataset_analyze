@@ -52,8 +52,6 @@ class InsightsContainer extends React.Component {
 
         const header = (
             <Header style={{background: '#fff', padding: 0}}>
-
-
                 <Row type="flex">
                     <Col span={20}>
                         <Icon
@@ -81,8 +79,8 @@ class InsightsContainer extends React.Component {
                     <Layout >
                         {header}
                         <Content className="insights-container" >
-                            <Row className="table-selection-drop-down">
-                                <Col span={6}><DataTableHeader {...this.props}/></Col>
+                            <Row className="table-selection-drop-down-container">
+                                <Col className="table-selection-drop-down" span={6}><DataTableHeader {...this.props}/></Col>
                             </Row>
                             <Row className="data-table">
                                 <DataTable {...this.props}/>
