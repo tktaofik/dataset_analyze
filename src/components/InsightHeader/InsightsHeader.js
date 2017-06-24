@@ -1,6 +1,7 @@
 import React from 'react';
 import {Layout, Button, Row, Col,Icon } from 'antd';
 import {setSelectedDataSetId} from '../../actions/DataActions';
+import {toggleSideBar} from '../../actions/AppActions';
 
 const {Header} = Layout;
 
@@ -12,6 +13,10 @@ class InsightsHeader extends React.Component {
         this.props.history.push('/')
     };
 
+    toggle_sideBar = () => {
+        const {dispatch} = this.props;
+        dispatch(toggleSideBar(!this.props.collapseSideBar));
+    };
 
     render() {
         return (
@@ -21,8 +26,8 @@ class InsightsHeader extends React.Component {
                         <Icon
                             style={{fontSize: 30, marginTop: 20}}
                             className="trigger"
-                            type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'}
-                            onClick={this.props.toggleSidebar}
+                            type={this.props.collapseSideBar ? 'menu-unfold' : 'menu-fold'}
+                            onClick={this.toggle_sideBar}
                         />
                     </Col>
                     <Col span={4}>

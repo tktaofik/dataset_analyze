@@ -9,10 +9,6 @@ import {hideNotification} from '../../actions/AppActions';
 const {Sider} = Layout;
 const propTypes = {};
 class InsightsContainer extends React.Component {
-    state = {
-        collapsed: false
-    };
-
     componentWillMount() {
         const {dispatch} = this.props;
         dispatch(getDataSets());
@@ -31,28 +27,17 @@ class InsightsContainer extends React.Component {
         }
     }
 
-    toggleSidebar = () => {
-        this.setState({
-            collapsed: !this.state.collapsed,
-        });
-    };
-
-    onCollapse = () => {
-       console.log("dfgds")
-    };
-
     render() {
         return (
             <Layout>
                 <Sider collapsedWidth="0"
                        defaultCollapsed="false"
-                       collapsed={this.state.collapsed}
-                       onCollapse={this.onCollapse}
+                       collapsed={this.props.collapseSideBar}
                        width="250"
                        style={{ overflow: 'auto' }}>
                     <InsightSideBar {...this.props}/>
                 </Sider>
-                <InsightContent {...this.props} collapsed={this.state.collapsed} toggleSidebar={this.toggleSidebar}/>
+                <InsightContent {...this.props}/>
                 <Spinner {...this.props}/>
             </Layout>
         );
@@ -73,6 +58,7 @@ function mapStateToProps(state, ownProps) {
     return {
         dataState: data,
         selectedDataset,
+        collapseSideBar: app.collapseSideBar,
         showSpinner: app.showSpinner,
         notification: app.notification
     };

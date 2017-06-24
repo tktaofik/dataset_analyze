@@ -1,9 +1,16 @@
 import * as types from '../constants/ActionTypes';
 
-export function showSpinner(state) {
+export function showSpinner(spinnerState) {
     return {
         type: types.SHOW_SPINNER,
-        state
+        spinnerState
+    }
+}
+
+export function toggleSideBar(collapseSideBar) {
+    return {
+        type: types.COLLAPSE_SIDE_BAR,
+        collapseSideBar
     }
 }
 
