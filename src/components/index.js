@@ -4,6 +4,9 @@ import DragAndDrop from './DragAndDrop/DragAndDrop';
 import FileList from './FileList/FileList';
 import InsightSideBar from './InsightSideBar/InsightSideBar';
 import LoginForm from './LoginForm/LoginForm';
+import InsightsHeader from './InsightHeader/InsightsHeader';
+import Spinner from './Spinner/Spinner';
+import InsightContent from './InsightContent/InsightContent';
 
 export {
     DataTable,
@@ -11,5 +14,8 @@ export {
     DragAndDrop,
     FileList,
     InsightSideBar,
-    LoginForm
+    LoginForm,
+    InsightsHeader,
+    Spinner,
+    InsightContent
 };
