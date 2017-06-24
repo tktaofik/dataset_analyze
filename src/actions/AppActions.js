@@ -6,9 +6,15 @@ export function showSpinner(state) {
         state
     }
 }
-export function notification(notification) {
+
+export function showNotification(notification) {
     return {
-        type: types.NOTIFICATION,
+        type: types.SHOW_NOTIFICATION,
         notification
+    }
+}
+export function hideNotification() {
+    return {
+        type: types.HIDE_NOTIFICATION
     }
 }

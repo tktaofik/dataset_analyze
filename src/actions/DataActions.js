@@ -1,7 +1,7 @@
 import * as types from '../constants/ActionTypes';
 import {xlsx_to_json}from '../utils/xlsx_to_json'
 import {saveDataSetAPI, getDataSetsAPI} from '../api/dataset';
-import {showSpinner, notification} from './AppActions';
+import {showSpinner, showNotification} from './AppActions';
 
 export function updateDataSets(res) {
     let datasets = res.length ? res : [];
@@ -37,8 +37,11 @@ export function saveDataSet(dataSet) {
     return (dispatch) => {
         return saveDataSetAPI(dataSet).then(dataSetRes => {
             dispatch(updateDataSets([dataSetRes]));
+            dispatch(showNotification({
+                message:dataSetRes.attributes.name
+            }));
         }).catch(error => {
-            dispatch(notification({message: "shit broke"}));
+            dispatch(showNotification({message: error}));
             throw(error);
         });
     };

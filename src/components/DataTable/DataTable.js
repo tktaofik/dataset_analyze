@@ -13,9 +13,9 @@ class DataTable extends React.Component {
         bordered: true,
         loading: false,
         pagination: true,
-        size: 'middle',
+        size: 'small',
         showHeader: true,
-        scroll: {y: 900},
+        scroll:{ x: '130%', y: 240 }
     };
 
     render() {
@@ -26,22 +26,24 @@ class DataTable extends React.Component {
         if (selectedDataset.attributes.tables.length) {
             const {rows} = selectedDataSetTable;
             const columns = [];
-            Object.keys( rows[0] ).forEach( key => {
-                if(key !== "key") {
-                    const column = {
-                        title: key,
-                        dataIndex: key,
-                        key: key,
-                        width: 300
-                    };
-                    columns.push(column);
-                }
-            });
+            if (rows[0]) {
+                Object.keys(rows[0]).forEach(key => {
+                    if (key !== "key") {
+                        const column = {
+                            title: key,
+                            dataIndex: key,
+                            key: key,
+                            width: 100
+                        };
+                        columns.push(column);
+                    }
+                });
+            }
 
             return (
                 <div className="data-table-container">
                     {selectedDataSetTable.tableName}
-                    <Table {...this.state} columns={columns} dataSource={rows}/>
+                    <Table  {...this.state} columns={columns} dataSource={rows}/>
                 </div>
             );
         } else {

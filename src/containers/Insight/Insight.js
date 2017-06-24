@@ -1,12 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Layout, Button, Row, Col, notification} from 'antd';
+import {Layout, Button, Row, Col, notification, Icon, Spin} from 'antd';
 import './Insight.css';
 import {DataTable, DataTableHeader, InsightSideBar, DragAndDrop} from '../../components';
 import {getDataSets} from '../../actions/DataActions';
-import {Spin} from 'antd';
+import {hideNotification} from '../../actions/AppActions';
 
-const {Content, Sider} = Layout;
+const {Content, Sider, Header} = Layout;
 const propTypes = {};
 class InsightsContainer extends React.Component {
 
@@ -15,16 +15,31 @@ class InsightsContainer extends React.Component {
         dispatch(getDataSets());
     }
 
-    render() {
-        if (this.props.notification){
+    componentDidUpdate() {
+        if (this.props.notification) {
+            const {dispatch} = this.props;
             const args = {
-                message: 'Notification Title',
-                description: 'I will never close automatically. I will be close automatically. I will never close automatically.',
-                duration: 3,
+                message: this.props.notification.message,
+                description: 'Data has been uploaded',
+                duration: 4.5,
             };
             notification.open(args);
+            dispatch(hideNotification())
         }
+    }
 
+    state = {
+        collapsed: false,
+        mode: 'inline',
+    };
+
+    toggleSidebar = () => {
+        this.setState({
+            collapsed: !this.state.collapsed,
+        });
+    };
+
+    render() {
         const spinner = this.props.showSpinner ? (
             <div className="spinner-container">
                 <div className="spinner">
@@ -35,42 +50,68 @@ class InsightsContainer extends React.Component {
             </div>
         ) : null;
 
+        const header = (
+            <Header style={{background: '#fff', padding: 0}}>
+
+
+                <Row type="flex">
+                    <Col span={20}>
+                        <Icon
+                            style={{fontSize: 30, marginTop: 20}}
+                            className="trigger"
+                            type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
+                            onClick={this.toggleSidebar}
+                        />
+                    </Col>
+                    <Col span={4}>
+                        <Button className="" type="primary" icon="file-add"
+                                size="large"
+                                onClick={() => {
+                                    this.props.history.push('/')
+                                }}>Add Data
+                        </Button>
+                    </Col>
+                </Row>
+            </Header>
+        );
+
         const insightContent = () => {
             if (this.props.selectedDataset) {
                 return (
-                    <Content className="insights-table">
-                        <div className="table-selection-drop-down">
-                            <Row type="flex" justify="space-around" align="middle">
-                                <Col span={12}><DataTableHeader {...this.props}/></Col>
-                                <Col span={6}><Button className="" type="primary" icon="file-add"
-                                                      onClick={() => {
-                                                          this.props.history.push('/')
-                                                      }}>Add Data</Button></Col>
+                    <Layout >
+                        {header}
+                        <Content className="insights-container" >
+                            <Row className="table-selection-drop-down">
+                                <Col span={6}><DataTableHeader {...this.props}/></Col>
                             </Row>
-                        </div>
-                        <div className="data-table">
-                            <DataTable {...this.props}/>
-                        </div>
-                        <div className="insight-charts">
-                            <h2>Show insight charts here</h2>
-                        </div>
-                    </Content>
+                            <Row className="data-table">
+                                <DataTable {...this.props}/>
+                            </Row>
+                            <Row className="insight-charts">
+                                <h2>Show insight charts here</h2>
+                            </Row>
+                        </Content>
+                    </Layout>
                 )
             }
             else {
                 return (
-                    <Content className="insights-drag-drop">
-                        <DragAndDrop  {...this.props}/>
-                    </Content>
+                    <Layout>
+                        {header}
+                        <Content className="insights-drag-drop">
+                            <DragAndDrop  {...this.props}/>
+                        </Content>
+                    </Layout>
                 )
             }
         };
 
         return (
             <Layout>
-                <Sider breakpoint="lg" collapsedWidth="0"
-                       onCollapse={(collapsed, type) => {
-                       }}>
+                <Sider collapsedWidth="0"
+                       collapsed={this.state.collapsed}
+                       onCollapse={this.onCollapse}
+                       width="250">
                     <InsightSideBar {...this.props}/>
                 </Sider>
                 {insightContent()}

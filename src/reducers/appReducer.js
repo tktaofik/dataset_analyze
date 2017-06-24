@@ -12,9 +12,14 @@ export default function appReducer(state = initialStates, action) {
                 showSpinner: action.state,
             });
 
-        case types.NOTIFICATION:
+        case types.SHOW_NOTIFICATION:
             return Object.assign({}, state, {
                 notification: action.notification,
+            });
+
+        case types.HIDE_NOTIFICATION:
+            return Object.assign({}, state, {
+                notification: false,
             });
 
         default:
