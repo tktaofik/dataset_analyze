@@ -12,7 +12,6 @@ class DataTableHeader extends React.Component {
     render() {
         return (
             <Row>
-                <Col style={{marginLeft:6, marginTop:2, textAlign:"center"}} span={2}><h4>Tables / Sheets:</h4></Col>
                 <Col span={6}>
                     <TablesSelectControl {...this.props}/>
                 </Col>

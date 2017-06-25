@@ -33,6 +33,7 @@ class TablesSelectDropDown extends React.Component {
             const selectedTableName = selectedDataset.attributes.tables[selectedTableIndex].tableName;
             return (
                 <div className="table-select-control">
+                    <div className="description"><p>Tables/Sheets:</p></div>
                     <Select
                         showSearch
                         style={{width: 200}}
