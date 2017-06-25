@@ -1,8 +1,6 @@
 import * as types from '../constants/ActionTypes';
 
-let initialStates;
-
-initialStates = {
+let initialStates = {
     showSpinner: false,
     notification: null,
     collapseSideBar: false
