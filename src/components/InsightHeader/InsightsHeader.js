@@ -48,7 +48,7 @@ class InsightsHeader extends React.Component {
                     <Col span={20}>
                         <h2 style={{textAlign:"center"}}>{dataState.selectedDataset ? dataState.selectedDataset.attributes.name : "Analyze Datasets"}</h2>
                     </Col>
-                    <Col span={2}>
+                    <Col span={2} style={{textAlign: "center"}}>
                         <AddDataButton {...this.props}/>
                     </Col>
                 </Row>
