@@ -1,6 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Layout, notification} from 'antd';
+import { Redirect } from 'react-router'
+
 import './Insight.css';
 import {InsightSideBar, InsightContent, Spinner} from '../../components';
 import {getDataSets} from '../../actions/DataActions';
@@ -28,12 +30,17 @@ class InsightsContainer extends React.Component {
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+
+    }
+
     render() {
+        const {appState} = this.props;
         return (
             <Layout>
                 <Sider collapsedWidth="0"
                        defaultCollapsed="false"
-                       collapsed={this.props.collapseSideBar}
+                       collapsed={appState.collapseSideBar}
                        width="250"
                        style={{ overflow: 'auto' }}>
                     <InsightSideBar {...this.props}/>
@@ -46,22 +53,21 @@ class InsightsContainer extends React.Component {
 }
 
 function mapStateToProps(state, ownProps) {
-    const {data, app} = state;
-    const selectedDataSetId = ownProps.match.params.datasetId ? ownProps.match.params.datasetId : data.selectedDataSetId;
+    const {dataState, appState} = state;
+    const selectedDatasetId = ownProps.match.params.datasetId ? ownProps.match.params.datasetId : dataState.selectedDatasetId;
 
-    let selectedDataset;
-    if (selectedDataSetId) {
-        selectedDataset = data.datasets.find(data => {
-            return data.id === selectedDataSetId;
+    if (selectedDatasetId && dataState) {
+        dataState.selectedDataset = dataState.datasets.find(data => {
+            return data.id === selectedDatasetId;
         });
+    }
+    else {
+        dataState.selectedDataset = null;
     }
 
     return {
-        dataState: data,
-        selectedDataset,
-        collapseSideBar: app.collapseSideBar,
-        showSpinner: app.showSpinner,
-        notification: app.notification
+        dataState,
+        appState
     };
 }
 

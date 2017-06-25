@@ -17,28 +17,32 @@ class TablesSelectDropDown extends React.Component {
     };
 
     render() {
-        const {selectedDataset} = this.props;
-        const selectedTableIndex = this.props.dataState.selectedTableIndex;
-        const tables = this.props.selectedDataset.attributes.tables.map((table, index) => {
+        const {selectedDataset, selectedTableIndex} = this.props.dataState;
+        if(selectedDataset){
+            const tables = selectedDataset.attributes.tables.map((table, index) => {
+                return (
+                    <Option key={index} value={`${index}`}>
+                        {table.tableName}
+                    </Option>
+                )
+            });
+            const selectedTableName = selectedDataset.attributes.tables[selectedTableIndex].tableName;
             return (
-                <Option key={index} value={`${index}`}>
-                    {table.tableName}
-                </Option>
+                <Select
+                    showSearch
+                    style={{width: 200}}
+                    placeholder="Select a table"
+                    optionFilterProp="children"
+                    onChange={this.changeTable}
+                    value={selectedTableName}>
+                    {tables}
+                </Select>
             )
-        });
-        const selectedTableName = selectedDataset.attributes.tables[selectedTableIndex].tableName;
-        return (
-            <Select
-                showSearch
-                style={{width: 200}}
-                placeholder="Select a table"
-                optionFilterProp="children"
-                onChange={this.changeTable}
-                value={selectedTableName}
-            >
-                {tables}
-            </Select>
-        )
+        }
+        else{
+            return null
+        }
+
     }
 }
 

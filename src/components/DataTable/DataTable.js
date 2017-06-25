@@ -19,11 +19,11 @@ class DataTable extends React.Component {
     };
 
     render() {
-        const selectedDataset = this.props.selectedDataset;
-        const tableIndex = this.props.dataState.selectedTableIndex;
-        const selectedDataSetTable = selectedDataset.attributes.tables[tableIndex];
+        const {selectedDataset} = this.props.dataState;
 
-        if (selectedDataset.attributes.tables.length) {
+        if (selectedDataset && selectedDataset.attributes.tables) {
+            const tableIndex = this.props.dataState.selectedTableIndex;
+            const selectedDataSetTable = selectedDataset.attributes.tables[tableIndex];
             const {rows} = selectedDataSetTable;
             const columns = [];
             if (rows[0]) {
@@ -46,7 +46,7 @@ class DataTable extends React.Component {
                 </div>
             );
         } else {
-            return (<div className="data-table-container">Please load table</div>);
+            return null;
         }
     }
 }

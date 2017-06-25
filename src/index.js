@@ -11,19 +11,22 @@ import {
     Switch
 } from 'react-router-dom'
 
-const App = () => (
-    <Provider store={store}>
-        <Router>
-            <div className="app-component">
-                <Switch>
-                    <Route exact path="/" component={InsightsContainer}/>
-                    <Route exact path="/:datasetId" component={InsightsContainer}/>
-                    <Route exact path="/:datasetId/:tableIndex" component={InsightsContainer}/>
-                    <Route exact path="/login" component={LoginContainer}/>
-                </Switch>
-            </div>
-        </Router>
-    </Provider>
-);
+class App extends React.Component {
+    render() {
+        return (
+            <Provider store={store}>
+                <Router>
+                    <div className="app-component">
+                        <Switch>
+                            <Route exact path="/" component={InsightsContainer}/>
+                            <Route exact path="/:datasetId" component={InsightsContainer}/>
+                            <Route exact path="/login" component={LoginContainer}/>
+                        </Switch>
+                    </div>
+                </Router>
+            </Provider>
+        )
+    }
+}
 
 ReactDOM.render(<App/>, document.getElementById('root'));

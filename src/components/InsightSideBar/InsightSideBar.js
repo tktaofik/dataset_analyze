@@ -3,7 +3,7 @@ import {Menu, Icon} from 'antd';
 import {
     Link,
 } from 'react-router-dom'
-import {setSelectedDataSetId} from '../../actions/DataActions';
+import {setSelectedDatasetId} from '../../actions/DataActions';
 
 const SubMenu = Menu.SubMenu;
 
@@ -16,12 +16,11 @@ class InsightSideBar extends React.Component {
             selectedItemId: e.key,
         });
 
-        dispatch(setSelectedDataSetId(datasetId));
+        dispatch(setSelectedDatasetId(datasetId));
     };
 
     render() {
-        const {datasets} = this.props.dataState;
-        const selectedItemId = this.props.selectedDataset ? this.props.selectedDataset.id : null;
+        const {datasets,selectedDataset} = this.props.dataState;
         const datasetList = datasets.length ? datasets.map((dataset) => {
             return (
                 <Menu.Item key={dataset.id}>
@@ -33,7 +32,7 @@ class InsightSideBar extends React.Component {
 
         return (
             <div>
-                <Menu theme="dark" mode="inline" defaultOpenKeys={['sub1']} selectedKeys={[selectedItemId]}
+                <Menu theme="dark" mode="inline" defaultOpenKeys={['sub1']} selectedKeys={[selectedDataset ? selectedDataset.id : null]}
                       onClick={this.selectDataset}>
                     <SubMenu key="sub1" title={<span><Icon type="file"/><span>Uploaded Files</span></span>}>
                         {datasetList}

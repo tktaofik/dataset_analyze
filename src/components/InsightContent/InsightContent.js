@@ -13,13 +13,14 @@ const propTypes = {
 
 class InsightContent extends React.Component {
     render() {
-        if (this.props.selectedDataset) {
+        if (this.props.dataState.selectedDataset) {
             return (
                 <Layout >
                     <InsightsHeader {...this.props}/>
                     <Content className="insights-container" >
                         <Row className="table-selection-drop-down-container">
-                            <Col className="table-selection-drop-down" span={6}><DataTableHeader {...this.props}/></Col>
+                            <Col style={{marginLeft:6, marginTop:2, textAlign:"center"}} span={2}><h4>Tables / Sheets:</h4></Col>
+                            <Col className="table-selection-drop-down" span={4}><DataTableHeader {...this.props}/></Col>
                         </Row>
                         <Row className="data-table">
                             <DataTable {...this.props}/>

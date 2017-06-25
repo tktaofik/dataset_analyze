@@ -1,6 +1,6 @@
 import React from 'react';
 import {Layout, Button, Row, Col, Icon} from 'antd';
-import {setSelectedDataSetId} from '../../actions/DataActions';
+import {setSelectedDatasetId} from '../../actions/DataActions';
 import {collapseSideBar} from '../../actions/AppActions';
 
 const {Header} = Layout;
@@ -8,12 +8,14 @@ const {Header} = Layout;
 class AddDataButton extends React.Component {
     navigateToAddData = () => {
         const {dispatch} = this.props;
-        dispatch(setSelectedDataSetId(null));
+        dispatch(setSelectedDatasetId(null));
         this.props.history.push('/')
     };
 
     render() {
-        if (this.props.selectedDataset){
+        const {dataState} = this.props;
+
+        if (dataState.selectedDataset){
             return (
                 <Button className="" type="primary" icon="file-add" size="large" onClick={this.navigateToAddData}>
                     Add Data
@@ -28,11 +30,12 @@ class AddDataButton extends React.Component {
 
 class InsightsHeader extends React.Component {
     toggle_sideBar = () => {
-        const {dispatch} = this.props;
-        dispatch(collapseSideBar(!this.props.collapseSideBar));
+        const {dispatch, appState} = this.props;
+        dispatch(collapseSideBar(!appState.collapseSideBar));
     };
 
     render() {
+        const {appState, dataState} = this.props;
         return (
             <Header style={{background: '#fff', padding: 0}}>
                 <Row type="flex" justify="center">
@@ -40,12 +43,12 @@ class InsightsHeader extends React.Component {
                         <Icon
                             style={{fontSize: 30, marginTop: 20}}
                             className="trigger"
-                            type={this.props.collapseSideBar ? 'menu-unfold' : 'menu-fold'}
+                            type={appState.collapseSideBar ? 'menu-unfold' : 'menu-fold'}
                             onClick={this.toggle_sideBar}
                         />
                     </Col>
                     <Col span={16}>
-                        <h2 style={{textAlign:"center"}}>{this.props.selectedDataset ? this.props.selectedDataset.attributes.name : "Analyze Datasets"}</h2>
+                        <h2 style={{textAlign:"center"}}>{dataState.selectedDataset ? dataState.selectedDataset.attributes.name : "Analyze Datasets"}</h2>
                     </Col>
                     <Col span={4}>
                         <AddDataButton {...this.props}/>
