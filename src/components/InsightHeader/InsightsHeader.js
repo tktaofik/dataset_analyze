@@ -41,7 +41,7 @@ class InsightsHeader extends React.Component {
                 <Row type="flex" justify="center">
                     <Col span={4}>
                         <Icon
-                            style={{fontSize: 30, marginTop: 20}}
+                            style={{fontSize: 30}}
                             className="trigger"
                             type={appState.collapseSideBar ? 'menu-unfold' : 'menu-fold'}
                             onClick={this.toggle_sideBar}

@@ -1,12 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Layout, notification} from 'antd';
-import { Redirect } from 'react-router'
-
-import './Insight.css';
+import {Redirect, Route} from 'react-router-dom'
 import {InsightSideBar, InsightContent, Spinner} from '../../components';
 import {getDataSets} from '../../actions/DataActions';
 import {hideNotification} from '../../actions/AppActions';
+import './Insight.css';
 
 const {Sider} = Layout;
 const propTypes = {};
@@ -30,10 +29,6 @@ class InsightsContainer extends React.Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-
-    }
-
     render() {
         const {appState} = this.props;
         return (
@@ -42,7 +37,7 @@ class InsightsContainer extends React.Component {
                        defaultCollapsed="false"
                        collapsed={appState.collapseSideBar}
                        width="250"
-                       style={{ overflow: 'auto' }}>
+                       style={{overflow: 'auto'}}>
                     <InsightSideBar {...this.props}/>
                 </Sider>
                 <InsightContent {...this.props}/>
