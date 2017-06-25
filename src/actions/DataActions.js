@@ -10,7 +10,7 @@ export function appendToDatasets(dataset) {
     }
 }
 
-export function setSelectedDataSetId(datasetId) {
+export function setSelectedDatasetId(datasetId) {
     return {
         type: types.SET_SELECTED_DATASET_ID,
         datasetId
@@ -21,16 +21,19 @@ export function addFile(uploadedFile) {
     return (dispatch) => {
         dispatch(showSpinner(true));
         dispatch(collapseSideBar(true));
-        return xlsx_to_json(uploadedFile)
-            .then(dataSet => {
-                dispatch(collapseSideBar(false));
-                dispatch(saveDataSet(dataSet));
-                dispatch(showSpinner(false));
-            })
-            .catch(error => {
-                dispatch(showSpinner(false));
-                throw(error);
-            })
+        setTimeout(()=>{
+            return xlsx_to_json(uploadedFile)
+                .then(dataSet => {
+                    dispatch(collapseSideBar(true));
+                    dispatch(saveDataSet(dataSet));
+                    dispatch(showSpinner(false));
+                })
+                .catch(error => {
+                    dispatch(showSpinner(false));
+                    throw(error);
+                })
+        }, 300);
+
     };
 }
 
@@ -42,7 +45,7 @@ export function saveDataSet(dataSet) {
             dispatch(collapseSideBar(false));
             dispatch(showSpinner(false));
             dispatch(appendToDatasets([dataset]));
-            dispatch(setSelectedDataSetId(dataset.id));
+            dispatch(setSelectedDatasetId(dataset.id));
             dispatch(showNotification({
                 message: dataset.attributes.name,
                 description: `${dataset.attributes.name} has been uploaded`,

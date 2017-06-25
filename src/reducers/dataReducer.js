@@ -3,10 +3,10 @@ import * as types from '../constants/ActionTypes';
 let initialStates = {
     datasets: [],
     selectedTableIndex: 0,
-    selectedDataSetId: null
+    selectedDatasetId: null
 };
 
-export default function addDataReducer(state = initialStates, action) {
+export default function dataState(state = initialStates, action) {
     switch (action.type) {
         case types.SHOW_SPINNER:
             return Object.assign({}, state, {
@@ -19,7 +19,7 @@ export default function addDataReducer(state = initialStates, action) {
 
         case types.SET_SELECTED_DATASET_ID:
             return Object.assign({}, state, {
-                selectedDataSetId: action.datasetId,
+                selectedDatasetId: action.datasetId,
                 selectedTableIndex: 0
             });
 

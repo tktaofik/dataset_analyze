@@ -6,7 +6,7 @@ let initialStates = {
     collapseSideBar: false
 };
 
-export default function appReducer(state = initialStates, action) {
+export default function appState(state = initialStates, action) {
     switch (action.type) {
         case types.SHOW_SPINNER:
             return Object.assign({}, state, {
