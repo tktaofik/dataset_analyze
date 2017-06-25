@@ -1,0 +1,10 @@
+.table-select-control {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+
+    .delete-button{
+        left: 5px;
+        top: 3px;
+    }
+}

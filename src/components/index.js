@@ -1,8 +1,7 @@
 import DataTable from './DataTable/DataTable';
 import DataTableHeader from './DataTableHeader/DataTableHeader';
-import TablesSelectDropDown from './TablesSelectDropDown/TablesSelectDropDown';
+import TablesSelectControl from './TablesSelectControl/TablesSelectControl';
 import DragAndDrop from './DragAndDrop/DragAndDrop';
-import FileList from './FileList/FileList';
 import InsightSideBar from './InsightSideBar/InsightSideBar';
 import LoginForm from './LoginForm/LoginForm';
 import InsightsHeader from './InsightHeader/InsightsHeader';
@@ -13,11 +12,10 @@ export {
     DataTable,
     DataTableHeader,
     DragAndDrop,
-    FileList,
     InsightSideBar,
     LoginForm,
     InsightsHeader,
     Spinner,
     InsightContent,
-    TablesSelectDropDown
+    TablesSelectControl
 };

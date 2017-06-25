@@ -1,6 +1,6 @@
 import React from 'react';
 import {Row, Col} from 'antd';
-import {TablesSelectDropDown} from '../index';
+import {TablesSelectControl} from '../index';
 import PropTypes from 'proptypes';
 
 const propTypes = {
@@ -11,13 +11,12 @@ const propTypes = {
 class DataTableHeader extends React.Component {
     render() {
         return (
-            <div className="gutter-example">
-                <Row gutter={16}>
-                    <Col className="gutter-row" span={8}>
-                        <TablesSelectDropDown {...this.props}/>
-                    </Col>
-                </Row>
-            </div>
+            <Row>
+                <Col style={{marginLeft:6, marginTop:2, textAlign:"center"}} span={2}><h4>Tables / Sheets:</h4></Col>
+                <Col span={6}>
+                    <TablesSelectControl {...this.props}/>
+                </Col>
+            </Row>
         );
     }
 }

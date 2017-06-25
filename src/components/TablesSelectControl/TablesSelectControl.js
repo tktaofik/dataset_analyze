@@ -1,8 +1,8 @@
 import React from 'react';
-import {Select} from 'antd';
+import {Select, Button} from 'antd';
 import PropTypes from 'proptypes';
 import {switchTable} from '../../actions/DataActions';
-import '../DataTable/DataTable.css';
+import './TablesSelectControl.css';
 
 const Option = Select.Option;
 const propTypes = {
@@ -16,6 +16,10 @@ class TablesSelectDropDown extends React.Component {
         dispatch(switchTable(tableIndex));
     };
 
+    deleteTable = () => {
+        console.log('delete table')
+    }
+
     render() {
         const {selectedDataset, selectedTableIndex} = this.props.dataState;
         if(selectedDataset){
@@ -28,15 +32,23 @@ class TablesSelectDropDown extends React.Component {
             });
             const selectedTableName = selectedDataset.attributes.tables[selectedTableIndex].tableName;
             return (
-                <Select
-                    showSearch
-                    style={{width: 200}}
-                    placeholder="Select a table"
-                    optionFilterProp="children"
-                    onChange={this.changeTable}
-                    value={selectedTableName}>
-                    {tables}
-                </Select>
+                <div className="table-select-control">
+                    <Select
+                        showSearch
+                        style={{width: 200}}
+                        placeholder="Select a table"
+                        optionFilterProp="children"
+                        onChange={this.changeTable}
+                        value={selectedTableName}>
+                        {tables}
+                    </Select>
+                    <Button 
+                        type="primary"
+                        className="delete-button"
+                        icon="delete"
+                        size="small"
+                        onClick={this.deleteTable}/>
+                </div>
             );
         }
         else{
