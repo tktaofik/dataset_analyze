@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Layout, notification} from 'antd';
-import {Redirect, Route} from 'react-router-dom'
 import {InsightSideBar, InsightContent, Spinner} from '../../components';
 import {getDataSets} from '../../actions/DataActions';
 import {hideNotification} from '../../actions/AppActions';
@@ -36,7 +35,7 @@ class InsightsContainer extends React.Component {
                 <Sider collapsedWidth="0"
                        defaultCollapsed="false"
                        collapsed={appState.collapseSideBar}
-                       width="250"
+                       width="225"
                        style={{overflow: 'auto'}}>
                     <InsightSideBar {...this.props}/>
                 </Sider>

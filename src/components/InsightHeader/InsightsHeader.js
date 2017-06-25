@@ -17,9 +17,7 @@ class AddDataButton extends React.Component {
 
         if (dataState.selectedDataset){
             return (
-                <Button className="" type="primary" icon="file-add" size="large" onClick={this.navigateToAddData}>
-                    Add Data
-                </Button>
+                <Button className="" type="primary" icon="file-add" size="large" onClick={this.navigateToAddData}/>
             );
         }
         else {
@@ -39,7 +37,7 @@ class InsightsHeader extends React.Component {
         return (
             <Header style={{background: '#fff', padding: 0}}>
                 <Row type="flex" justify="center">
-                    <Col span={4}>
+                    <Col span={2}>
                         <Icon
                             style={{fontSize: 30}}
                             className="trigger"
@@ -47,10 +45,10 @@ class InsightsHeader extends React.Component {
                             onClick={this.toggle_sideBar}
                         />
                     </Col>
-                    <Col span={16}>
+                    <Col span={20}>
                         <h2 style={{textAlign:"center"}}>{dataState.selectedDataset ? dataState.selectedDataset.attributes.name : "Analyze Datasets"}</h2>
                     </Col>
-                    <Col span={4}>
+                    <Col span={2}>
                         <AddDataButton {...this.props}/>
                     </Col>
                 </Row>
