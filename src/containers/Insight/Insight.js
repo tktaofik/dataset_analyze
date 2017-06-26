@@ -15,15 +15,21 @@ class InsightsContainer extends React.Component {
     }
 
     componentDidUpdate() {
-        if (this.props.notification) {
-            const {dispatch} = this.props;
+        const {appState, dispatch} = this.props;
+        if (appState.notification) {
             const args = {
-                message: this.props.notification.message,
-                description: this.props.notification.description,
+                message: appState.notification.message,
+                description: appState.notification.description,
                 duration: 4.5,
-                placement: 'topLeft',
+                placement: 'topRight',
             };
-            notification.open(args);
+
+            if(appState.notification.type){
+                notification[appState.notification.type](args);
+            }
+            else{
+                notification.open(args);
+            }
             dispatch(hideNotification())
         }
     }

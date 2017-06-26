@@ -1,5 +1,5 @@
 import React from 'react';
-import {Layout, Row, Col} from 'antd';
+import {Layout, Row} from 'antd';
 import PropTypes from 'proptypes';
 import {DataTable, DataTableHeader, DragAndDrop, InsightsHeader} from '../index';
 
@@ -44,8 +44,3 @@ class InsightContent extends React.Component {
 
 InsightContent.proptypes = propTypes;
 export default InsightContent;
-
-// <Row className="table-selection-drop-down-container">
-//     <Col style={{marginLeft:6, marginTop:2, textAlign:"center"}} span={2}><h4>Tables / Sheets:</h4></Col>
-//     <Col className="table-selection-drop-down" span={4}><DataTableHeader {...this.props}/></Col>
-// </Row>

@@ -5,7 +5,6 @@ import {Spin} from 'antd';
 class Spinner extends React.Component {
     render() {
         const {appState} = this.props;
-
         if (appState.showSpinner) {
             return (
                 <div className="spinner-container">
