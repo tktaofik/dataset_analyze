@@ -13,6 +13,7 @@ const propTypes = {
 
 class InsightContent extends React.Component {
     render() {
+        console.log(this.props.dataState);
         if (this.props.dataState.selectedDataset) {
             return (
                 <Layout >
@@ -44,8 +45,3 @@ class InsightContent extends React.Component {
 
 InsightContent.proptypes = propTypes;
 export default InsightContent;
-
-// <Row className="table-selection-drop-down-container">
-//     <Col style={{marginLeft:6, marginTop:2, textAlign:"center"}} span={2}><h4>Tables / Sheets:</h4></Col>
-//     <Col className="table-selection-drop-down" span={4}><DataTableHeader {...this.props}/></Col>
-// </Row>

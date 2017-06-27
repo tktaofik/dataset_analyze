@@ -21,7 +21,7 @@ export function addFile(uploadedFile) {
     return (dispatch) => {
         dispatch(showSpinner(true));
         dispatch(collapseSideBar(true));
-        setTimeout(()=>{
+        setTimeout(() => {
             return xlsx_to_json(uploadedFile)
                 .then(dataSet => {
                     dispatch(collapseSideBar(true));
@@ -49,7 +49,8 @@ export function saveDataSet(dataSet) {
             dispatch(showNotification({
                 message: dataset.attributes.name,
                 description: `${dataset.attributes.name} has been uploaded`,
-                duration: 4.5
+                duration: 4.5,
+                type: "success"
             }));
 
         }).catch(error => {
