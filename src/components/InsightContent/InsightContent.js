@@ -13,6 +13,7 @@ const propTypes = {
 
 class InsightContent extends React.Component {
     render() {
+        console.log(this.props.dataState);
         if (this.props.dataState.selectedDataset) {
             return (
                 <Layout >

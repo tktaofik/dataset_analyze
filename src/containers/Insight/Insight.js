@@ -36,6 +36,10 @@ class InsightsContainer extends React.Component {
 
     render() {
         const {appState} = this.props;
+        let spinner = appState.showSpinner ? <Spinner/> : null
+
+        console.log(appState.showSpinner);
+
         return (
             <Layout>
                 <Sider collapsedWidth="0"
@@ -46,7 +50,7 @@ class InsightsContainer extends React.Component {
                     <InsightSideBar {...this.props}/>
                 </Sider>
                 <InsightContent {...this.props}/>
-                <Spinner {...this.props}/>
+                {spinner}
             </Layout>
         );
     }
