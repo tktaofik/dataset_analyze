@@ -1,32 +1,26 @@
-package dataset
+package file
 
 import (
 	"net/http"
 
 	"github.com/labstack/echo"
 
-	"github.com/tktaofik/qlik_analyze/api/dao"
-	model "github.com/tktaofik/qlik_analyze/api/models"
 )
 
-type Dataset struct {}
+type Controller struct {}
 
-type DatasetHandler interface {
-	GetDatasets() error
-	SaveDataSet() error
-}
 
-func (ctrl Dataset) Welcome(c echo.Context) error {
+func (ctrl Controller) Welcome(c echo.Context) error {
 	return c.String(http.StatusOK, "Qlik Analyze")
 }
 
-func (ctrl Dataset) GetDatasets(c echo.Context) error {
+func (ctrl Controller) GetFiles(c echo.Context) error {
 	result, _ := dao.GetDatasets()
 
 	return c.JSON(http.StatusOK, result)
 }
 
-func (ctrl Dataset) SaveDataSet(c echo.Context) error {
+func (ctrl Controller) SaveFile(c echo.Context) error {
 	dataset := new(model.Dataset)
 
 	if err := c.Bind(dataset); err != nil {

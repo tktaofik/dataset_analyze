@@ -1,4 +1,4 @@
-package dataset
+package file
 
 func SampleDataset() string  {
 	return `{
