@@ -6,10 +6,11 @@ import (
 	controller "github.com/tktaofik/qlik_analyze/api/controllers"
 )
 
-
 func Init(r *echo.Echo)  {
-	r.GET("/", controller.Welcome)
-	r.GET("/api/datasets/", controller.GetDatasets)
-	r.POST("/api/datasets/", controller.SaveDataSet)
-	r.PUT("/api/datasets/:id", controller.SaveDataSet)
+	datasetCtrl := controller.Dataset{}
+
+	r.GET("/", datasetCtrl.Welcome)
+	r.GET("/api/datasets/", datasetCtrl.GetDatasets)
+	r.POST("/api/datasets/", datasetCtrl.SaveDataSet)
+	r.PUT("/api/datasets/:id", datasetCtrl.SaveDataSet)
 }
