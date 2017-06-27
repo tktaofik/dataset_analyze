@@ -1,4 +1,4 @@
-package test_data
+package dataset
 
 func SampleDataset() string  {
 	return `{

@@ -1,4 +1,4 @@
-package controllers
+package dataset
 
 import (
 	"net/http"
@@ -8,16 +8,14 @@ import (
 	"github.com/labstack/echo"
 	"github.com/tktaofik/qlik_analyze/api/models"
 	"github.com/stretchr/testify/assert"
-	"github.com/tktaofik/qlik_analyze/api/test_data"
-	"strings"
-)
 
-var (
-	controller = Dataset{}
+	"github.com/tktaofik/qlik_analyze/api/testdata"
 )
 
 func TestSaveDataSet(t *testing.T) {
 	api := echo.New()
+
+	payload := []byte(testdata.SampleDataset())
 	expected_res := &models.Dataset{}
 	err := json.Unmarshal([]byte(test_data.SampleDataset()), &expected_res)
 	if err != nil {
