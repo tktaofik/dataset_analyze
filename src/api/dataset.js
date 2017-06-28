@@ -18,7 +18,7 @@ export function saveDataSetAPI(data) {
     };
 
     return new Promise((resolve, reject) => {
-        axios(ajaxConfig('post', '/api/datasets/', body)).then(function (response) {
+        axios(ajaxConfig('post', '/api/v1/datasets/', body)).then(function (response) {
             if (response.status === 201) {
                 resolve(response.data);
             }
@@ -32,7 +32,7 @@ export function saveDataSetAPI(data) {
 }
 
 export function getDataSetsAPI() {
-    return fetch('http://localhost:8081/api/datasets/', {
+    return fetch('http://localhost:8081/api/v1/datasets/', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',

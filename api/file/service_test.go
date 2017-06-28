@@ -13,7 +13,7 @@ import (
 
 var (
 	api = echo.New()
-	s = service{}
+	s   = new(service)
 )
 
 func TestSaveFileAsDataset(t *testing.T) {
@@ -50,7 +50,6 @@ func TestSaveFileAsDataset(t *testing.T) {
 	}
 }
 
-
 func TestGetDatasets(t *testing.T) {
 	req := httptest.NewRequest(echo.GET, "/", nil)
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
@@ -59,7 +58,7 @@ func TestGetDatasets(t *testing.T) {
 	c := api.NewContext(req, res)
 	c.SetPath("api/v1/datasets/")
 
-	if assert.NoError(t,  s.GetDatasets(c), "Unable to make GetDatasets GET request") {
+	if assert.NoError(t, s.GetDatasets(c), "Unable to make GetDatasets GET request") {
 		var resBody Datasets
 		err := json.Unmarshal(res.Body.Bytes(), &resBody)
 		if err != nil {
@@ -67,7 +66,7 @@ func TestGetDatasets(t *testing.T) {
 		}
 
 		assert.Equal(t, http.StatusOK, res.Code, "Expected status code 200")
-		assert.IsType(t , Datasets{}, resBody, "Expected data type Dataset")
+		assert.IsType(t, Datasets{}, resBody, "Expected data type Dataset")
 		assert.NotEmpty(t, resBody, "Expected response body to not be empty")
 	}
 }

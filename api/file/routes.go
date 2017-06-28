@@ -5,7 +5,7 @@ import (
 )
 
 func Init(h *echo.Echo)  {
-	s := service{}
+	s := new(service)
 
 	h.GET("/api/v1/datasets/", s.GetDatasets)
 	h.POST("/api/v1/datasets/", s.SaveFileAsDataset)
