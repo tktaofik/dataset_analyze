@@ -4,7 +4,7 @@ import (
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 
-	"github.com/tktaofik/qlik_analyze/api/routes"
+	"github.com/tktaofik/qlik_analyze/api/file"
 )
 
 func main() {
@@ -22,7 +22,7 @@ func startServer(port string, server *echo.Echo)  {
 		AllowMethods: []string{echo.GET, echo.PUT, echo.POST, echo.DELETE},
 	}))
 
-	routes.Init(server)
+	file.Init(server)
 
 	server.Logger.Fatal(server.Start(":" + port))
 }

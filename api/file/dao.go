@@ -5,18 +5,17 @@ import (
 	"errors"
 
 	"github.com/tktaofik/qlik_analyze/api/config"
-	model "github.com/tktaofik/qlik_analyze/api/models"
 	"gopkg.in/mgo.v2/bson"
 )
 
-const collection string = "datasets"
+const collection string = "file"
 
-//Todo: make this more general for other collections
+type Dao struct{}
 
-// Get all the datasets
-func GetDatasets() (model.Datasets, error) {
-	datasets := model.Datasets{}
-	
+// Get all datasets
+func (d Dao) GetDatasets() (Datasets, error) {
+	datasets := Datasets{}
+
 	db := config.DB{}
 	s, err := db.DoDial()
 	if err != nil {
@@ -36,8 +35,8 @@ func GetDatasets() (model.Datasets, error) {
 	return datasets, err
 }
 
-// Create a new dataset
-func CreateDataSet(dataset model.Dataset) (model.Dataset, error) {
+// Save File As Dataset
+func (d Dao) SaveFileAsDataset(dataset Dataset) (Dataset, error) {
 	dataset.Id = bson.NewObjectId()
 	dataset.CreatedAt = time.Now()
 

@@ -5,32 +5,33 @@ import (
 	"net/http/httptest"
 	"encoding/json"
 	"testing"
-	"github.com/labstack/echo"
-	"github.com/tktaofik/qlik_analyze/api/models"
-	"github.com/stretchr/testify/assert"
+	"strings"
 
-	"github.com/tktaofik/qlik_analyze/api/testdata"
+	"github.com/labstack/echo"
+	"github.com/stretchr/testify/assert"
 )
 
-func TestSaveDataSet(t *testing.T) {
-	api := echo.New()
+var (
+	api = echo.New()
+	s = service{}
+)
 
-	payload := []byte(testdata.SampleDataset())
-	expected_res := &models.Dataset{}
-	err := json.Unmarshal([]byte(test_data.SampleDataset()), &expected_res)
+func TestSaveFileAsDataset(t *testing.T) {
+	expected_res := &Dataset{}
+	err := json.Unmarshal([]byte(SampleDataset()), &expected_res)
 	if err != nil {
 		t.Error("Unable to marshal TestSaveDataSet expected JSON response'")
 	}
 
-	req := httptest.NewRequest(echo.POST, "/", strings.NewReader(test_data.SampleDataset()))
+	req := httptest.NewRequest(echo.POST, "/", strings.NewReader(SampleDataset()))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	res := httptest.NewRecorder()
 
 	c := api.NewContext(req, res)
-	c.SetPath("api/datasets/")
+	c.SetPath("api/v1/datasets/")
 
-	if assert.NoError(t, controller.SaveDataSet(c), "Unable to make SaveDataSet POST request") {
-		var resBody models.Dataset
+	if assert.NoError(t, s.SaveFileAsDataset(c), "Unable to make SaveDataSet POST request") {
+		var resBody Dataset
 		err := json.Unmarshal(res.Body.Bytes(), &resBody)
 		if err != nil {
 			t.Error("Unable to SaveDataSet unmarshal JSON response body'")
@@ -50,25 +51,23 @@ func TestSaveDataSet(t *testing.T) {
 }
 
 
-func TestGetUser(t *testing.T) {
-	api := echo.New()
-
+func TestGetDatasets(t *testing.T) {
 	req := httptest.NewRequest(echo.GET, "/", nil)
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	res := httptest.NewRecorder()
 
 	c := api.NewContext(req, res)
-	c.SetPath("api/datasets/")
+	c.SetPath("api/v1/datasets/")
 
-	if assert.NoError(t,  controller.GetDatasets(c), "Unable to make GetDatasets GET request") {
-		var resBody models.Datasets
+	if assert.NoError(t,  s.GetDatasets(c), "Unable to make GetDatasets GET request") {
+		var resBody Datasets
 		err := json.Unmarshal(res.Body.Bytes(), &resBody)
 		if err != nil {
 			t.Error("Unable to GetDatasets unmarshal JSON response body'")
 		}
 
 		assert.Equal(t, http.StatusOK, res.Code, "Expected status code 200")
-		assert.IsType(t , models.Datasets{}, resBody, "Expected data type Dataset")
+		assert.IsType(t , Datasets{}, resBody, "Expected data type Dataset")
 		assert.NotEmpty(t, resBody, "Expected response body to not be empty")
 	}
 }
