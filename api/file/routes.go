@@ -1,34 +1,40 @@
 package file
 
 import (
+	"net/http"
+
 	"github.com/labstack/echo"
 )
 
-func Init(r *echo.Echo)  {
-	s := new(service)
+var (
+	s = new(service)
+)
 
-	r.GET("/api/v1/datasets/", s.GetDatasets)
-	r.POST("/api/v1/datasets/", s.SaveFileAsDataset)
+func Init(r *echo.Echo)  {
+	r.GET("/api/v1/datasets/", getDatasetsHandler)
+	r.POST("/api/v1/datasets/", saveFileAsDatasetHandler)
 }
 
-//type registerIncidentRequest struct {
-//	ID             cargo.TrackingID
-//	Location       location.UNLocode
-//	Voyage         voyage.Number
-//	EventType      cargo.HandlingEventType
-//	CompletionTime time.Time
-//}
-//
-//type registerIncidentResponse struct {
-//	Err error `json:"error,omitempty"`
-//}
-//
-//func (r registerIncidentResponse) error() error { return r.Err }
-//
-//func makeRegisterIncidentEndpoint(hs Service) endpoint.Endpoint {
-//	return func(ctx context.Context, request interface{}) (interface{}, error) {
-//		req := request.(registerIncidentRequest)
-//		err := hs.RegisterHandlingEvent(req.CompletionTime, req.ID, req.Voyage, req.Location, req.EventType)
-//		return registerIncidentResponse{Err: err}, nil
-//	}
-//}
+func saveFileAsDatasetHandler(c echo.Context) error {
+	dataset := new(Dataset)
+
+	if err := c.Bind(dataset); err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, "Unable to Bind request body to a dataset data type")
+	}
+
+	result, err := s.SaveFileAsDataset(*dataset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err)
+	}
+
+	return c.JSON(http.StatusCreated, result)
+}
+
+func getDatasetsHandler(c echo.Context) error {
+	result, err := s.GetDatasets()
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err)
+	}
+
+	return c.JSON(http.StatusOK, result)
+}

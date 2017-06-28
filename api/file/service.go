@@ -2,21 +2,18 @@
 package file
 
 import (
-	"net/http"
 	"time"
+	"errors"
 	"gopkg.in/mgo.v2/bson"
-
-	"github.com/labstack/echo"
 )
 
-
 type Service interface {
-	SaveFileAsDataset(c echo.Context) (error)
-	GetDatasets(c echo.Context) (error)
+	SaveFileAsDataset(d Dataset) (Dataset, error)
+	GetDatasets() (Datasets, error)
 }
 
 type Dataset struct {
-	Id        bson.ObjectId 		`json:"id,omitempty" bson:"_id,omitempty" `
+	Id        bson.ObjectId        `json:"id,omitempty" bson:"_id,omitempty" `
 	CreatedAt time.Time             `json:"created_at"`
 	Type      string                `json:"type"`
 	Attributes struct {
@@ -39,22 +36,20 @@ type service struct {
 	Dao
 }
 
-func (s service) SaveFileAsDataset(c echo.Context) error {
-	dataset := new(Dataset)
-
-	if err := c.Bind(dataset); err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, "Unable to Bind SaveDataSet request body to dataset model struct")
+func (s service) SaveFileAsDataset(d Dataset) (Dataset, error) {
+	result, err := s.Dao.SaveFileAsDataset(d)
+	if err != nil {
+		return d, errors.New("Unable to save file as a  dataset source")
 	}
 
-	result, err := s.Dao.SaveFileAsDataset(*dataset); if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, "Unable to create dataset source")
-	}
-
-	return c.JSON(http.StatusCreated, result)
+	return result, nil
 }
 
-func (s service) GetDatasets(c echo.Context) error {
-	result, _ := s.Dao.GetDatasets()
+func (s service) GetDatasets() (Datasets, error) {
+	result, err := s.Dao.GetDatasets()
+	if err != nil {
+		return result, errors.New("Unable to save file as a  dataset source")
+	}
 
-	return c.JSON(http.StatusOK, result)
+	return result, nil
 }

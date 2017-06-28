@@ -13,28 +13,26 @@ import (
 
 var (
 	api = echo.New()
-	s   = new(service)
 )
 
 func TestSaveFileAsDataset(t *testing.T) {
-	expected_res := &Dataset{}
-	err := json.Unmarshal([]byte(sampleDataset()), &expected_res)
-	if err != nil {
-		t.Error("Unable to marshal TestSaveDataSet expected JSON response'")
-	}
+	res := httptest.NewRecorder()
 
 	req := httptest.NewRequest(echo.POST, "/", strings.NewReader(sampleDataset()))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
-	res := httptest.NewRecorder()
 
 	c := api.NewContext(req, res)
 	c.SetPath("api/v1/datasets/")
 
-	if assert.NoError(t, s.SaveFileAsDataset(c), "Unable to make SaveDataSet POST request") {
-		var resBody Dataset
-		err := json.Unmarshal(res.Body.Bytes(), &resBody)
-		if err != nil {
-			t.Error("Unable to SaveDataSet unmarshal JSON response body'")
+	if assert.NoError(t, saveFileAsDatasetHandler(c), "saveFileAsDatasetHandler Failing") {
+		resBody, expected_res := new(Dataset), new(Dataset)
+
+		if err := json.Unmarshal([]byte(sampleDataset()), &expected_res); err != nil {
+			t.Error("Unable to marshal TestSaveFileAsDataset expected JSON response'")
+		}
+
+		if err := json.Unmarshal(res.Body.Bytes(), &resBody); err != nil {
+			t.Error("Unable to unmarshal TestSaveFileAsDataset JSON response body to type Dataset type")
 		}
 
 		assert.Equal(t, http.StatusCreated, res.Code)
@@ -51,27 +49,28 @@ func TestSaveFileAsDataset(t *testing.T) {
 }
 
 func TestGetDatasets(t *testing.T) {
+	res := httptest.NewRecorder()
+
 	req := httptest.NewRequest(echo.GET, "/", nil)
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
-	res := httptest.NewRecorder()
 
 	c := api.NewContext(req, res)
 	c.SetPath("api/v1/datasets/")
 
-	if assert.NoError(t, s.GetDatasets(c), "Unable to make GetDatasets GET request") {
-		var resBody Datasets
-		err := json.Unmarshal(res.Body.Bytes(), &resBody)
-		if err != nil {
-			t.Error("Unable to GetDatasets unmarshal JSON response body'")
+	if assert.NoError(t, getDatasetsHandler(c), "getDatasetsHandler Failing") {
+		resBody, expected_res := new(Datasets), new(Datasets)
+
+		if err := json.Unmarshal(res.Body.Bytes(), &resBody); err != nil {
+			t.Error("Unable to unmarshal TestGetDatasets JSON response body'")
 		}
 
 		assert.Equal(t, http.StatusOK, res.Code, "Expected status code 200")
-		assert.IsType(t, Datasets{}, resBody, "Expected data type Dataset")
+		assert.IsType(t, expected_res, resBody, "Expected data type Dataset")
 		assert.NotEmpty(t, resBody, "Expected response body to not be empty")
 	}
 }
 
-func sampleDataset() string  {
+func sampleDataset() string {
 	return `{
   "type": "dataset",
   "attributes": {
