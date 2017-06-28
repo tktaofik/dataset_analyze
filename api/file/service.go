@@ -1,4 +1,5 @@
-// Package file provides the use-case of creating a dataset, updating, deleting and analyzing a file
+// Package file provides the use-case of creating a dataset, updating, deleting
+// and analyzing a dataset obtained from a file
 package file
 
 import (
@@ -7,7 +8,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-type ServiceType interface {
+type ServiceObj interface {
 	SaveFileAsDataset(d Dataset) (Dataset, error)
 	GetDatasets() (Datasets, error)
 }
@@ -37,7 +38,7 @@ type Service struct {
 }
 
 func (s Service) SaveFileAsDataset(d Dataset) (Dataset, error) {
-	result, err := s.Dao.SaveFileAsDataset(d)
+	result, err := s.Dao.SaveDataset(d)
 	if err != nil {
 		return d, errors.New("Unable to save file as a  dataset source")
 	}

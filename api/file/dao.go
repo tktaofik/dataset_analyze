@@ -12,7 +12,6 @@ const collection string = "file"
 
 type Dao struct{}
 
-// Get all datasets
 func (d Dao) GetDatasets() (Datasets, error) {
 	datasets := Datasets{}
 
@@ -35,8 +34,27 @@ func (d Dao) GetDatasets() (Datasets, error) {
 	return datasets, err
 }
 
-// Save File As Dataset
-func (d Dao) SaveFileAsDataset(dataset Dataset) (Dataset, error) {
+func (d Dao) GetDatasetById(id string) (Dataset, error) {
+	dataset := Dataset{}
+
+	db := config.DB{}
+	s, err := db.DoDial()
+	if err != nil {
+		return dataset, errors.New("There was an error trying to connect with the DB.")
+	}
+
+	defer s.Close()
+
+	c := s.DB(db.Name()).C(collection)
+
+	if err := c.Find(bson.M{"_id": bson.ObjectIdHex(id)}).One(&dataset); err!= nil {
+		return dataset, errors.New("There was an error trying to find Dataset with Id.")
+	}
+
+	return dataset, err
+}
+
+func (d Dao) SaveDataset(dataset Dataset) (Dataset, error) {
 	dataset.Id = bson.NewObjectId()
 	dataset.CreatedAt = time.Now()
 
