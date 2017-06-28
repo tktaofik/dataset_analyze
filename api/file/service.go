@@ -1,4 +1,4 @@
-// Package file provides the use-case of saving, updating deleting and analyzing a file
+// Package file provides the use-case of creating a dataset, updating, deleting and analyzing a file
 package file
 
 import (
@@ -13,10 +13,6 @@ import (
 type Service interface {
 	SaveFileAsDataset(c echo.Context) (error)
 	GetDatasets(c echo.Context) (error)
-}
-
-type service struct {
-	Dao
 }
 
 type Dataset struct {
@@ -38,6 +34,10 @@ type Dataset struct {
 }
 
 type Datasets []Dataset
+
+type service struct {
+	Dao
+}
 
 func (s service) SaveFileAsDataset(c echo.Context) error {
 	dataset := new(Dataset)

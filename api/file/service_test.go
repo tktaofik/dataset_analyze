@@ -18,12 +18,12 @@ var (
 
 func TestSaveFileAsDataset(t *testing.T) {
 	expected_res := &Dataset{}
-	err := json.Unmarshal([]byte(SampleDataset()), &expected_res)
+	err := json.Unmarshal([]byte(sampleDataset()), &expected_res)
 	if err != nil {
 		t.Error("Unable to marshal TestSaveDataSet expected JSON response'")
 	}
 
-	req := httptest.NewRequest(echo.POST, "/", strings.NewReader(SampleDataset()))
+	req := httptest.NewRequest(echo.POST, "/", strings.NewReader(sampleDataset()))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	res := httptest.NewRecorder()
 
@@ -69,4 +69,34 @@ func TestGetDatasets(t *testing.T) {
 		assert.IsType(t, Datasets{}, resBody, "Expected data type Dataset")
 		assert.NotEmpty(t, resBody, "Expected response body to not be empty")
 	}
+}
+
+func sampleDataset() string  {
+	return `{
+  "type": "dataset",
+  "attributes": {
+  	"name":"text.xlx",
+  	"size":12333,
+  	"rawData":{},
+  	"tables":[{
+  		"tableName":"order",
+  		"rows":[{
+  			"title":"name",
+  			"dataIndex":1,
+  			"key":"name",
+  			"width":300
+  		},
+  		{
+  			"title":"username",
+  			"dataIndex":2,
+  			"key":"username",
+  			"width":300
+  		}]
+  	}]},
+  "user":{
+  	"id":"d3b3b3b3b3b3",
+  	"link":"/api/datasets/d3b3b3b3b3b3"
+  	}
+}`
+
 }
