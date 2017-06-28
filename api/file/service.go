@@ -7,7 +7,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-type Service interface {
+type ServiceType interface {
 	SaveFileAsDataset(d Dataset) (Dataset, error)
 	GetDatasets() (Datasets, error)
 }
@@ -32,11 +32,11 @@ type Dataset struct {
 
 type Datasets []Dataset
 
-type service struct {
+type Service struct {
 	Dao
 }
 
-func (s service) SaveFileAsDataset(d Dataset) (Dataset, error) {
+func (s Service) SaveFileAsDataset(d Dataset) (Dataset, error) {
 	result, err := s.Dao.SaveFileAsDataset(d)
 	if err != nil {
 		return d, errors.New("Unable to save file as a  dataset source")
@@ -45,7 +45,7 @@ func (s service) SaveFileAsDataset(d Dataset) (Dataset, error) {
 	return result, nil
 }
 
-func (s service) GetDatasets() (Datasets, error) {
+func (s Service) GetDatasets() (Datasets, error) {
 	result, err := s.Dao.GetDatasets()
 	if err != nil {
 		return result, errors.New("Unable to save file as a  dataset source")

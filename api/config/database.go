@@ -19,11 +19,11 @@ func (db *DB) Name() string {
 }
 
 func DBUrl() string {
-	dburl := os.Getenv("MONGOHQ_URL")
+	dbURL := os.Getenv("MONGOHQ_URL")
 
-	if dburl == "" {
-		dburl = "localhost"
+	if dbURL == "" {
+		dbURL = "localhost"
 	}
 
-	return dburl
+	return dbURL
 }

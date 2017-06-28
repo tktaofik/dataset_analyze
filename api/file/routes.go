@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	s = new(service)
+	s = new(Service)
 )
 
 func Init(r *echo.Echo)  {
