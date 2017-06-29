@@ -45,6 +45,20 @@ export function getDataSetsAPI() {
     });
 }
 
+export function getDataSetByIdAPI(id) {
+    return fetch('http://localhost:8081/api/v1/dataset/' + id, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        }
+    }).then((response) => response.json()).then((responseJson) => {
+        return responseJson;
+    }).catch((error) => {
+        throw error;
+    });
+}
+
 function ajaxConfig(method, url, data) {
     const baseUrl = 'http://localhost:8081';
     const responseType = 'json';

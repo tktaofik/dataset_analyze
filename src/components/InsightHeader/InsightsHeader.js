@@ -1,6 +1,6 @@
 import React from 'react';
 import {Layout, Button, Row, Col, Icon} from 'antd';
-import {setSelectedDatasetId} from '../../actions/DataActions';
+import {setSelectedDataset} from '../../actions/DataActions';
 import {collapseSideBar} from '../../actions/AppActions';
 
 const {Header} = Layout;
@@ -8,7 +8,7 @@ const {Header} = Layout;
 class AddDataButton extends React.Component {
     navigateToAddData = () => {
         const {dispatch} = this.props;
-        dispatch(setSelectedDatasetId(null));
+        dispatch(setSelectedDataset(null));
         this.props.history.push('/')
     };
 

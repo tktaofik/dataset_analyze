@@ -1,6 +1,6 @@
 import * as types from '../constants/ActionTypes';
 import {xlsx_to_json}from '../utils/xlsx_to_json'
-import {saveDataSetAPI, getDataSetsAPI,} from '../api/dataset';
+import {saveDataSetAPI, getDataSetsAPI, getDataSetByIdAPI} from '../api/dataset';
 import {showSpinner, showNotification, collapseSideBar} from './AppActions';
 
 export function appendToDatasets(dataset) {
@@ -10,10 +10,10 @@ export function appendToDatasets(dataset) {
     }
 }
 
-export function setSelectedDatasetId(datasetId) {
+export function setSelectedDataset(dataset) {
     return {
-        type: types.SET_SELECTED_DATASET_ID,
-        datasetId
+        type: types.SET_SELECTED_DATASET,
+        dataset
     }
 }
 
@@ -45,7 +45,7 @@ export function saveDataSet(dataSet) {
             dispatch(collapseSideBar(false));
             dispatch(showSpinner(false));
             dispatch(appendToDatasets([dataset]));
-            dispatch(setSelectedDatasetId(dataset.id));
+            dispatch(setSelectedDataset(dataset));
             dispatch(showNotification({
                 message: dataset.attributes.name,
                 description: `${dataset.attributes.name} has been uploaded`,
@@ -68,6 +68,21 @@ export function getDataSets() {
             dispatch(collapseSideBar(false));
             dispatch(showSpinner(false));
             dispatch(appendToDatasets(dataSetsRes));
+        }).catch(error => {
+            dispatch(showSpinner(false));
+            throw(error);
+        });
+    };
+}
+
+export function getDataSetById(id) {
+    return (dispatch) => {
+        dispatch(showSpinner(true));
+        dispatch(collapseSideBar(true));
+        getDataSetByIdAPI(id).then(dataSetRes => {
+            dispatch(collapseSideBar(false));
+            dispatch(showSpinner(false));
+            dispatch(setSelectedDataset(dataSetRes))
         }).catch(error => {
             dispatch(showSpinner(false));
             throw(error);
