@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Layout, notification} from 'antd';
 import {InsightSideBar, InsightContent, Spinner} from '../../components';
-import {getDataSets} from '../../actions/DataActions';
+import {getDataSets, getDataSetById} from '../../actions/DataActions';
 import {hideNotification} from '../../actions/AppActions';
 import './Insight.css';
 
@@ -10,8 +10,13 @@ const {Sider} = Layout;
 const propTypes = {};
 class InsightsContainer extends React.Component {
     componentWillMount() {
-        const {dispatch} = this.props;
+        const {dispatch, match} = this.props;
         dispatch(getDataSets());
+
+        const id = match.params.datasetId ? match.params.datasetId : null;
+        if(id) {
+            dispatch(getDataSetById(id));
+        }
     }
 
     componentDidUpdate() {
@@ -36,9 +41,7 @@ class InsightsContainer extends React.Component {
 
     render() {
         const {appState} = this.props;
-        let spinner = appState.showSpinner ? <Spinner/> : null
-
-        console.log(appState.showSpinner);
+        let spinner = appState.showSpinner ? <Spinner/> : null;
 
         return (
             <Layout>
@@ -58,16 +61,6 @@ class InsightsContainer extends React.Component {
 
 function mapStateToProps(state, ownProps) {
     const {dataState, appState} = state;
-    const selectedDatasetId = ownProps.match.params.datasetId ? ownProps.match.params.datasetId : dataState.selectedDatasetId;
-
-    if (selectedDatasetId && dataState) {
-        dataState.selectedDataset = dataState.datasets.find(data => {
-            return data.id === selectedDatasetId;
-        });
-    }
-    else {
-        dataState.selectedDataset = null;
-    }
 
     return {
         dataState,
