@@ -10,11 +10,11 @@ import (
 
 var (
 	dao     = Dao{}
-	dataset = new(Dataset)
+	datasetForDaoTest = new(Dataset)
 )
 
 func TestSaveDataset(t *testing.T) {
-	if err := json.Unmarshal([]byte(sampleDataset()), &dataset); err != nil {
+	if err := json.Unmarshal([]byte(sampleDataset()), &datasetForDaoTest); err != nil {
 		t.Error("Unable to Unmarshal sampleDataset to type Dataset")
 	}
 
@@ -24,7 +24,7 @@ func TestSaveDataset(t *testing.T) {
 		t.Error("Unable to marshal TestSaveFileAsDataset expected JSON response'")
 	}
 
-	result, err := dao.SaveDataset(*dataset)
+	result, err := dao.SaveDataset(*datasetForDaoTest)
 	if err != nil {
 		t.Error("Failed to get DatasetById")
 	}
@@ -39,12 +39,14 @@ func TestSaveDataset(t *testing.T) {
 	assert.Equal(t, expected_res.User.Link, result.User.Link)
 	assert.NotEmpty(t, result.Id)
 	assert.NotEmpty(t, result.CreatedAt)
-	dataset = &result
+
+	//Important to save the dataset so we can use it for the corresponding tests
+	datasetForDaoTest = &result
 }
 
 func TestGetDatasetById(t *testing.T) {
 
-	result, err := dao.GetDatasetById(bson.ObjectId.Hex(dataset.Id))
+	result, err := dao.GetDatasetById(bson.ObjectId.Hex(datasetForDaoTest.Id))
 
 	if err != nil {
 		t.Error("Failed to get Dataset by Id")
@@ -60,7 +62,9 @@ func TestUpdateDataset(t *testing.T) {
 		t.Error("Unable to marshal TestSaveFileAsDataset expected JSON response'")
 	}
 
-	result, err := dao.UpdateDataset(*dataset)
+	datasetId := bson.ObjectId.Hex(datasetForDaoTest.Id)
+
+	result, err := dao.UpdateDataset(datasetId, *datasetForDaoTest)
 
 	if err != nil {
 		t.Error("Failed to get Update dataset")
@@ -79,11 +83,13 @@ func TestUpdateDataset(t *testing.T) {
 }
 
 func TestDeleteDataset(t *testing.T) {
-	result, err := dao.DeleteDataset(*dataset)
+	datasetId := bson.ObjectId.Hex(datasetForDaoTest.Id)
+
+	result, err := dao.DeleteDataset(datasetId)
 
 	if err != nil {
-		t.Error("Failed to get Delete Dataset")
+		t.Error("Failed to Delete Dataset")
 	}
 
-	assert.IsType(t, Dataset{}, result, "Expected data type Dataset")
+	assert.IsType(t, datasetId, result, "Expected data type Dataset")
 }
