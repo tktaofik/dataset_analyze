@@ -45,7 +45,6 @@ func TestSaveDataset(t *testing.T) {
 }
 
 func TestGetDatasetById(t *testing.T) {
-
 	result, err := dao.GetDatasetById(bson.ObjectId.Hex(datasetForDaoTest.Id))
 
 	if err != nil {

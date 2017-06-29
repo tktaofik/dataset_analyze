@@ -25,7 +25,7 @@ func TestSaveFileAsDatasetHandler(t *testing.T) {
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 
 	c := api.NewContext(req, res)
-	c.SetPath("api/v1/datasets/")
+	c.SetPath("api/v1/dataset/")
 
 	if assert.NoError(t, saveFileAsDatasetHandler(c), "saveFileAsDatasetHandler Failing") {
 		resBody, expected_res := new(Dataset), new(Dataset)
@@ -92,7 +92,7 @@ func TestUpdateDatasetHandler(t *testing.T) {
 	datasetId := bson.ObjectId.Hex(datasetForRouteTest.Id)
 
 	c := api.NewContext(req, res)
-	c.SetPath("api/v1/datasets/:id")
+	c.SetPath("api/v1/dataset/:id")
 	c.SetParamNames("id")
 	c.SetParamValues(datasetId)
 
@@ -120,6 +120,46 @@ func TestUpdateDatasetHandler(t *testing.T) {
 	}
 }
 
+func TestGetDatasetByIdHandler(t *testing.T) {
+	res := httptest.NewRecorder()
+
+	req := httptest.NewRequest(echo.GET, "/", nil)
+	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+
+	datasetId := bson.ObjectId.Hex(datasetForRouteTest.Id)
+
+	c := api.NewContext(req, res)
+	c.SetPath("api/v1/dataset/:id")
+	c.SetParamNames("id")
+	c.SetParamValues(datasetId)
+
+	if assert.NoError(t, getDatasetByIdHandler(c), "saveFileAsDatasetHandler Failing") {
+		resBody, expected_res := new(Dataset), new(Dataset)
+
+		if err := json.Unmarshal([]byte(sampleDataset()), &expected_res); err != nil {
+			t.Error("Unable to marshal TestSaveFileAsDataset expected JSON response'")
+		}
+
+		if err := json.Unmarshal(res.Body.Bytes(), &resBody); err != nil {
+			t.Error("Unable to unmarshal TestSaveFileAsDataset JSON response body to type Dataset type")
+		}
+
+		assert.Equal(t, http.StatusOK, res.Code)
+		assert.Equal(t, "tk is king", resBody.Attributes.Name)
+		assert.Equal(t, expected_res.Attributes.Size, resBody.Attributes.Size)
+		assert.Equal(t, expected_res.Attributes.RawData, resBody.Attributes.RawData)
+		assert.Equal(t, expected_res.Attributes.Tables, resBody.Attributes.Tables)
+		assert.Equal(t, expected_res.Attributes.Link, resBody.Attributes.Link)
+		assert.Equal(t, expected_res.User.Id, resBody.User.Id)
+		assert.Equal(t, expected_res.User.Link, resBody.User.Link)
+		assert.NotEmpty(t, resBody.Id)
+		assert.NotEmpty(t, resBody.CreatedAt)
+
+		//Important to save the dataset so we can use it for the corresponding tests
+		datasetForRouteTest = resBody
+	}
+}
+
 func TestDeleteDatasetHandler(t *testing.T) {
 	res := httptest.NewRecorder()
 
@@ -129,12 +169,12 @@ func TestDeleteDatasetHandler(t *testing.T) {
 	datasetId := bson.ObjectId.Hex(datasetForRouteTest.Id)
 
 	c := api.NewContext(req, res)
-	c.SetPath("api/v1/datasets/:id")
+	c.SetPath("api/v1/dataset/:id")
 	c.SetParamNames("id")
 	c.SetParamValues(datasetId)
 
 	if assert.NoError(t, deleteDatasetHandler(c), "getDatasetsHandler Failing") {
-		resBody := new(deleteDatasetHandleResponse)
+		resBody := new(deleteDatasetHandlerResponse)
 
 		if err := json.Unmarshal(res.Body.Bytes(), &resBody); err != nil {
 			t.Error("Unable to unmarshal TestSaveFileAsDataset JSON response body to type Dataset type")

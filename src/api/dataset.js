@@ -18,7 +18,7 @@ export function saveDataSetAPI(data) {
     };
 
     return new Promise((resolve, reject) => {
-        axios(ajaxConfig('post', '/api/v1/datasets/', body)).then(function (response) {
+        axios(ajaxConfig('post', '/api/v1/dataset/', body)).then(function (response) {
             if (response.status === 201) {
                 resolve(response.data);
             }

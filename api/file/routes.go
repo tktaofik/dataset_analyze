@@ -7,20 +7,21 @@ import (
 )
 
 var (
-	s = new(Service)
+	fs = new(Service)
 )
 
-type deleteDatasetHandleResponse struct {
+type deleteDatasetHandlerResponse struct {
 	Message string `json:"message"`
 	Id string `json:"id"`
 	Result string `json:"result"`
 }
 
 func Init(r *echo.Echo) {
+	r.POST("/api/v1/dataset/", saveFileAsDatasetHandler)
+	r.GET("/api/v1/dataset/:id", getDatasetByIdHandler)
 	r.GET("/api/v1/datasets/", getDatasetsHandler)
-	r.POST("/api/v1/datasets/", saveFileAsDatasetHandler)
-	r.PATCH("/api/v1/test/:id", updateDatasetHandler)
-	r.DELETE("/api/v1/datasets/:id", deleteDatasetHandler)
+	r.PATCH("/api/v1/dataset/:id", updateDatasetHandler)
+	r.DELETE("/api/v1/dataset/:id", deleteDatasetHandler)
 }
 
 func saveFileAsDatasetHandler(c echo.Context) error {
@@ -30,7 +31,7 @@ func saveFileAsDatasetHandler(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err)
 	}
 
-	result, err := s.SaveFileAsDataset(*dataset)
+	result, err := fs.SaveFileAsDataset(*dataset)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
 	}
@@ -39,7 +40,18 @@ func saveFileAsDatasetHandler(c echo.Context) error {
 }
 
 func getDatasetsHandler(c echo.Context) error {
-	result, err := s.GetDatasets()
+	result, err := fs.GetDatasets()
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err)
+	}
+
+	return c.JSON(http.StatusOK, result)
+}
+
+func getDatasetByIdHandler(c echo.Context) error {
+	id := c.Param("id")
+
+	result, err := fs.GetDatasetById(id)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
 	}
@@ -56,7 +68,7 @@ func updateDatasetHandler(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err)
 	}
 
-	result, err := s.UpdateDataset(id, *dataset)
+	result, err := fs.UpdateDataset(id, *dataset)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
 	}
@@ -68,13 +80,13 @@ func deleteDatasetHandler(c echo.Context) error {
 	id := c.Param("id")
 
 	if id != "" {
-		result, err := s.DeleteDataset(id)
+		result, err := fs.DeleteDataset(id)
 		if err != nil {
 			return echo.NewHTTPError(http.StatusInternalServerError, err)
 		}
 
-		return c.JSON(http.StatusOK, &deleteDatasetHandleResponse{Message: "Dataset deleted", Id:id, Result:result})
+		return c.JSON(http.StatusOK, &deleteDatasetHandlerResponse{Message: "Dataset deleted", Id:id, Result:result})
 	}
 
-	return c.JSON(http.StatusNoContent, &deleteDatasetHandleResponse{Message: "Missing the dataset id in the request body", Id:id, Result:""})
+	return c.JSON(http.StatusNoContent, &deleteDatasetHandlerResponse{Message: "Missing the dataset id in the request body", Id:id, Result:""})
 }

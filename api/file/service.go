@@ -55,6 +55,15 @@ func (s Service) GetDatasets() (Datasets, error) {
 	return result, nil
 }
 
+func (s Service) GetDatasetById(id string) (Dataset, error) {
+	result, err := s.Dao.GetDatasetById(id)
+	if err != nil {
+		return result, errors.New("Unable to update dataset source")
+	}
+
+	return result, nil
+}
+
 func (s Service) UpdateDataset(id string, d Dataset) (Dataset, error) {
 	result, err := s.Dao.UpdateDataset(id, d)
 	if err != nil {
@@ -64,11 +73,11 @@ func (s Service) UpdateDataset(id string, d Dataset) (Dataset, error) {
 	return result, nil
 }
 
-//func (s Service) DeleteDataset(id string) (Dataset, error) {
-//	result, err := s.Dao.DeleteDataset(id)
-//	if err != nil {
-//		return d, errors.New("Unable to delete dataset source")
-//	}
-//
-//	return result, nil
-//}
+func (s Service) DeleteDataset(id string) (string, error) {
+	result, err := s.Dao.DeleteDataset(id)
+	if err != nil {
+		return result, errors.New("Unable to delete dataset source")
+	}
+
+	return result, nil
+}
