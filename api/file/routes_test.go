@@ -120,6 +120,7 @@ func TestUpdateDatasetHandler(t *testing.T) {
 	}
 }
 
+//todo: I need a proper error when the Id is not found
 func TestGetDatasetByIdHandler(t *testing.T) {
 	res := httptest.NewRecorder()
 

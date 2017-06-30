@@ -44,6 +44,16 @@ func TestSaveDataset(t *testing.T) {
 	datasetForDaoTest = &result
 }
 
+func TestGetDatasets(t *testing.T) {
+	result, err := dao.GetDatasets()
+
+	if err != nil {
+		t.Error("Failed to get Dataset by Id")
+	}
+
+	assert.IsType(t, Datasets{}, result, "Expected data type Dataset")
+}
+
 func TestGetDatasetById(t *testing.T) {
 	result, err := dao.GetDatasetById(bson.ObjectId.Hex(datasetForDaoTest.Id))
 

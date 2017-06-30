@@ -10,7 +10,7 @@ var (
 	fs = new(Service)
 )
 
-type deleteDatasetHandlerResponse struct {
+type errorResponseToHandler struct {
 	Message string `json:"message"`
 	Id string `json:"id"`
 	Result string `json:"result"`
@@ -53,8 +53,8 @@ func getDatasetByIdHandler(c echo.Context) error {
 
 	result, err := fs.GetDatasetById(id)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err)
-	}
+		//return echo.NewHTTPError(http.StatusInternalServerError, err)
+		return c.JSON(http.StatusNoContent, &errorResponseToHandler{Message: err.Error(), Id:id, Result:""})	}
 
 	return c.JSON(http.StatusOK, result)
 }
@@ -85,8 +85,8 @@ func deleteDatasetHandler(c echo.Context) error {
 			return echo.NewHTTPError(http.StatusInternalServerError, err)
 		}
 
-		return c.JSON(http.StatusOK, &deleteDatasetHandlerResponse{Message: "Dataset deleted", Id:id, Result:result})
+		return c.JSON(http.StatusOK, &errorResponseToHandler{Message: "Dataset deleted", Id:id, Result:result})
 	}
 
-	return c.JSON(http.StatusNoContent, &deleteDatasetHandlerResponse{Message: "Missing the dataset id in the request body", Id:id, Result:""})
+	return c.JSON(http.StatusNoContent, &errorResponseToHandler{Message: "Missing the dataset id in the request body", Id:id, Result:""})
 }

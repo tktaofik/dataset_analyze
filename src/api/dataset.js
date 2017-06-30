@@ -46,16 +46,17 @@ export function getDataSetsAPI() {
 }
 
 export function getDataSetByIdAPI(id) {
-    return fetch('http://localhost:8081/api/v1/dataset/' + id, {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        }
-    }).then((response) => response.json()).then((responseJson) => {
-        return responseJson;
-    }).catch((error) => {
-        throw error;
+    return new Promise((resolve, reject) => {
+        axios(ajaxConfig('get', '/api/v1/dataset/' + id)).then(function (response) {
+            if (response.status === 200) {
+                resolve(response.data);
+            }
+            else {
+                reject(response)
+            }
+        }).catch(function (error) {
+            reject(error)
+        });
     });
 }
 
