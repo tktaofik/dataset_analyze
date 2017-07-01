@@ -171,7 +171,15 @@ func TestGetDatasetWithInvalidId(t *testing.T) {
 	c.SetParamNames("id")
 	c.SetParamValues("594fcf6e4162400ea6dc")
 
-	assert.Error(t, getDatasetByIdHandler(c), "saveFileAsDatasetHandler Failing")
+	err := getDatasetByIdHandler(c)
+
+	if assert.NotNil(t,err) {
+		resBody, ok := err.(*echo.HTTPError)
+		if ok {
+			assert.Equal(t, http.StatusNotFound, resBody.Code)
+			assert.Equal(t, "Invalid id length, length should be 24", resBody.Message)
+		}
+	}
 }
 
 func TestDeleteDatasetHandler(t *testing.T) {
