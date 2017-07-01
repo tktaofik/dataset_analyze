@@ -4,7 +4,6 @@ package file
 
 import (
 	"time"
-	"errors"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -40,7 +39,7 @@ type Service struct {
 func (s Service) SaveFileAsDataset(d Dataset) (Dataset, error) {
 	result, err := s.Dao.SaveDataset(d)
 	if err != nil {
-		return d, errors.New("Unable to save file as a  dataset source")
+		return d, err
 	}
 
 	return result, nil
@@ -49,7 +48,7 @@ func (s Service) SaveFileAsDataset(d Dataset) (Dataset, error) {
 func (s Service) GetDatasets() (Datasets, error) {
 	result, err := s.Dao.GetDatasets()
 	if err != nil {
-		return result, errors.New("Unable to save file as a  dataset source")
+		return result, err
 	}
 
 	return result, nil
@@ -58,7 +57,7 @@ func (s Service) GetDatasets() (Datasets, error) {
 func (s Service) GetDatasetById(id string) (Dataset, error) {
 	result, err := s.Dao.GetDatasetById(id)
 	if err != nil {
-		return result, errors.New("Unable to update dataset source")
+		return result, err
 	}
 
 	return result, nil
@@ -67,7 +66,7 @@ func (s Service) GetDatasetById(id string) (Dataset, error) {
 func (s Service) UpdateDataset(id string, d Dataset) (Dataset, error) {
 	result, err := s.Dao.UpdateDataset(id, d)
 	if err != nil {
-		return d, errors.New("Unable to update dataset source")
+		return d, err
 	}
 
 	return result, nil
@@ -76,7 +75,7 @@ func (s Service) UpdateDataset(id string, d Dataset) (Dataset, error) {
 func (s Service) DeleteDataset(id string) (string, error) {
 	result, err := s.Dao.DeleteDataset(id)
 	if err != nil {
-		return result, errors.New("Unable to delete dataset source")
+		return result, err
 	}
 
 	return result, nil

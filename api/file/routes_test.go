@@ -120,7 +120,6 @@ func TestUpdateDatasetHandler(t *testing.T) {
 	}
 }
 
-//todo: I need a proper error when the Id is not found
 func TestGetDatasetByIdHandler(t *testing.T) {
 	res := httptest.NewRecorder()
 
@@ -161,6 +160,20 @@ func TestGetDatasetByIdHandler(t *testing.T) {
 	}
 }
 
+func TestGetDatasetWithInvalidId(t *testing.T) {
+	res := httptest.NewRecorder()
+
+	req := httptest.NewRequest(echo.GET, "/", nil)
+	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+
+	c := api.NewContext(req, res)
+	c.SetPath("api/v1/dataset/:id")
+	c.SetParamNames("id")
+	c.SetParamValues("594fcf6e4162400ea6dc")
+
+	assert.Error(t, getDatasetByIdHandler(c), "saveFileAsDatasetHandler Failing")
+}
+
 func TestDeleteDatasetHandler(t *testing.T) {
 	res := httptest.NewRecorder()
 
@@ -175,7 +188,12 @@ func TestDeleteDatasetHandler(t *testing.T) {
 	c.SetParamValues(datasetId)
 
 	if assert.NoError(t, deleteDatasetHandler(c), "getDatasetsHandler Failing") {
-		resBody := new(deleteDatasetHandlerResponse)
+		type response struct {
+			Message string `json:"message"`
+			Id string `json:"id"`
+			Result string `json:"result"`
+		}
+		resBody := new(response)
 
 		if err := json.Unmarshal(res.Body.Bytes(), &resBody); err != nil {
 			t.Error("Unable to unmarshal TestSaveFileAsDataset JSON response body to type Dataset type")

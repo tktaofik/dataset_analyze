@@ -85,7 +85,7 @@ export function getDataSetById(id) {
             dispatch(setSelectedDataset(dataSetRes))
         }).catch(error => {
             dispatch(showSpinner(false));
-            throw(error);
+            console.log(error)
         });
     };
 }

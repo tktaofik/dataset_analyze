@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 export function saveDataSetAPI(data) {
     const body = {
@@ -23,39 +23,41 @@ export function saveDataSetAPI(data) {
                 resolve(response.data);
             }
             else {
-                reject(response)
+                reject(response.data)
             }
         }).catch(function (error) {
-            reject(error)
+            reject(error.response.data)
         });
     });
 }
 
 export function getDataSetsAPI() {
-    return fetch('http://localhost:8081/api/v1/datasets/', {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        }
-    }).then((response) => response.json()).then((responseJson) => {
-        return responseJson;
-    }).catch((error) => {
-        throw error;
+    return new Promise((resolve, reject) => {
+        axios(ajaxConfig('get', '/api/v1/datasets/')).then(function (response) {
+            if (response.status === 200) {
+                resolve(response.data);
+            }
+            else {
+                reject(response.data)
+            }
+        }).catch(function (error) {
+            reject(error.response.data)
+        });
     });
 }
 
 export function getDataSetByIdAPI(id) {
     return new Promise((resolve, reject) => {
         axios(ajaxConfig('get', '/api/v1/dataset/' + id)).then(function (response) {
+            debugger
             if (response.status === 200) {
                 resolve(response.data);
             }
             else {
-                reject(response)
+                reject(response.data)
             }
         }).catch(function (error) {
-            reject(error)
+            reject(error.response.data)
         });
     });
 }
