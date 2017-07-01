@@ -37,11 +37,11 @@ export function addFile(uploadedFile) {
     };
 }
 
-export function saveDataSet(dataSet) {
+export function saveDataSet(dataset) {
     return (dispatch) => {
         dispatch(showSpinner(true));
         dispatch(collapseSideBar(true));
-        return saveDataSetAPI(dataSet).then(dataset => {
+        return saveDataSetAPI(dataset).then(dataset => {
             dispatch(collapseSideBar(false));
             dispatch(showSpinner(false));
             dispatch(appendToDatasets([dataset]));
@@ -54,7 +54,12 @@ export function saveDataSet(dataSet) {
             }));
 
         }).catch(error => {
-            dispatch(showNotification({message: error}));
+            dispatch(showNotification({
+                message: error,
+                description: `${dataset.fileName} upload failed with error ${error}`,
+                duration: 0,
+                type: "error"
+            }));
             throw(error);
         });
     };

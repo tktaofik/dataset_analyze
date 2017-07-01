@@ -26,7 +26,7 @@ export function saveDataSetAPI(data) {
                 reject(response.data)
             }
         }).catch(function (error) {
-            reject(error.response.data)
+            reject(error.response.data.message)
         });
     });
 }
@@ -49,7 +49,6 @@ export function getDataSetsAPI() {
 export function getDataSetByIdAPI(id) {
     return new Promise((resolve, reject) => {
         axios(ajaxConfig('get', '/api/v1/dataset/' + id)).then(function (response) {
-            debugger
             if (response.status === 200) {
                 resolve(response.data);
             }

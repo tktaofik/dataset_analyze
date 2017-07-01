@@ -25,7 +25,7 @@ class InsightsContainer extends React.Component {
             const args = {
                 message: appState.notification.message,
                 description: appState.notification.description,
-                duration: 4.5,
+                duration: appState.notification.duration,
                 placement: 'topRight',
             };
 
