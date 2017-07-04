@@ -1,4 +1,5 @@
 import * as types from '../constants/ActionTypes';
+import _ from 'lodash';
 import {xlsx_to_json}from '../utils/xlsx_to_json'
 import {saveDataSetAPI, getDataSetsAPI, getDataSetByIdAPI} from '../api/dataset';
 import {showSpinner, showNotification, collapseSideBar} from './AppActions';
@@ -87,7 +88,10 @@ export function getDataSetById(id) {
         getDataSetByIdAPI(id).then(dataSetRes => {
             dispatch(collapseSideBar(false));
             dispatch(showSpinner(false));
-            dispatch(setSelectedDataset(dataSetRes))
+            // We should not have a dataset with  empty attributes
+            if (!_.isEmpty(dataSetRes.attributes)){
+                dispatch(setSelectedDataset(dataSetRes))
+            }
         }).catch(error => {
             dispatch(showSpinner(false));
             console.log(error)

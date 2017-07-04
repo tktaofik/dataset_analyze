@@ -18,7 +18,7 @@ class TablesSelectDropDown extends React.Component {
 
     deleteTable = () => {
         console.log('delete table')
-    }
+    };
 
     render() {
         const {selectedDataset, selectedTableIndex} = this.props.dataState;
@@ -43,7 +43,7 @@ class TablesSelectDropDown extends React.Component {
                         value={selectedTableName}>
                         {tables}
                     </Select>
-                    <Button 
+                    <Button
                         type="primary"
                         className="delete-button"
                         icon="delete"
