@@ -13,20 +13,20 @@ var (
 	datasetForDaoTest = new(Dataset)
 )
 
-func TestSaveDataset(t *testing.T) {
+func TestDaoSaveDataset(t *testing.T) {
 	if err := json.Unmarshal([]byte(sampleDataset()), &datasetForDaoTest); err != nil {
-		t.Error("Unable to Unmarshal sampleDataset to type Dataset")
+		t.Error(err.Error())
 	}
 
 	expected_res := new(Dataset)
 
 	if err := json.Unmarshal([]byte(sampleDataset()), &expected_res); err != nil {
-		t.Error("Unable to marshal TestSaveFileAsDataset expected JSON response'")
+		t.Error(err.Error())
 	}
 
 	result, err := dao.SaveDataset(*datasetForDaoTest)
 	if err != nil {
-		t.Error("Failed to get DatasetById")
+		t.Error(err.Error())
 	}
 
 	assert.IsType(t, Dataset{}, result, "Expected data type Dataset")
@@ -44,31 +44,31 @@ func TestSaveDataset(t *testing.T) {
 	datasetForDaoTest = &result
 }
 
-func TestGetDatasets(t *testing.T) {
+func TestDaoGetDatasets(t *testing.T) {
 	result, err := dao.GetDatasets()
 
 	if err != nil {
-		t.Error("Failed to get Dataset by Id")
+		t.Error(err.Error())
 	}
 
 	assert.IsType(t, Datasets{}, result, "Expected data type Dataset")
 }
 
-func TestGetDatasetById(t *testing.T) {
+func TestDaoGetDatasetById(t *testing.T) {
 	result, err := dao.GetDatasetById(bson.ObjectId.Hex(datasetForDaoTest.Id))
 
 	if err != nil {
-		t.Error("Failed to get Dataset by Id")
+		t.Error(err.Error())
 	}
 
 	assert.IsType(t, Dataset{}, result, "Expected data type Dataset")
 }
 
-func TestUpdateDataset(t *testing.T) {
+func TestDaoUpdateDataset(t *testing.T) {
 	expected_res := new(Dataset)
 
 	if err := json.Unmarshal([]byte(sampleDataset()), &expected_res); err != nil {
-		t.Error("Unable to marshal TestSaveFileAsDataset expected JSON response'")
+		t.Error(err.Error())
 	}
 
 	datasetId := bson.ObjectId.Hex(datasetForDaoTest.Id)
@@ -76,7 +76,7 @@ func TestUpdateDataset(t *testing.T) {
 	result, err := dao.UpdateDataset(datasetId, *datasetForDaoTest)
 
 	if err != nil {
-		t.Error("Failed to get Update dataset")
+		t.Error(err.Error())
 	}
 
 	assert.IsType(t, Dataset{}, result, "Expected data type Dataset")
@@ -91,13 +91,13 @@ func TestUpdateDataset(t *testing.T) {
 	assert.NotEmpty(t, result.CreatedAt)
 }
 
-func TestDeleteDataset(t *testing.T) {
+func TestDaoDeleteDataset(t *testing.T) {
 	datasetId := bson.ObjectId.Hex(datasetForDaoTest.Id)
 
 	result, err := dao.DeleteDataset(datasetId)
 
 	if err != nil {
-		t.Error("Failed to Delete Dataset")
+		t.Error(err.Error())
 	}
 
 	assert.IsType(t, datasetId, result, "Expected data type Dataset")

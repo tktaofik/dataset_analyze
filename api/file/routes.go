@@ -75,7 +75,7 @@ func updateDatasetHandler(c echo.Context) error {
 
 	result, err := fs.UpdateDataset(id, *dataset)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusNotFound, err.Error())
+		return echo.NewHTTPError(http.StatusForbidden, err.Error())
 	}
 
 	return c.JSON(http.StatusOK, result)
