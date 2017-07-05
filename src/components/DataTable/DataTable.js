@@ -21,7 +21,7 @@ class DataTable extends React.Component {
     render() {
         const {selectedDataset} = this.props.dataState;
 
-        if (selectedDataset && selectedDataset.attributes.tables) {
+        if (selectedDataset && selectedDataset.attributes.tables.length) {
             const tableIndex = this.props.dataState.selectedTableIndex;
             const selectedDataSetTable = selectedDataset.attributes.tables[tableIndex];
             const {rows} = selectedDataSetTable;
