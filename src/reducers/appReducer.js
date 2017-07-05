@@ -10,22 +10,17 @@ export default function appState(state = initialStates, action) {
     switch (action.type) {
         case types.SHOW_SPINNER:
             return Object.assign({}, state, {
-                showSpinner: action.spinnerState,
+                showSpinner: action.payload,
             });
 
         case types.COLLAPSE_SIDE_BAR:
             return Object.assign({}, state, {
-                collapseSideBar: action.collapseSideBar,
+                collapseSideBar: action.payload,
             });
 
         case types.SHOW_NOTIFICATION:
             return Object.assign({}, state, {
-                notification: action.notification,
-            });
-
-        case types.HIDE_NOTIFICATION:
-            return Object.assign({}, state, {
-                notification: false,
+                notification: action.payload,
             });
 
         default:

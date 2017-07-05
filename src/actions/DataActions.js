@@ -25,19 +25,12 @@ import {showSpinner, showNotification, collapseSideBar} from './AppActions';
 //     }
 // }
 
-export function appendToDatasets(dataset) {
-    return {
-        type: types.UPDATE_DATA_SETS,
-        datasets: [...dataset]
-    }
+function action(type, payload) {
+    return {type, payload}
 }
 
-export function setSelectedDataset(dataset) {
-    return {
-        type: types.SET_SELECTED_DATASET,
-        dataset
-    }
-}
+export const appendToDatasets = (dataset) => action(types.UPDATE_DATA_SETS, [...dataset]);
+export const setSelectedDataset = (dataset) => action(types.SET_SELECTED_DATASET, dataset);
 
 export function addFile(uploadedFile) {
     return (dispatch) => {

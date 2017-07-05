@@ -1,27 +1,10 @@
 import * as types from '../constants/ActionTypes';
 
-export function showSpinner(spinnerState) {
-    return {
-        type: types.SHOW_SPINNER,
-        spinnerState
-    }
+function action(type, payload) {
+    return {type, payload}
 }
 
-export function collapseSideBar(collapseSideBar) {
-    return {
-        type: types.COLLAPSE_SIDE_BAR,
-        collapseSideBar
-    }
-}
-
-export function showNotification(notification) {
-    return {
-        type: types.SHOW_NOTIFICATION,
-        notification
-    }
-}
-export function hideNotification() {
-    return {
-        type: types.HIDE_NOTIFICATION
-    }
-}
+export const showSpinner = (spinnerState) => action(types.SHOW_SPINNER, spinnerState);
+export const collapseSideBar = (collapseSideBar) => action(types.COLLAPSE_SIDE_BAR, collapseSideBar);
+export const showNotification = (notification) => action(types.SHOW_NOTIFICATION, notification);
+export const hideNotification = (notification) => action(types.SHOW_NOTIFICATION, false);

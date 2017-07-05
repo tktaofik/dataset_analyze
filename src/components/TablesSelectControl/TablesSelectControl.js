@@ -48,7 +48,7 @@ class TablesSelectControl extends React.Component {
                     </Option>
                 );
             });
-            const tables = selectedDataset.attributes.tables
+            const tables = selectedDataset.attributes.tables;
             const selectedTableName = tables.length ? tables[selectedTableIndex].tableName : null;
             return (
                 <div className="table-select-control">
