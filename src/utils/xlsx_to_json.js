@@ -13,13 +13,13 @@ export function xlsx_to_json(file) {
             dataSet.xlsxRawData = workbook;
             dataSet.tables = workbook.SheetNames.map(name => {
                 const rows = xlsx.utils.sheet_to_json(dataSet.xlsxRawData.Sheets[name]).map((row, index) => {
-                    Object.keys(row).map((key) => {
+                    Object.keys(row).forEach((key) => {
                         if(key.includes('.')) {
-                            var noDot = key.replace(".", "_");
+                            let noDot = key.replace(".", "_");
                             row[noDot] = row[key];
                             delete row[key];
                         }
-                    })
+                    });
                     return Object.assign({}, row, {
                         key: `${++index}`
                     })

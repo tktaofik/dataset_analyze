@@ -25,8 +25,8 @@ class TablesSelectControl extends React.Component {
 
         const newTables = [
                 ...oldTables.slice(0, selectedTableIndex),
-                ...oldTables.slice(parseInt(selectedTableIndex) + 1, oldTables.length)
-            ]
+                ...oldTables.slice(parseInt(selectedTableIndex, 10) + 1, oldTables.length)
+            ];
         const newAttributes = Object.assign({}, oldAttributes, {
             tables: newTables
         });
