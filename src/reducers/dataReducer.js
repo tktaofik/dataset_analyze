@@ -1,4 +1,5 @@
 import * as dataAction from '../actions/DataActions';
+import _ from 'lodash';
 
 let initialStates = {
     datasets: [],
@@ -10,12 +11,12 @@ export default function dataState(state = initialStates, action) {
     switch (action.type) {
         case dataAction.UPDATE_DATA_SETS:
             return Object.assign({}, state, {
-                datasets: [...state.datasets, ...action.payload],
+                datasets: _.uniqBy([...state.datasets, ...action.payload], 'id'),
             });
 
         case dataAction.SWITCH_TABLE:
             return Object.assign({}, state, {
-                selectedTableIndex: action.tableIndex
+                selectedTableIndex: action.payload
             });
 
         case dataAction.SET_SELECTED_DATASET:
