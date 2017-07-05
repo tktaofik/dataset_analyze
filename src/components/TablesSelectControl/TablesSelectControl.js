@@ -10,7 +10,7 @@ const propTypes = {
     data: PropTypes.object.isRequired,
 };
 
-class TablesSelectDropDown extends React.Component {
+class TablesSelectControl extends React.Component {
     changeTable = (tableIndex) => {
         const {dispatch} = this.props;
         dispatch(switchTable(tableIndex));
@@ -77,5 +77,5 @@ class TablesSelectDropDown extends React.Component {
 
     }
 }
-TablesSelectDropDown.proptypes = propTypes;
-export default TablesSelectDropDown;
+TablesSelectControl.proptypes = propTypes;
+export default TablesSelectControl;

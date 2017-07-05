@@ -12,7 +12,7 @@ class DataTableHeader extends React.Component {
     render() {
         return (
             <Row>
-                <Col span={6}>
+                <Col span={18}>
                     <TablesSelectControl {...this.props}/>
                 </Col>
             </Row>
