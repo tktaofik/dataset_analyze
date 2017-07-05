@@ -41,14 +41,15 @@ class TablesSelectDropDown extends React.Component {
     render() {
         const {selectedDataset, selectedTableIndex} = this.props.dataState;
         if(selectedDataset){
-            const tables = selectedDataset.attributes.tables.map((table, index) => {
+            const tablesOptions = selectedDataset.attributes.tables.map((table, index) => {
                 return (
                     <Option key={index} value={`${index}`}>
                         {table.tableName}
                     </Option>
                 );
             });
-            const selectedTableName = selectedDataset.attributes.tables[selectedTableIndex].tableName;
+            const tables = selectedDataset.attributes.tables
+            const selectedTableName = tables.length ? tables[selectedTableIndex].tableName : null;
             return (
                 <div className="table-select-control">
                     <div className="description"><p>Tables/Sheets:</p></div>
@@ -59,7 +60,7 @@ class TablesSelectDropDown extends React.Component {
                         optionFilterProp="children"
                         onChange={this.changeTable}
                         value={selectedTableName}>
-                        {tables}
+                        {tablesOptions}
                     </Select>
                     <Button
                         type="primary"

@@ -130,14 +130,14 @@ export function switchTable(tableIndex) {
 export function updateDataset(newDataset) {
     return (dispatch) => {
         updateDatasetAPI(newDataset.id, newDataset).then(dataset => {
-            dispatch(setSelectedDataset(dataset))
+            dispatch(switchTable('0'));
+            dispatch(setSelectedDataset(dataset));
             dispatch(showNotification({
                 message: dataset.attributes.name,
                 description: "table has been deleted",
                 duration: 4.5,
                 type: "success"
             }));
-            dispatch(switchTable('0'));
         }).catch(error => {
             dispatch(showNotification({
                 message: error,
