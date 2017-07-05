@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export function saveDataSetAPI(data) {
+export function saveDatasetAPI(data) {
     const body = {
         type: 'dataset',
         attributes: {
@@ -31,7 +31,7 @@ export function saveDataSetAPI(data) {
     });
 }
 
-export function getDataSetsAPI() {
+export function getDatasetsAPI() {
     return new Promise((resolve, reject) => {
         axios(ajaxConfig('get', '/api/v1/datasets/')).then(function (response) {
             if (response.status === 200) {
@@ -46,9 +46,24 @@ export function getDataSetsAPI() {
     });
 }
 
-export function getDataSetByIdAPI(id) {
+export function getDatasetByIdAPI(id) {
     return new Promise((resolve, reject) => {
         axios(ajaxConfig('get', '/api/v1/dataset/' + id)).then(function (response) {
+            if (response.status === 200) {
+                resolve(response.data);
+            }
+            else {
+                reject(response.data)
+            }
+        }).catch(function (error) {
+            reject(error.response.data)
+        });
+    });
+}
+
+export function updateDatasetAPI(id, newDataset) {
+    return new Promise((resolve, reject) => {
+        axios(ajaxConfig('patch', '/api/v1/dataset/' + id, newDataset)).then(function (response) {
             if (response.status === 200) {
                 resolve(response.data);
             }

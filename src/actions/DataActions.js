@@ -1,8 +1,29 @@
 import * as types from '../constants/ActionTypes';
 import _ from 'lodash';
 import {xlsx_to_json}from '../utils/xlsx_to_json'
-import {saveDataSetAPI, getDataSetsAPI, getDataSetByIdAPI} from '../api/dataset';
+import {saveDatasetAPI, getDatasetsAPI, getDatasetByIdAPI, updateDatasetAPI} from '../api/dataset';
 import {showSpinner, showNotification, collapseSideBar} from './AppActions';
+
+// export function updateDataset(dataset) {
+//     return {
+//         type: types.UPDATE_DATA_SETS,
+//         dataset
+//     }
+// }
+
+// export function addDataset(dataset) {
+//     return {
+//         type: types.ADD_DATA_SET,
+//         dataset
+//     }
+// }
+
+// export function deleteDataset() {
+//     return {
+//         type: types.ADD_DATA_SET,
+//         dataset
+//     }
+// }
 
 export function appendToDatasets(dataset) {
     return {
@@ -24,9 +45,9 @@ export function addFile(uploadedFile) {
         dispatch(collapseSideBar(true));
         setTimeout(() => {
             return xlsx_to_json(uploadedFile)
-                .then(dataSet => {
+                .then(dataset => {
                     dispatch(collapseSideBar(true));
-                    dispatch(saveDataSet(dataSet));
+                    dispatch(saveDataset(dataset));
                     dispatch(showSpinner(false));
                 })
                 .catch(error => {
@@ -38,11 +59,11 @@ export function addFile(uploadedFile) {
     };
 }
 
-export function saveDataSet(dataset) {
+export function saveDataset(dataset) {
     return (dispatch) => {
         dispatch(showSpinner(true));
         dispatch(collapseSideBar(true));
-        return saveDataSetAPI(dataset).then(dataset => {
+        return saveDatasetAPI(dataset).then(dataset => {
             dispatch(collapseSideBar(false));
             dispatch(showSpinner(false));
             dispatch(appendToDatasets([dataset]));
@@ -66,14 +87,14 @@ export function saveDataSet(dataset) {
     };
 }
 
-export function getDataSets() {
+export function getDatasets() {
     return (dispatch) => {
         dispatch(showSpinner(true));
         dispatch(collapseSideBar(true));
-        getDataSetsAPI().then(dataSetsRes => {
+        getDatasetsAPI().then(datasets => {
             dispatch(collapseSideBar(false));
             dispatch(showSpinner(false));
-            dispatch(appendToDatasets(dataSetsRes));
+            dispatch(appendToDatasets(datasets));
         }).catch(error => {
             dispatch(showSpinner(false));
             throw(error);
@@ -81,16 +102,16 @@ export function getDataSets() {
     };
 }
 
-export function getDataSetById(id) {
+export function getDatasetById(id) {
     return (dispatch) => {
         dispatch(showSpinner(true));
         dispatch(collapseSideBar(true));
-        getDataSetByIdAPI(id).then(dataSetRes => {
+        getDatasetByIdAPI(id).then(dataset => {
             dispatch(collapseSideBar(false));
             dispatch(showSpinner(false));
             // We should not have a dataset with  empty attributes
-            if (!_.isEmpty(dataSetRes.attributes)){
-                dispatch(setSelectedDataset(dataSetRes))
+            if (!_.isEmpty(dataset.attributes)){
+                dispatch(setSelectedDataset(dataset))
             }
         }).catch(error => {
             dispatch(showSpinner(false));
@@ -105,3 +126,27 @@ export function switchTable(tableIndex) {
         tableIndex
     }
 }
+
+export function updateDataset(newDataset) {
+    return (dispatch) => {
+        updateDatasetAPI(newDataset.id, newDataset).then(dataset => {
+            dispatch(setSelectedDataset(dataset))
+            dispatch(showNotification({
+                message: dataset.attributes.name,
+                description: "table has been deleted",
+                duration: 4.5,
+                type: "success"
+            }));
+            dispatch(switchTable('0'));
+        }).catch(error => {
+            dispatch(showNotification({
+                message: error,
+                description: `delete table failed with error ${error}`,
+                duration: 0,
+                type: "error"
+            }));
+            throw(error);
+        })
+    };
+}
+
