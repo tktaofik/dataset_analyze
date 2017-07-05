@@ -3,7 +3,6 @@ import * as types from '../constants/ActionTypes';
 let initialStates = {
     datasets: [],
     selectedTableIndex: 0,
-    //selectedDatasetId: null,
     selectedDataset: null
 };
 

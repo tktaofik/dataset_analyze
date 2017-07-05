@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Layout, notification} from 'antd';
 import {InsightSideBar, InsightContent, Spinner} from '../../components';
-import {getDataSets, getDataSetById} from '../../actions/DataActions';
+import {getDatasets, getDatasetById} from '../../actions/DataActions';
 import {hideNotification} from '../../actions/AppActions';
 import './Insight.css';
 
@@ -11,11 +11,11 @@ const propTypes = {};
 class InsightsContainer extends React.Component {
     componentWillMount() {
         const {dispatch, match} = this.props;
-        dispatch(getDataSets());
+        dispatch(getDatasets());
 
         const id = match.params.datasetId ? match.params.datasetId : null;
         if(id) {
-            dispatch(getDataSetById(id));
+            dispatch(getDatasetById(id));
         }
     }
 

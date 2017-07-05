@@ -1,7 +1,7 @@
 import React from 'react';
 import {Select, Button} from 'antd';
 import PropTypes from 'proptypes';
-import {switchTable} from '../../actions/DataActions';
+import {switchTable, updateDataset} from '../../actions/DataActions';
 import './TablesSelectControl.css';
 
 const Option = Select.Option;
@@ -17,7 +17,25 @@ class TablesSelectDropDown extends React.Component {
     };
 
     deleteTable = () => {
-        console.log('delete table')
+        const {dispatch} = this.props;
+        const {selectedDataset, selectedTableIndex} = this.props.dataState;
+
+        const oldAttributes = selectedDataset.attributes;
+        const oldTables = selectedDataset.attributes.tables;
+
+        const newTables = [
+                ...oldTables.slice(0, selectedTableIndex),
+                ...oldTables.slice(parseInt(selectedTableIndex) + 1, oldTables.length)
+            ]
+        const newAttributes = Object.assign({}, oldAttributes, {
+            tables: newTables
+        });
+
+        const updatedDataset = Object.assign({}, selectedDataset, {
+            attributes: newAttributes
+        });
+
+        dispatch(updateDataset(updatedDataset));
     };
 
     render() {
