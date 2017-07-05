@@ -1,4 +1,4 @@
-import * as types from '../constants/ActionTypes';
+import * as dataAction from '../actions/DataActions';
 
 let initialStates = {
     datasets: [],
@@ -8,17 +8,17 @@ let initialStates = {
 
 export default function dataState(state = initialStates, action) {
     switch (action.type) {
-        case types.UPDATE_DATA_SETS:
+        case dataAction.UPDATE_DATA_SETS:
             return Object.assign({}, state, {
                 datasets: [...state.datasets, ...action.payload],
             });
 
-        case types.SWITCH_TABLE:
+        case dataAction.SWITCH_TABLE:
             return Object.assign({}, state, {
                 selectedTableIndex: action.tableIndex
             });
 
-        case types.SET_SELECTED_DATASET:
+        case dataAction.SET_SELECTED_DATASET:
             return Object.assign({}, state, {
                 selectedDataset: action.payload
             });

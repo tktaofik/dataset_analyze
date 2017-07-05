@@ -1,4 +1,4 @@
-import * as types from '../constants/ActionTypes';
+import * as actionType from '../actions/AppActions';
 
 let initialStates = {
     showSpinner: false,
@@ -8,17 +8,17 @@ let initialStates = {
 
 export default function appState(state = initialStates, action) {
     switch (action.type) {
-        case types.SHOW_SPINNER:
+        case actionType.SHOW_SPINNER:
             return Object.assign({}, state, {
                 showSpinner: action.payload,
             });
 
-        case types.COLLAPSE_SIDE_BAR:
+        case actionType.COLLAPSE_SIDE_BAR:
             return Object.assign({}, state, {
                 collapseSideBar: action.payload,
             });
 
-        case types.SHOW_NOTIFICATION:
+        case actionType.SHOW_NOTIFICATION:
             return Object.assign({}, state, {
                 notification: action.payload,
             });

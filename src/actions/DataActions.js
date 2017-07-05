@@ -1,36 +1,18 @@
-import * as types from '../constants/ActionTypes';
 import _ from 'lodash';
 import {xlsx_to_json}from '../utils/xlsx_to_json'
 import {saveDatasetAPI, getDatasetsAPI, getDatasetByIdAPI, updateDatasetAPI} from '../api/dataset';
 import {showSpinner, showNotification, collapseSideBar} from './AppActions';
 
-// export function updateDataset(dataset) {
-//     return {
-//         type: types.UPDATE_DATA_SETS,
-//         dataset
-//     }
-// }
-
-// export function addDataset(dataset) {
-//     return {
-//         type: types.ADD_DATA_SET,
-//         dataset
-//     }
-// }
-
-// export function deleteDataset() {
-//     return {
-//         type: types.ADD_DATA_SET,
-//         dataset
-//     }
-// }
-
 function action(type, payload) {
     return {type, payload}
 }
 
-export const appendToDatasets = (dataset) => action(types.UPDATE_DATA_SETS, [...dataset]);
-export const setSelectedDataset = (dataset) => action(types.SET_SELECTED_DATASET, dataset);
+export const SWITCH_TABLE = 'SWITCH_TABLE';
+export const UPDATE_DATA_SETS = 'UPDATE_DATA_SETS';
+export const SET_SELECTED_DATASET = 'SET_SELECTED_DATASET';
+
+export const appendToDatasets = (dataset) => action(UPDATE_DATA_SETS, [...dataset]);
+export const setSelectedDataset = (dataset) => action(SET_SELECTED_DATASET, dataset);
 
 export function addFile(uploadedFile) {
     return (dispatch) => {
@@ -115,7 +97,7 @@ export function getDatasetById(id) {
 
 export function switchTable(tableIndex) {
     return {
-        type: types.SWITCH_TABLE,
+        type: SWITCH_TABLE,
         tableIndex
     }
 }
