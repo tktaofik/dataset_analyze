@@ -50,6 +50,7 @@ class TablesSelectControl extends React.Component {
             });
             const tables = selectedDataset.attributes.tables;
             const selectedTableName = tables.length ? tables[selectedTableIndex].tableName : null;
+            const deleteButton = tables.length ? <Button type="primary" className="delete-button" icon="delete" size="small" onClick={this.deleteTable}/> : null
             return (
                 <div className="table-select-control">
                     <div className="description"><p>Tables/Sheets:</p></div>
@@ -62,12 +63,7 @@ class TablesSelectControl extends React.Component {
                         value={selectedTableName}>
                         {tablesOptions}
                     </Select>
-                    <Button
-                        type="primary"
-                        className="delete-button"
-                        icon="delete"
-                        size="small"
-                        onClick={this.deleteTable}/>
+                    {deleteButton}
                 </div>
             );
         }

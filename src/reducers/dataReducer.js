@@ -9,7 +9,7 @@ let initialStates = {
 
 export default function dataState(state = initialStates, action) {
     switch (action.type) {
-        case dataAction.UPDATE_DATA_SETS:
+        case dataAction.ADD_TO_DATA_SETS:
             return Object.assign({}, state, {
                 datasets: _.uniqBy([...state.datasets, ...action.payload.dataset], 'id'),
             });
@@ -22,6 +22,17 @@ export default function dataState(state = initialStates, action) {
         case dataAction.SET_SELECTED_DATASET:
             return Object.assign({}, state, {
                 selectedDataset: action.payload.dataset
+            });
+
+        case dataAction.UPDATE_DATA_SETS:
+            return Object.assign({}, state, {
+                datasets: state.datasets.map(dataset => {
+                    if(dataset.id === action.payload.dataset.id) {
+                        return action.payload.dataset;
+                    } else {
+                        return dataset;
+                    }
+                })
             });
 
         default:

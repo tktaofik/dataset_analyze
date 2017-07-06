@@ -57,6 +57,7 @@ export function* updateDataset(action) {
         const result = yield call(datasetApi.updateDataset, dataset.id, dataset);
 
         yield put(dataActions.switchTable('0'));
+        yield put(dataActions.updateDatasets(result));
         yield put(dataActions.setSelectedDataset(result));
         yield put(appActions.showNotification({
             message: dataset.attributes.name,
