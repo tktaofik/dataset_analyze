@@ -3,6 +3,7 @@ import * as appActions from '../actions/AppActions';
 import {put, call, takeLatest, fork} from 'redux-saga/effects'
 import {datasetApi} from '../services/dataset'
 import {xlsx_to_json}from '../utils/xlsx_to_json'
+import _ from 'lodash';
 
 /******************************************************************************/
 /******************************* EFFECTS *************************************/
@@ -47,11 +48,31 @@ export function* saveDataset(data) {
 }
 
 export function* addFile(action) {
+    const {uploadedFile} = action.payload;
+
     try {
         yield put(appActions.collapseSideBar(true));
         yield put(appActions.showSpinner(true));
-        const dataset = yield call(xlsx_to_json, action.payload);
+        const dataset = yield call(xlsx_to_json, uploadedFile);
         yield fork(saveDataset, dataset)
+    } catch (error) {
+        yield fork(errorOccurred, error);
+    } finally {
+        yield put(appActions.collapseSideBar(false));
+        yield put(appActions.showSpinner(false));
+    }
+}
+
+export function* getDatasetById(action) {
+    const {id} = action.payload;
+
+    try {
+        yield put(appActions.collapseSideBar(true));
+        yield put(appActions.showSpinner(true));
+        const dataset = yield call(datasetApi.getDatasetById, id);
+        if (!_.isEmpty(dataset.attributes)){
+            yield put(dataActions.setSelectedDataset(dataset))
+        }
     } catch (error) {
         yield fork(errorOccurred, error);
     } finally {
@@ -78,4 +99,7 @@ export function* watchGetDatasets() {
 }
 export function* watchAddFile() {
     yield takeLatest(dataActions.ADD_FILE, addFile)
+}
+export function* watchGetDatasetById() {
+    yield takeLatest(dataActions.GET_DATASET_BY_ID, getDatasetById)
 }

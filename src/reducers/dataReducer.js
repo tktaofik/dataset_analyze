@@ -11,17 +11,17 @@ export default function dataState(state = initialStates, action) {
     switch (action.type) {
         case dataAction.UPDATE_DATA_SETS:
             return Object.assign({}, state, {
-                datasets: _.uniqBy([...state.datasets, ...action.payload], 'id'),
+                datasets: _.uniqBy([...state.datasets, ...action.payload.dataset], 'id'),
             });
 
         case dataAction.SWITCH_TABLE:
             return Object.assign({}, state, {
-                selectedTableIndex: action.payload
+                selectedTableIndex: action.payload.tableIndex
             });
 
         case dataAction.SET_SELECTED_DATASET:
             return Object.assign({}, state, {
-                selectedDataset: action.payload
+                selectedDataset: action.payload.dataset
             });
 
         default:
