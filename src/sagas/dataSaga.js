@@ -10,13 +10,14 @@ import {xlsx_to_json}from '../utils/xlsx_to_json'
 
 export function* getDatasets() {
     try {
-        const datasets = yield call(datasetApi.getDatasets);
         yield put(appActions.collapseSideBar(true));
         yield put(appActions.showSpinner(true));
+
+        const datasets = yield call(datasetApi.getDatasets);
+
         yield put(dataActions.appendToDatasets(datasets))
     } catch (error) {
-        console.log(error)
-
+        yield fork(errorOccurred, error);
     } finally {
         yield put(appActions.collapseSideBar(false));
         yield put(appActions.showSpinner(false));
@@ -38,12 +39,7 @@ export function* saveDataset(data) {
             type: "success"
         }))
     } catch (error) {
-        yield put(appActions.showNotification({
-            message: data.fileName,
-            description: `${data.fileName} has failed to uploaded`,
-            duration: 0,
-            type: "error"
-        }))
+        yield fork(errorOccurred, error);
     } finally {
         yield put(appActions.collapseSideBar(false));
         yield put(appActions.showSpinner(false));
@@ -52,11 +48,25 @@ export function* saveDataset(data) {
 
 export function* addFile(action) {
     try {
+        yield put(appActions.collapseSideBar(true));
+        yield put(appActions.showSpinner(true));
         const dataset = yield call(xlsx_to_json, action.payload);
         yield fork(saveDataset, dataset)
     } catch (error) {
-        console.log(error)
+        yield fork(errorOccurred, error);
+    } finally {
+        yield put(appActions.collapseSideBar(false));
+        yield put(appActions.showSpinner(false));
     }
+}
+
+export function* errorOccurred(error) {
+    yield put(appActions.showNotification({
+        message: error,
+        description: "",
+        duration: 0,
+        type: "error"
+    }))
 }
 
 /******************************************************************************/
