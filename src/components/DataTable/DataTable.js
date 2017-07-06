@@ -46,7 +46,11 @@ class DataTable extends React.Component {
                 </div>
             );
         } else {
-            return null;
+            return (
+                <div className="data-table-container">
+                    <h3>No tables to show</h3>
+                </div>
+            );
         }
     }
 }

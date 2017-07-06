@@ -2,6 +2,7 @@ import React from 'react';
 import {Layout, Button, Row, Col, Icon} from 'antd';
 import {setSelectedDataset} from '../../actions/DataActions';
 import {collapseSideBar} from '../../actions/AppActions';
+import './InsightsHeader.css'
 
 const {Header} = Layout;
 
@@ -17,7 +18,7 @@ class AddDataButton extends React.Component {
 
         if (dataState.selectedDataset){
             return (
-                <Button className="" type="primary" icon="file-add" size="large" onClick={this.navigateToAddData}/>
+                <Button className="icon" type="primary" icon="file-add" onClick={this.navigateToAddData}/>
             );
         }
         else {

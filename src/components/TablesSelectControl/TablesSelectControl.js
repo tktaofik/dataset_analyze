@@ -40,41 +40,31 @@ class TablesSelectControl extends React.Component {
 
     render() {
         const {selectedDataset, selectedTableIndex} = this.props.dataState;
-        if(selectedDataset){
-            const tablesOptions = selectedDataset.attributes.tables.map((table, index) => {
-                return (
-                    <Option key={index} value={`${index}`}>
-                        {table.tableName}
-                    </Option>
-                );
-            });
-            const tables = selectedDataset.attributes.tables;
-            const selectedTableName = tables.length ? tables[selectedTableIndex].tableName : null;
+        const tables = selectedDataset.attributes.tables;
+        const tablesOptions = tables.map((table, index) => {
             return (
-                <div className="table-select-control">
-                    <div className="description"><p>Tables/Sheets:</p></div>
-                    <Select
-                        showSearch
-                        style={{width: 200}}
-                        placeholder="Select a table"
-                        optionFilterProp="children"
-                        onChange={this.changeTable}
-                        value={selectedTableName}>
-                        {tablesOptions}
-                    </Select>
-                    <Button
-                        type="primary"
-                        className="delete-button"
-                        icon="delete"
-                        size="small"
-                        onClick={this.deleteTable}/>
-                </div>
+                <Option key={index} value={`${index}`}>
+                    {table.tableName}
+                </Option>
             );
-        }
-        else{
-            return null;
-        }
-
+        });
+        const selectedTableName = tables.length ? tables[selectedTableIndex].tableName : null;
+        const deleteButton = tables.length ? <Button type="primary" className="delete-button" icon="delete" size="small" onClick={this.deleteTable}/> : null
+        return (
+            <div className="table-select-control">
+                <div className="description"><p>Tables/Sheets:</p></div>
+                <Select
+                    showSearch
+                    style={{width: 200}}
+                    placeholder="Select a table"
+                    optionFilterProp="children"
+                    onChange={this.changeTable}
+                    value={selectedTableName}>
+                    {tablesOptions}
+                </Select>
+                {deleteButton}
+            </div>
+        );
     }
 }
 TablesSelectControl.proptypes = propTypes;
