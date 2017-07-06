@@ -54,13 +54,13 @@ export function* updateDataset(action) {
         yield put(appActions.collapseSideBar(true));
         yield put(appActions.showSpinner(true));
 
-        const result = yield call(datasetApi.updateDataset, dataset);
+        const result = yield call(datasetApi.updateDataset, dataset.id, dataset);
 
         yield put(dataActions.switchTable('0'));
         yield put(dataActions.setSelectedDataset(result));
         yield put(appActions.showNotification({
             message: dataset.attributes.name,
-            description: `${dataset.attributes.name} has been uploaded`,
+            description: `${dataset.attributes.name} updated`,
             duration: 4.5,
             type: "success"
         }))
