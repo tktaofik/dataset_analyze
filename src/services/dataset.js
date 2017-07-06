@@ -3,6 +3,7 @@ import axios from "axios";
 
 export const datasetApi = {
     saveDataset(data) {
+        console.log(data);
         const body = {
             type: 'dataset',
             attributes: {
