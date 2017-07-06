@@ -47,6 +47,31 @@ export function* saveDataset(data) {
     }
 }
 
+export function* updateDataset(action) {
+    const {dataset} = action.payload;
+
+    try {
+        yield put(appActions.collapseSideBar(true));
+        yield put(appActions.showSpinner(true));
+
+        const result = yield call(datasetApi.updateDataset, dataset);
+
+        yield put(dataActions.switchTable('0'));
+        yield put(dataActions.setSelectedDataset(result));
+        yield put(appActions.showNotification({
+            message: dataset.attributes.name,
+            description: `${dataset.attributes.name} has been uploaded`,
+            duration: 4.5,
+            type: "success"
+        }))
+    } catch (error) {
+        yield fork(errorOccurred, error);
+    } finally {
+        yield put(appActions.collapseSideBar(false));
+        yield put(appActions.showSpinner(false));
+    }
+}
+
 export function* addFile(action) {
     const {uploadedFile} = action.payload;
 
@@ -102,4 +127,7 @@ export function* watchAddFile() {
 }
 export function* watchGetDatasetById() {
     yield takeLatest(dataActions.GET_DATASET_BY_ID, getDatasetById)
+}
+export function* watchUpdateDataset() {
+    yield takeLatest(dataActions.UPDATE_DATA_SET, updateDataset)
 }

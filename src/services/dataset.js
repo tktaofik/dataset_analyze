@@ -43,7 +43,7 @@ export const datasetApi = {
                     reject(response.data)
                 }
             }).catch(function (error) {
-                reject(error.response.data)
+                reject(error.response.data.message)
             });
         });
     },
@@ -58,7 +58,7 @@ export const datasetApi = {
                     reject(response.data)
                 }
             }).catch(function (error) {
-                reject(error.response.data)
+                reject(error.response.data.message)
             });
         });
     },
@@ -70,10 +70,12 @@ export const datasetApi = {
                     resolve(response.data);
                 }
                 else {
+                    debugger
                     reject(response.data)
                 }
             }).catch(function (error) {
-                reject(error.response.data)
+                debugger
+                reject(error.response.data.message)
             });
         });
     }
