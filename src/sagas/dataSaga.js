@@ -6,6 +6,16 @@ import {xlsx_to_json}from '../utils/xlsx_to_json'
 import _ from 'lodash';
 
 /******************************************************************************/
+/******************************* WATCHERS *************************************/
+/******************************************************************************/
+export const  dataSagas = [
+    takeLatest(dataActions.GET_DATASETS, getDatasets),
+    takeLatest(dataActions.ADD_FILE, addFile),
+    takeLatest(dataActions.GET_DATASET_BY_ID, getDatasetById),
+    takeLatest(dataActions.UPDATE_DATA_SET, updateDataset)
+];
+
+/******************************************************************************/
 /******************************* EFFECTS *************************************/
 /******************************************************************************/
 
@@ -25,17 +35,17 @@ export function* getDatasets() {
     }
 }
 
-export function* saveDataset(data) {
+export function* saveDataset(dataset) {
     try {
-        const dataset = yield call(datasetApi.saveDataset, data);
+        const result = yield call(datasetApi.saveDataset, dataset);
 
         yield put(appActions.collapseSideBar(true));
         yield put(appActions.showSpinner(true));
-        yield put(dataActions.appendToDatasets([dataset]));
-        yield put(dataActions.setSelectedDataset(dataset));
+        yield put(dataActions.appendToDatasets([result]));
+        yield put(dataActions.setSelectedDataset(result));
         yield put(appActions.showNotification({
-            message: dataset.attributes.name,
-            description: `${dataset.attributes.name} has been uploaded`,
+            message: result.attributes.name,
+            description: `${result.attributes.name} has been uploaded`,
             duration: 4.5,
             type: "success"
         }))
@@ -51,9 +61,6 @@ export function* updateDataset(action) {
     const {dataset} = action.payload;
 
     try {
-        yield put(appActions.collapseSideBar(true));
-        yield put(appActions.showSpinner(true));
-
         const result = yield call(datasetApi.updateDataset, dataset.id, dataset);
 
         yield put(dataActions.switchTable('0'));
@@ -113,21 +120,4 @@ export function* errorOccurred(error) {
         duration: 0,
         type: "error"
     }))
-}
-
-/******************************************************************************/
-/******************************* WATCHERS *************************************/
-/******************************************************************************/
-
-export function* watchGetDatasets() {
-    yield takeLatest(dataActions.GET_DATASETS, getDatasets)
-}
-export function* watchAddFile() {
-    yield takeLatest(dataActions.ADD_FILE, addFile)
-}
-export function* watchGetDatasetById() {
-    yield takeLatest(dataActions.GET_DATASET_BY_ID, getDatasetById)
-}
-export function* watchUpdateDataset() {
-    yield takeLatest(dataActions.UPDATE_DATA_SET, updateDataset)
 }
