@@ -32,6 +32,7 @@ func saveFileAsDatasetHandler(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
+	//TODO: inherit DB and use it here
 	result, err := fs.SaveFileAsDataset(*dataset)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())

@@ -28,6 +28,7 @@ export function* getDatasets() {
 
         yield put(dataActions.appendToDatasets(datasets))
     } catch (error) {
+        //TODO: catch error type and throw error 
         yield fork(errorOccurred, error);
     } finally {
         yield put(appActions.collapseSideBar(false));
