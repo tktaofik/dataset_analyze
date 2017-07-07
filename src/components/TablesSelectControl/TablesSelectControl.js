@@ -48,23 +48,27 @@ class TablesSelectControl extends React.Component {
                 </Option>
             );
         });
-        const selectedTableName = tables.length ? tables[selectedTableIndex].tableName : null;
-        const deleteButton = tables.length ? <Button type="primary" className="delete-button" icon="delete" size="small" onClick={this.deleteTable}/> : null
-        return (
-            <div className="table-select-control">
-                <div className="description"><p>Tables/Sheets:</p></div>
-                <Select
-                    showSearch
-                    style={{width: 200}}
-                    placeholder="Select a table"
-                    optionFilterProp="children"
-                    onChange={this.changeTable}
-                    value={selectedTableName}>
-                    {tablesOptions}
-                </Select>
-                {deleteButton}
-            </div>
-        );
+        if (tables.length && tables[selectedTableIndex].tableName){
+            const selectedTableName = tables[selectedTableIndex].tableName;
+            const deleteButton = tables.length ? <Button type="primary" className="delete-button" icon="delete" size="small" onClick={this.deleteTable}/> : null
+            return (
+                <div className="table-select-control">
+                    <div className="description"><p>Tables/Sheets:</p></div>
+                    <Select
+                        showSearch
+                        style={{width: 200}}
+                        placeholder="Select a table"
+                        optionFilterProp="children"
+                        onChange={this.changeTable}
+                        value={selectedTableName}>
+                        {tablesOptions}
+                    </Select>
+                    {deleteButton}
+                </div>
+            );
+        } else {
+            return null
+        }
     }
 }
 TablesSelectControl.proptypes = propTypes;

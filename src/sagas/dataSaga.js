@@ -101,8 +101,6 @@ export function* getDatasetById(action) {
     const {id} = action.payload;
 
     try {
-        yield put(appActions.collapseSideBar(true));
-        yield put(appActions.showSpinner(true));
         const dataset = yield call(datasetApi.getDatasetById, id);
         if (!_.isEmpty(dataset.attributes)){
             yield put(dataActions.setSelectedDataset(dataset))
