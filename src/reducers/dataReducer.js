@@ -25,15 +25,23 @@ export default function dataState(state = initialStates, action) {
             });
 
         case dataAction.UPDATE_DATA_SETS:
-            return Object.assign({}, state, {
-                datasets: state.datasets.map(dataset => {
-                    if(dataset.id === action.payload.dataset.id) {
-                        return action.payload.dataset;
-                    } else {
-                        return dataset;
-                    }
-                })
-            });
+            if (!action.payload.dataset.attributes) {
+                return Object.assign({}, state, {
+                    datasets: state.datasets.filter(dataset => {
+                        return dataset.id !== action.payload.dataset.id;
+                    })
+                });
+            } else {
+                return Object.assign({}, state, {
+                    datasets: state.datasets.map(dataset => {
+                        if(dataset.id === action.payload.dataset.id) {
+                            return action.payload.dataset;
+                        } else {
+                            return dataset;
+                        }
+                    })
+                });
+            }
 
         default:
             return state;

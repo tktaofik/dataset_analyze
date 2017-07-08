@@ -70,11 +70,24 @@ export const datasetApi = {
                     resolve(response.data);
                 }
                 else {
-                    debugger
                     reject(response.data)
                 }
             }).catch(function (error) {
-                debugger
+                reject(error.response.data.message)
+            });
+        });
+    },
+
+    deleteDataset(id) {
+        return new Promise((resolve, reject) => {
+            axios(ajaxConfig('delete', '/api/v1/dataset/' + id)).then(function (response) {
+                if (response.status === 200) {
+                    resolve(response.data);
+                }
+                else {
+                    reject(response.data)
+                }
+            }).catch(function (error) {
                 reject(error.response.data.message)
             });
         });

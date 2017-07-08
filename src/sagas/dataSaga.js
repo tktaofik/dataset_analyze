@@ -12,7 +12,8 @@ export const  dataSagas = [
     takeLatest(dataActions.GET_DATASETS, getDatasets),
     takeLatest(dataActions.ADD_FILE, addFile),
     takeLatest(dataActions.GET_DATASET_BY_ID, getDatasetById),
-    takeLatest(dataActions.UPDATE_DATA_SET, updateDataset)
+    takeLatest(dataActions.UPDATE_DATA_SET, updateDataset),
+    takeLatest(dataActions.DELETE_DATA_SET, deleteDataset),
 ];
 
 /******************************************************************************/
@@ -35,28 +36,6 @@ export function* getDatasets() {
     }
 }
 
-export function* saveDataset(dataset) {
-    try {
-        const result = yield call(datasetApi.saveDataset, dataset);
-
-        yield put(appActions.collapseSideBar(true));
-        yield put(appActions.showSpinner(true));
-        yield put(dataActions.appendToDatasets([result]));
-        yield put(dataActions.setSelectedDataset(result));
-        yield put(appActions.showNotification({
-            message: result.attributes.name,
-            description: `${result.attributes.name} has been uploaded`,
-            duration: 4.5,
-            type: "success"
-        }))
-    } catch (error) {
-        yield fork(errorOccurred, error);
-    } finally {
-        yield put(appActions.collapseSideBar(false));
-        yield put(appActions.showSpinner(false));
-    }
-}
-
 export function* updateDataset(action) {
     const {dataset} = action.payload;
 
@@ -69,6 +48,48 @@ export function* updateDataset(action) {
         yield put(appActions.showNotification({
             message: dataset.attributes.name,
             description: `${dataset.attributes.name} updated`,
+            duration: 4.5,
+            type: "success"
+        }))
+    } catch (error) {
+        yield fork(errorOccurred, error);
+    } finally {
+        yield put(appActions.collapseSideBar(false));
+        yield put(appActions.showSpinner(false));
+    }
+}
+
+export function* deleteDataset(action) {
+    const {datasetId} = action.payload;
+
+    try {
+        yield put(appActions.showSpinner(true));
+        const response = yield call(datasetApi.deleteDataset, datasetId);
+        yield put(dataActions.updateDatasets(response));
+        yield put(dataActions.setSelectedDataset(null));
+        yield put(appActions.showNotification({
+            message: 'Dataset deleted',
+            duration: 4.5,
+            type: "success"
+        }))
+    } catch (error) {
+        yield fork(errorOccurred, error);
+    } finally {
+        yield put(appActions.showSpinner(false));
+    }
+}
+
+export function* saveDataset(dataset) {
+    try {
+        const result = yield call(datasetApi.saveDataset, dataset);
+
+        yield put(appActions.collapseSideBar(true));
+        yield put(appActions.showSpinner(true));
+        yield put(dataActions.appendToDatasets([result]));
+        yield put(dataActions.setSelectedDataset(result));
+        yield put(appActions.showNotification({
+            message: result.attributes.name,
+            description: `${result.attributes.name} has been uploaded`,
             duration: 4.5,
             type: "success"
         }))
