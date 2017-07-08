@@ -28,7 +28,11 @@ export const datasetApi = {
                     reject(response.data)
                 }
             }).catch(function (error) {
-                reject(error.response.data.message)
+                if (error.response.data){
+                    reject(error.response.data);
+                }
+
+                reject(error);
             });
         });
     },
@@ -43,7 +47,7 @@ export const datasetApi = {
                     reject(response.data)
                 }
             }).catch(function (error) {
-                reject(error.response.data.message)
+                reject(error.response.data);
             });
         });
     },
@@ -58,7 +62,7 @@ export const datasetApi = {
                     reject(response.data)
                 }
             }).catch(function (error) {
-                reject(error.response.data.message)
+                reject(error.response.data);
             });
         });
     },
@@ -74,8 +78,7 @@ export const datasetApi = {
                     reject(response.data)
                 }
             }).catch(function (error) {
-                debugger
-                reject(error.response.data.message)
+                reject(error.response.data);
             });
         });
     }

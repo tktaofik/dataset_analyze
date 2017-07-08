@@ -114,8 +114,9 @@ export function* getDatasetById(action) {
 }
 
 export function* errorOccurred(error) {
+    console.log(error)
     yield put(appActions.showNotification({
-        message: error,
+        message: error.message,
         description: "",
         duration: 0,
         type: "error"
