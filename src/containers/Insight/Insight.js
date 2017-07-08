@@ -9,7 +9,7 @@ import './Insight.css';
 const {Sider} = Layout;
 const propTypes = {};
 class InsightsContainer extends React.Component {
-    componentWillMount() {
+    componentDidMount() {
         const {dispatch, match} = this.props;
         dispatch(getDatasets());
 
