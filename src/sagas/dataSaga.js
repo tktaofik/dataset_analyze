@@ -29,6 +29,7 @@ export function* getDatasets() {
 
         yield put(dataActions.appendToDatasets(datasets))
     } catch (error) {
+        //TODO: catch error type and throw error 
         yield fork(errorOccurred, error);
     } finally {
         yield put(appActions.collapseSideBar(false));
@@ -121,8 +122,6 @@ export function* getDatasetById(action) {
     const {id} = action.payload;
 
     try {
-        yield put(appActions.collapseSideBar(true));
-        yield put(appActions.showSpinner(true));
         const dataset = yield call(datasetApi.getDatasetById, id);
         if (!_.isEmpty(dataset.attributes)){
             yield put(dataActions.setSelectedDataset(dataset))
@@ -136,8 +135,9 @@ export function* getDatasetById(action) {
 }
 
 export function* errorOccurred(error) {
+    console.log(error)
     yield put(appActions.showNotification({
-        message: error,
+        message: error.message,
         description: "",
         duration: 0,
         type: "error"
