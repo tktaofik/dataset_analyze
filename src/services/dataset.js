@@ -94,7 +94,6 @@ export const datasetApi = {
     }
 };
 
-
 function ajaxConfig(method, url, data) {
     const baseUrl = 'http://localhost:8081';
     const responseType = 'json';
