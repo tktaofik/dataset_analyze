@@ -24,5 +24,7 @@ func startServer(port string, server *echo.Echo)  {
 
 	file.Init(server)
 
+	//TODO: Dial to database once here
+
 	server.Logger.Fatal(server.Start(":" + port))
 }
