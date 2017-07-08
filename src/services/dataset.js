@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 export const datasetApi = {
     saveDataset(data) {
         const body = {
@@ -28,7 +27,11 @@ export const datasetApi = {
                     reject(response.data)
                 }
             }).catch(function (error) {
-                reject(error.response.data.message)
+                if (error.response.data){
+                    reject(error.response.data);
+                }
+
+                reject(error);
             });
         });
     },
@@ -43,7 +46,7 @@ export const datasetApi = {
                     reject(response.data)
                 }
             }).catch(function (error) {
-                reject(error.response.data.message)
+                reject(error.response.data);
             });
         });
     },
@@ -58,7 +61,7 @@ export const datasetApi = {
                     reject(response.data)
                 }
             }).catch(function (error) {
-                reject(error.response.data.message)
+                reject(error.response.data);
             });
         });
     },
@@ -70,10 +73,11 @@ export const datasetApi = {
                     resolve(response.data);
                 }
                 else {
+                    debugger
                     reject(response.data)
                 }
             }).catch(function (error) {
-                reject(error.response.data.message)
+                reject(error.response.data);
             });
         });
     },
@@ -93,6 +97,7 @@ export const datasetApi = {
         });
     }
 };
+
 
 function ajaxConfig(method, url, data) {
     const baseUrl = 'http://localhost:8081';
