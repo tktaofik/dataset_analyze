@@ -8,13 +8,14 @@ import './Insight.css';
 
 const {Sider} = Layout;
 const propTypes = {};
+
 class InsightsContainer extends React.Component {
     componentDidMount() {
         const {dispatch, match} = this.props;
         dispatch(getDatasets());
 
         const id = match.params.datasetId ? match.params.datasetId : null;
-        if(id) {
+        if (id) {
             dispatch(getDatasetById(id));
         }
     }
@@ -29,10 +30,10 @@ class InsightsContainer extends React.Component {
                 placement: 'topRight',
             };
 
-            if(appState.notification.type){
+            if (appState.notification.type) {
                 notification[appState.notification.type](args);
             }
-            else{
+            else {
                 notification.open(args);
             }
             dispatch(hideNotification())

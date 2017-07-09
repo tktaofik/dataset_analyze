@@ -17,7 +17,7 @@ class AddDataButton extends React.Component {
     render() {
         const {dataState} = this.props;
 
-        if (dataState.selectedDataset){
+        if (dataState.selectedDataset) {
             return (
                 <Button className="icon" type="primary" icon="file-add" onClick={this.navigateToAddData}/>
             );
@@ -40,6 +40,8 @@ class InsightsHeader extends React.Component {
         const name = dataState.selectedDataset.attributes.name;
         confirm({
             title: `Do you want to delete ${name}?`,
+            okText: 'Ok',
+            cancelText: 'Cancel',
             onOk() {
                 dispatch(deleteDataset(id));
             },
@@ -47,12 +49,12 @@ class InsightsHeader extends React.Component {
                 console.log('Cancel');
             },
         });
-    }
+    };
 
     render() {
         const {appState, dataState} = this.props;
-        const deleteButton = dataState.selectedDataset ? 
-            <Button type="primary" className="del-dataset-btn" icon="delete" size="small" onClick={this.showConfirm}/> : 
+        const deleteButton = dataState.selectedDataset ?
+            <Button type="primary" className="del-dataset-btn" icon="delete" size="small" onClick={this.showConfirm}/> :
             null
         return (
             <Header style={{background: '#fff', padding: 0}}>
@@ -68,7 +70,7 @@ class InsightsHeader extends React.Component {
                     <Col span={20}>
                         <div className="title-control">
                             <h2>
-                                {dataState.selectedDataset && dataState.selectedDataset.attributes ? 
+                                {dataState.selectedDataset && dataState.selectedDataset.attributes ?
                                     dataState.selectedDataset.attributes.name : "Analyze Datasets"}
                             </h2>
                             {deleteButton}
