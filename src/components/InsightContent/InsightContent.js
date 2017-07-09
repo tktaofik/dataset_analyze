@@ -81,13 +81,13 @@ class InsightContent extends React.Component {
                             <DataTable {...this.props}/>
                         </Row>
                         <Row className="insight-charts-container">
-                            <Row align="middle" justify="center" type="flex">
-                                <h2 className="insight-charts-title">Suggested Charts</h2>
-                            </Row>
+                            {/*<Row align="middle" justify="center" type="flex">*/}
+                                {/*<p className="insight-charts-title">Suggested Charts</p>*/}
+                            {/*</Row>*/}
                             <Row>
                                 <Tabs tabPosition="top" className="insight-charts">
                                     <TabPane tab="Line Chart" key="1">
-                                        <Row align="middle" justify="center" type="flex">
+                                        <Row justify="center" type="flex" >
                                             <LineChart
                                                 showLegend={false}
                                                 width={width}
@@ -99,7 +99,7 @@ class InsightContent extends React.Component {
                                         </Row>
                                     </TabPane>
                                     <TabPane tab="Circle Chart" key="2">
-                                        <Row align="middle" justify="center" type="flex">
+                                        <Row justify="center" type="flex">
                                             <LineChart
                                                 showLegend={false}
                                                 width={width}
@@ -111,7 +111,7 @@ class InsightContent extends React.Component {
                                         </Row>
                                     </TabPane>
                                     <TabPane tab="Donut Chart" key="3">
-                                        <Row align="middle" justify="center" type="flex">
+                                        <Row justify="center" type="flex">
                                             <LineChart
                                                 showLegend={false}
                                                 width={width}
