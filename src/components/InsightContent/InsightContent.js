@@ -1,9 +1,10 @@
 import React from 'react';
-import {Layout, Row} from 'antd';
+import {Layout, Row, Tabs} from 'antd';
 import PropTypes from 'proptypes';
 import {DataTable, DataTableHeader, DragAndDrop, InsightsHeader} from '../index';
 import {LineChart} from 'react-d3-basic';
 
+const TabPane = Tabs.TabPane;
 const {Content} = Layout;
 const propTypes = {
     dispatch: PropTypes.func.isRequired,
@@ -64,47 +65,79 @@ const width = 700,
             }
         }
     ],
-    x = function(d) {
+    x = function (d) {
         return d.index;
     };
 
 class InsightContent extends React.Component {
     render() {
-        {
-            if (this.props.dataState.selectedDataset && this.props.dataState.selectedDataset.attributes) {
-                return (
-                    <Layout >
-                        <InsightsHeader {...this.props}/>
-                        <Content className="insights-container" >
-                            <DataTableHeader {...this.props}/>
-                            <Row className="data-table">
-                                <DataTable {...this.props}/>
+        if (this.props.dataState.selectedDataset && this.props.dataState.selectedDataset.attributes) {
+            return (
+                <Layout >
+                    <InsightsHeader {...this.props}/>
+                    <Content className="insights-container">
+                        <DataTableHeader {...this.props}/>
+                        <Row className="data-table">
+                            <DataTable {...this.props}/>
+                        </Row>
+                        <Row className="insight-charts-container">
+                            <Row align="middle" justify="center" type="flex">
+                                <h2 className="insight-charts-title">Suggested Charts</h2>
                             </Row>
-                            <Row className="insight-charts">
-                                <h2>Suggested Insights</h2>
-                                <LineChart
-                                    showLegend={false}
-                                    width= {width}
-                                    height= {height}
-                                    data= {chartData}
-                                    chartSeries= {chartSeries}
-                                    x= {x}
-                                />
+                            <Row>
+                                <Tabs tabPosition="top" className="insight-charts">
+                                    <TabPane tab="Line Chart" key="1">
+                                        <Row align="middle" justify="center" type="flex">
+                                            <LineChart
+                                                showLegend={false}
+                                                width={width}
+                                                height={height}
+                                                data={chartData}
+                                                chartSeries={chartSeries}
+                                                x={x}
+                                            />
+                                        </Row>
+                                    </TabPane>
+                                    <TabPane tab="Circle Chart" key="2">
+                                        <Row align="middle" justify="center" type="flex">
+                                            <LineChart
+                                                showLegend={false}
+                                                width={width}
+                                                height={height}
+                                                data={chartData}
+                                                chartSeries={chartSeries}
+                                                x={x}
+                                            />
+                                        </Row>
+                                    </TabPane>
+                                    <TabPane tab="Donut Chart" key="3">
+                                        <Row align="middle" justify="center" type="flex">
+                                            <LineChart
+                                                showLegend={false}
+                                                width={width}
+                                                height={height}
+                                                data={chartData}
+                                                chartSeries={chartSeries}
+                                                x={x}
+                                            />
+                                        </Row>
+                                    </TabPane>
+                                </Tabs>
                             </Row>
-                        </Content>
-                    </Layout>
-                );
-            }
-            else {
-                return (
-                    <Layout>
-                        <InsightsHeader {...this.props}/>
-                        <Content className="insights-drag-drop">
-                            <DragAndDrop  {...this.props}/>
-                        </Content>
-                    </Layout>
-                );
-            }
+                        </Row>
+                    </Content>
+                </Layout>
+            );
+        }
+        else {
+            return (
+                <Layout>
+                    <InsightsHeader {...this.props}/>
+                    <Content className="insights-drag-drop">
+                        <DragAndDrop  {...this.props}/>
+                    </Content>
+                </Layout>
+            );
         }
     }
 }

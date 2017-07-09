@@ -38,6 +38,8 @@
 }
 
 .insights-container {
+  overflow: hidden;
+
   .table-selection-drop-down-container {
     display: flex;
     align-items: center;
@@ -53,7 +55,32 @@
   .data-table {
     height: 40%;
   }
-  .insight-charts {
 
+  .insight-charts-container {
+    .insight-charts-title{
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+
+    .insight-charts{
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+
+    .ant-tabs-tab, .ant-tabs-tab-active{
+      font-weight: 500;
+      font-size: 105%;
+    }
+
+    .ant-tabs-tab-active {
+      color: rgba(0, 0, 0, 0.65);
+      margin: 2px;
+      background-color: white;
+      border-radius: 5px;
+      border-right: none;
+      -moz-box-shadow: 0 0 5px #d9d9d9;
+      -webkit-box-shadow: 0 0 5px #d9d9d9;
+      box-shadow: 0 0 5px #d9d9d9;
+    }
   }
 }
