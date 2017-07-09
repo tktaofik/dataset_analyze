@@ -51,8 +51,8 @@ const chartData = [
         index: 6
     },
 ];
-const width = 700,
-    height = 300,
+const width = 800,
+    height = 400,
     chartSeries = [
         {
             field: 'age',
@@ -84,10 +84,10 @@ class InsightContent extends React.Component {
                             {/*<Row align="middle" justify="center" type="flex">*/}
                                 {/*<p className="insight-charts-title">Suggested Charts</p>*/}
                             {/*</Row>*/}
-                            <Row>
+                            <Row >
                                 <Tabs tabPosition="top" className="insight-charts">
-                                    <TabPane tab="Line Chart" key="1">
-                                        <Row justify="center" type="flex" >
+                                    <TabPane tab="Line Chart" key="1" className="charts">
+                                        <Row justify="center" type="flex">
                                             <LineChart
                                                 showLegend={false}
                                                 width={width}
