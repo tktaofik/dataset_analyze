@@ -35,12 +35,9 @@ class InsightContent extends React.Component {
                             <DataTable {...this.props}/>
                         </Row>
                         <Row className="insight-charts-container">
-                            {/*<Row align="middle" justify="center" type="flex">*/}
-                                {/*<p className="insight-charts-title">Suggested Charts</p>*/}
-                            {/*</Row>*/}
                             <Row >
                                 <Tabs tabPosition="top" className="insight-charts">
-                                    <TabPane tab="Line Chart" key="1" className="charts">
+                                    <TabPane tab="Line Chart" key="1" className="">
                                         <Row justify="center" type="flex">
                                             <LineChart width={600} height={300} data={chartData}
                                                        margin={{top: 5, right: 30, left: 20, bottom: 5}}>
@@ -54,7 +51,7 @@ class InsightContent extends React.Component {
                                             </LineChart>
                                         </Row>
                                     </TabPane>
-                                    <TabPane tab="Circle Chart" key="2">
+                                    <TabPane tab="Circle Chart" key="2" className="">
                                         <Row justify="center" type="flex">
                                             <LineChart width={600} height={300} data={chartData}
                                                        margin={{top: 5, right: 30, left: 20, bottom: 5}}>
@@ -68,7 +65,7 @@ class InsightContent extends React.Component {
                                             </LineChart>
                                         </Row>
                                     </TabPane>
-                                    <TabPane tab="Donut Chart" key="3">
+                                    <TabPane tab="Donut Chart" key="3" className="">
                                         <Row justify="center" type="flex">
                                             <LineChart width={600} height={300} data={chartData}
                                                        margin={{top: 5, right: 30, left: 20, bottom: 5}}>
