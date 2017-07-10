@@ -2,7 +2,7 @@ import React from 'react';
 import {Layout, Row, Tabs} from 'antd';
 import PropTypes from 'proptypes';
 import {DataTable, DataTableHeader, DragAndDrop, InsightsHeader} from '../index';
-import {LineChart, PieChart} from 'react-d3-basic';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 const TabPane = Tabs.TabPane;
 const {Content} = Layout;
@@ -13,61 +13,15 @@ const propTypes = {
     collapsed: PropTypes.bool.isRequired,
 };
 
-const chartData = [
-    {
-        name: "Lavon Hilll I",
-        BMI: 20.57,
-        age: 12,
-        birthday: "1994-10-26T00:00:00.000Z",
-        city: "Annatown",
-        married: true,
-        index: 1
-    },
-    {
-        name: "Clovis Pagac",
-        BMI: 24.28,
-        age: 26,
-        birthday: "1995-11-10T00:00:00.000Z",
-        city: "South Eldredtown",
-        married: false,
-        index: 3
-    },
-    {
-        name: "Gaylord Paucek",
-        BMI: 24.41,
-        age: 30,
-        birthday: "1975-06-12T00:00:00.000Z",
-        city: "Koeppchester",
-        married: true,
-        index: 5
-    },
-    {
-        name: "Ashlynn Kuhn MD",
-        BMI: 23.77,
-        age: 32,
-        birthday: "1985-08-09T00:00:00.000Z",
-        city: "West Josiemouth",
-        married: false,
-        index: 6
-    },
+const chartData =  [
+    {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
+    {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
+    {name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
+    {name: 'Page D', uv: 2780, pv: 3908, amt: 2000},
+    {name: 'Page E', uv: 1890, pv: 4800, amt: 2181},
+    {name: 'Page F', uv: 2390, pv: 3800, amt: 2500},
+    {name: 'Page G', uv: 3490, pv: 4300, amt: 2100},
 ];
-const width = 800,
-    height = 400,
-    chartSeries = [
-        {
-            field: 'age',
-            name: 'Age',
-            color: '#ff7f0e',
-            style: {
-                "strokeWidth": 2,
-                "strokeOpacity": 1,
-                "fillOpacity": 1
-            }
-        }
-    ],
-    x = function (d) {
-        return d.index;
-    };
 
 class InsightContent extends React.Component {
     render() {
@@ -88,38 +42,44 @@ class InsightContent extends React.Component {
                                 <Tabs tabPosition="top" className="insight-charts">
                                     <TabPane tab="Line Chart" key="1" className="charts">
                                         <Row justify="center" type="flex">
-                                            <LineChart
-                                                showLegend={false}
-                                                width={width}
-                                                height={height}
-                                                data={chartData}
-                                                chartSeries={chartSeries}
-                                                x={x}
-                                            />
+                                            <LineChart width={600} height={300} data={chartData}
+                                                       margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                                                <XAxis dataKey="name"/>
+                                                <YAxis/>
+                                                <CartesianGrid strokeDasharray="3 3"/>
+                                                <Tooltip/>
+                                                <Legend />
+                                                <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{r: 8}}/>
+                                                <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+                                            </LineChart>
                                         </Row>
                                     </TabPane>
                                     <TabPane tab="Circle Chart" key="2">
                                         <Row justify="center" type="flex">
-                                            <PieChart
-                                                data= {generalChartData}
-                                                width= {width}
-                                                height= {height}
-                                                chartSeries= {chartSeries}
-                                                value = {value}
-                                                name = {name}
-                                            />
+                                            <LineChart width={600} height={300} data={chartData}
+                                                       margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                                                <XAxis dataKey="name"/>
+                                                <YAxis/>
+                                                <CartesianGrid strokeDasharray="3 3"/>
+                                                <Tooltip/>
+                                                <Legend />
+                                                <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{r: 8}}/>
+                                                <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+                                            </LineChart>
                                         </Row>
                                     </TabPane>
                                     <TabPane tab="Donut Chart" key="3">
                                         <Row justify="center" type="flex">
-                                            <LineChart
-                                                showLegend={false}
-                                                width={width}
-                                                height={height}
-                                                data={chartData}
-                                                chartSeries={chartSeries}
-                                                x={x}
-                                            />
+                                            <LineChart width={600} height={300} data={chartData}
+                                                       margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                                                <XAxis dataKey="name"/>
+                                                <YAxis/>
+                                                <CartesianGrid strokeDasharray="3 3"/>
+                                                <Tooltip/>
+                                                <Legend />
+                                                <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{r: 8}}/>
+                                                <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+                                            </LineChart>
                                         </Row>
                                     </TabPane>
                                 </Tabs>
