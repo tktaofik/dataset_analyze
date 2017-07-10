@@ -2,7 +2,7 @@ import React from 'react';
 import {Layout, Row, Tabs} from 'antd';
 import PropTypes from 'proptypes';
 import {DataTable, DataTableHeader, DragAndDrop, InsightsHeader} from '../index';
-import {LineChart} from 'react-d3-basic';
+import {LineChart, PieChart} from 'react-d3-basic';
 
 const TabPane = Tabs.TabPane;
 const {Content} = Layout;
@@ -100,13 +100,13 @@ class InsightContent extends React.Component {
                                     </TabPane>
                                     <TabPane tab="Circle Chart" key="2">
                                         <Row justify="center" type="flex">
-                                            <LineChart
-                                                showLegend={false}
-                                                width={width}
-                                                height={height}
-                                                data={chartData}
-                                                chartSeries={chartSeries}
-                                                x={x}
+                                            <PieChart
+                                                data= {generalChartData}
+                                                width= {width}
+                                                height= {height}
+                                                chartSeries= {chartSeries}
+                                                value = {value}
+                                                name = {name}
                                             />
                                         </Row>
                                     </TabPane>
