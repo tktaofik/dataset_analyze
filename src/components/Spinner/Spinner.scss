@@ -1,0 +1,15 @@
+.spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  height: 100%;
+  background: #d9d9d9;
+  .spinner {
+    max-width: 50%;
+  }
+}
