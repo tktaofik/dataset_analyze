@@ -2,7 +2,7 @@ import React from 'react';
 import {Layout, Row, Tabs} from 'antd';
 import PropTypes from 'proptypes';
 import {DataTable, DataTableHeader, DragAndDrop, InsightsHeader} from '../index';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer} from 'recharts';
 
 const TabPane = Tabs.TabPane;
 const {Content} = Layout;
@@ -13,7 +13,7 @@ const propTypes = {
     collapsed: PropTypes.bool.isRequired,
 };
 
-const chartData =  [
+const chartData = [
     {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
     {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
     {name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
@@ -35,58 +35,64 @@ class InsightContent extends React.Component {
                             <DataTable {...this.props}/>
                         </Row>
                         <Row className="insight-charts-container">
-                            <Row >
-                                <Tabs tabPosition="top" className="insight-charts">
-                                    <TabPane tab="Line Chart" key="1" className="">
-                                        <Row justify="center" type="flex">
-                                            <LineChart width={600} height={300} data={chartData}
-                                                       margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                            <Tabs tabPosition="top" className="insight-charts">
+                                <TabPane tab="Line Chart" key="1" >
+                                    <Row justify="center" type="flex" className="charts">
+                                        <ResponsiveContainer width="80%" height="80%">
+                                            <LineChart data={chartData}
+                                                       margin={{top: 30, right: 30, left: 20, bottom: 5}}>
                                                 <XAxis dataKey="name"/>
                                                 <YAxis/>
                                                 <CartesianGrid strokeDasharray="3 3"/>
                                                 <Tooltip/>
                                                 <Legend />
-                                                <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{r: 8}}/>
-                                                <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+                                                <Line type="monotone" dataKey="pv" stroke="#8884d8"
+                                                      activeDot={{r: 8}}/>
+                                                <Line type="monotone" dataKey="uv" stroke="#82ca9d"/>
                                             </LineChart>
-                                        </Row>
-                                    </TabPane>
-                                    <TabPane tab="Circle Chart" key="2" className="">
-                                        <Row justify="center" type="flex">
-                                            <LineChart width={600} height={300} data={chartData}
-                                                       margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                                        </ResponsiveContainer>
+                                    </Row>
+                                </TabPane>
+                                <TabPane tab="Circle Chart" key="2" className="">
+                                    <Row justify="center" type="flex" className="charts">
+                                        <ResponsiveContainer width="80%" height="80%">
+                                            <LineChart data={chartData}
+                                                       margin={{top: 30, right: 30, left: 20, bottom: 5}}>
                                                 <XAxis dataKey="name"/>
                                                 <YAxis/>
                                                 <CartesianGrid strokeDasharray="3 3"/>
                                                 <Tooltip/>
                                                 <Legend />
-                                                <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{r: 8}}/>
-                                                <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+                                                <Line type="monotone" dataKey="pv" stroke="#8884d8"
+                                                      activeDot={{r: 8}}/>
+                                                <Line type="monotone" dataKey="uv" stroke="#82ca9d"/>
                                             </LineChart>
-                                        </Row>
-                                    </TabPane>
-                                    <TabPane tab="Donut Chart" key="3" className="">
-                                        <Row justify="center" type="flex">
-                                            <LineChart width={600} height={300} data={chartData}
-                                                       margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                                        </ResponsiveContainer>
+                                    </Row>
+                                </TabPane>
+                                <TabPane tab="Donut Chart" key="3" className="">
+                                    <Row justify="center" type="flex" className="charts">
+                                        <ResponsiveContainer width="80%" height="80%">
+                                            <LineChart data={chartData}
+                                                       margin={{top: 30, right: 30, left: 20, bottom: 5}}>
                                                 <XAxis dataKey="name"/>
                                                 <YAxis/>
                                                 <CartesianGrid strokeDasharray="3 3"/>
                                                 <Tooltip/>
                                                 <Legend />
-                                                <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{r: 8}}/>
-                                                <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+                                                <Line type="monotone" dataKey="pv" stroke="#8884d8"
+                                                      activeDot={{r: 8}}/>
+                                                <Line type="monotone" dataKey="uv" stroke="#82ca9d"/>
                                             </LineChart>
-                                        </Row>
-                                    </TabPane>
-                                </Tabs>
-                            </Row>
+                                        </ResponsiveContainer>
+                                    </Row>
+                                </TabPane>
+                            </Tabs>
                         </Row>
                     </Content>
                 </Layout>
             );
-        }
-        else {
+        } else {
             return (
                 <Layout>
                     <InsightsHeader {...this.props}/>

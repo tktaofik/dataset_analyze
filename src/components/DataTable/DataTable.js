@@ -15,7 +15,7 @@ class DataTable extends React.Component {
         pagination: true,
         size: 'small',
         showHeader: true,
-        scroll:{ x: '200%', y: 190 }
+        scroll:{ x: '200%', y: 210}
     };
 
     render() {

@@ -38,6 +38,9 @@
 }
 
 .insights-container {
+  display: flex;
+  flex-direction: column;
+
   overflow: hidden;
 
   .table-selection-drop-down-container {
@@ -53,10 +56,12 @@
     }
   }
   .data-table {
-    height: 40%;
+    //height: 40%;
   }
 
   .insight-charts-container {
+    flex-grow: 1;
+
     .insight-charts-title {
       margin-left: 5px;
       margin-right: 5px;
@@ -66,10 +71,10 @@
     .insight-charts {
       margin-left: 5px;
       margin-right: 5px;
+
+
       .charts{
-        //TODO: smart height
-        max-height: calc(100vh - 450px);
-        overflow: auto;
+        height: calc(100vh - 410px);
       }
     }
 
