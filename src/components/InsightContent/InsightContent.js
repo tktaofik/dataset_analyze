@@ -38,7 +38,7 @@ class InsightContent extends React.Component {
                             <Tabs tabPosition="top" className="insight-charts">
                                 <TabPane tab="Line Chart" key="1" >
                                     <Row justify="center" type="flex" className="charts">
-                                        <ResponsiveContainer width="80%" height="80%">
+                                        <ResponsiveContainer width="65%" height="80%">
                                             <LineChart data={chartData}
                                                        margin={{top: 30, right: 30, left: 20, bottom: 5}}>
                                                 <XAxis dataKey="name"/>
