@@ -40,7 +40,6 @@
 .insights-container {
   display: flex;
   flex-direction: column;
-
   overflow: hidden;
 
   .table-selection-drop-down-container {
@@ -55,27 +54,12 @@
       margin: 0 2px;
     }
   }
-  .data-table {
-    //height: 40%;
-  }
 
   .insight-charts-container {
     flex-grow: 1;
 
-    .insight-charts-title {
-      margin-left: 5px;
-      margin-right: 5px;
-      font-size: 20px;
-    }
-
-    .insight-charts {
-      margin-left: 5px;
-      margin-right: 5px;
-
-
-      .charts{
-        height: calc(100vh - 410px);
-      }
+    .charts {
+      height: calc(100vh - 410px);
     }
 
     .ant-tabs-tab, .ant-tabs-tab-active {

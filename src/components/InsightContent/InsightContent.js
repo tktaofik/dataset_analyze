@@ -35,7 +35,7 @@ class InsightContent extends React.Component {
                             <DataTable {...this.props}/>
                         </Row>
                         <Row className="insight-charts-container">
-                            <Tabs tabPosition="top" className="insight-charts">
+                            <Tabs tabPosition="top">
                                 <TabPane tab="Line Chart" key="1" >
                                     <Row justify="center" type="flex" className="charts">
                                         <ResponsiveContainer width="65%" height="80%">
