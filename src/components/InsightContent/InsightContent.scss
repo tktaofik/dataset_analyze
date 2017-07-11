@@ -1,0 +1,49 @@
+.insights-drag-drop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.insights-container {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  .table-selection-drop-down-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 5%;
+    margin: 0 2px;
+
+    .table-selection-drop-down {
+      max-width: 50%;
+      margin: 0 2px;
+    }
+  }
+
+  .insight-charts-container {
+    flex-grow: 1;
+
+    .charts {
+      height: calc(100vh - 410px);
+    }
+
+    .ant-tabs-tab, .ant-tabs-tab-active {
+      font-weight: 500;
+      font-size: 105%;
+    }
+
+    .ant-tabs-tab-active {
+      color: rgba(0, 0, 0, 0.65);
+      margin: 2px;
+      background-color: white;
+      border-radius: 5px;
+      border-right: none;
+      -moz-box-shadow: 0 0 5px #d9d9d9;
+      -webkit-box-shadow: 0 0 5px #d9d9d9;
+      box-shadow: 0 0 5px #d9d9d9;
+    }
+  }
+}

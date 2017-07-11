@@ -3,6 +3,7 @@ import {Layout, Row, Tabs} from 'antd';
 import PropTypes from 'proptypes';
 import {DataTable, DataTableHeader, DragAndDrop, InsightsHeader} from '../index';
 import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer} from 'recharts';
+import './InsightContent.css'
 
 const TabPane = Tabs.TabPane;
 const {Content} = Layout;
