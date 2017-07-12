@@ -43,13 +43,15 @@ class InsightContent extends React.Component {
 
         if (selectedDataset && selectedDataset.attributes) {
             const rows = selectedDataset.attributes.tables[selectedTableIndex].rows;
-            const options = Object.keys(rows[0]).map((key, index)=> {
+            //console.log(rows)
+            const options = Object.keys(rows[0]).map((key, index) => {
                 return (
                     <Option key={index} value={key}>
                         {key}
                     </Option>
                 );
             })
+            console.log(options)
             return (
                 <Layout >
                     <InsightsHeader {...this.props}/>
@@ -64,19 +66,21 @@ class InsightContent extends React.Component {
                                     <Select
                                         showSearch
                                         style={{width: 200}}
-                                        placeholder="Select a table"
+                                        placeholder="Select a colume"
                                         optionFilterProp="children"
                                         onChange={this.changeX}
-                                        value={this.props.dataState.xAxis}>
+                                        allowClear={true}
+                                    >
                                         {options}
                                     </Select>
                                     <Select
                                         showSearch
                                         style={{width: 200}}
-                                        placeholder="Select a table"
+                                        placeholder="Select a colume"
                                         optionFilterProp="children"
                                         onChange={this.changeY}
-                                        value={this.props.dataState.yAxis}>
+                                        allowClear={true}
+                                    >
                                         {options}
                                     </Select>
                                     <Row justify="center" type="flex" className="charts">
