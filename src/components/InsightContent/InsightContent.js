@@ -39,11 +39,10 @@ class InsightContent extends React.Component {
     }
 
     render() {
-        const {selectedDataset, selectedTableIndex} = this.props.dataState;
+        const {selectedDataset, selectedTableIndex, xAxis, yAxis} = this.props.dataState;
 
         if (selectedDataset && selectedDataset.attributes) {
             const rows = selectedDataset.attributes.tables[selectedTableIndex].rows;
-            //console.log(rows)
             const options = Object.keys(rows[0]).map((key, index) => {
                 return (
                     <Option key={index} value={key}>
@@ -52,6 +51,16 @@ class InsightContent extends React.Component {
                 );
             })
             console.log(options)
+            const lineChart = (xAxis || yAxis) ? <LineChart data={rows}
+                    margin={{top: 30, right: 30, left: 20, bottom: 5}}
+                >
+                    <XAxis dataKey={xAxis}/>
+                    <YAxis/>
+                    <CartesianGrid strokeDasharray="3 3"/>
+                    <Tooltip/>
+                    <Legend />
+                    <Line type="monotone" dataKey={yAxis} stroke="#8884d8"/>
+                </LineChart> : null
             return (
                 <Layout >
                     <InsightsHeader {...this.props}/>
@@ -85,15 +94,7 @@ class InsightContent extends React.Component {
                                     </Select>
                                     <Row justify="center" type="flex" className="charts">
                                         <ResponsiveContainer width="80%" height="70%">
-                                            <LineChart data={rows}
-                                                       margin={{top: 30, right: 30, left: 20, bottom: 5}}>
-                                                <XAxis dataKey={this.props.dataState.xAxis}/>
-                                                <YAxis/>
-                                                <CartesianGrid strokeDasharray="3 3"/>
-                                                <Tooltip/>
-                                                <Legend />
-                                                <Line type="monotone" dataKey={this.props.dataState.yAxis} stroke="#8884d8"/>
-                                            </LineChart>
+                                            {lineChart}
                                         </ResponsiveContainer>
                                     </Row>
                                 </TabPane>
