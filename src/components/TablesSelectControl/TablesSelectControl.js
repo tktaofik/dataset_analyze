@@ -1,7 +1,7 @@
 import React from 'react';
 import {Select, Button} from 'antd';
 import PropTypes from 'proptypes';
-import {switchTable, updateDataset} from '../../actions/DataActions';
+import {switchTable, updateDataset, changexAxis, changeyAxis} from '../../actions/DataActions';
 import './TablesSelectControl.css';
 
 const Option = Select.Option;
@@ -14,6 +14,8 @@ class TablesSelectControl extends React.Component {
     changeTable = (tableIndex) => {
         const {dispatch} = this.props;
         dispatch(switchTable(tableIndex));
+        dispatch(changexAxis(null));
+        dispatch(changeyAxis(null));
     };
 
     deleteTable = () => {

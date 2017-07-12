@@ -1,12 +1,14 @@
 import React from 'react';
-import {Layout, Row, Tabs} from 'antd';
+import {Layout, Row, Tabs, Select} from 'antd';
 import PropTypes from 'proptypes';
 import {DataTable, DataTableHeader, DragAndDrop, InsightsHeader} from '../index';
 import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer} from 'recharts';
+import {changexAxis, changeyAxis} from '../../actions/DataActions';
 import './InsightContent.css'
 
 const TabPane = Tabs.TabPane;
 const {Content} = Layout;
+const Option = Select.Option;
 const propTypes = {
     dispatch: PropTypes.func.isRequired,
     data: PropTypes.object.isRequired,
@@ -25,9 +27,40 @@ const chartData = [
 ];
 
 class InsightContent extends React.Component {
+    changeX = (value) => {
+        const {dispatch} = this.props;
+        dispatch(changexAxis(value));
+    }
+
+    changeY = (value) => {
+        console.log("value: " + value);
+        const {dispatch} = this.props;
+        dispatch(changeyAxis(value));
+    }
+
     render() {
-        if (this.props.dataState.selectedDataset && this.props.dataState.selectedDataset.attributes) {
-            const data = this.props.dataState.selectedDataset .attributes.tables[this.props.dataState.selectedTableIndex].rows;
+        const {selectedDataset, selectedTableIndex, xAxis, yAxis} = this.props.dataState;
+
+        if (selectedDataset && selectedDataset.attributes) {
+            const rows = selectedDataset.attributes.tables[selectedTableIndex].rows;
+            const options = Object.keys(rows[0]).map((key, index) => {
+                return (
+                    <Option key={index} value={key}>
+                        {key}
+                    </Option>
+                );
+            })
+            console.log(options)
+            const lineChart = (xAxis || yAxis) ? <LineChart data={rows}
+                    margin={{top: 30, right: 30, left: 20, bottom: 5}}
+                >
+                    <XAxis dataKey={xAxis}/>
+                    <YAxis/>
+                    <CartesianGrid strokeDasharray="3 3"/>
+                    <Tooltip/>
+                    <Legend />
+                    <Line type="monotone" dataKey={yAxis} stroke="#8884d8"/>
+                </LineChart> : null
             return (
                 <Layout >
                     <InsightsHeader {...this.props}/>
@@ -39,38 +72,33 @@ class InsightContent extends React.Component {
                         <Row className="insight-charts-container">
                             <Tabs tabPosition="top">
                                 <TabPane tab="Line Chart" key="1" >
+                                    <Select
+                                        showSearch
+                                        style={{width: 200}}
+                                        placeholder="Select a colume as your X axis"
+                                        optionFilterProp="children"
+                                        onChange={this.changeX}
+                                        allowClear={true}
+                                    >
+                                        {options}
+                                    </Select>
+                                    <Select
+                                        showSearch
+                                        style={{width: 200}}
+                                        placeholder="Select a colume as your Y axis"
+                                        optionFilterProp="children"
+                                        onChange={this.changeY}
+                                        allowClear={true}
+                                    >
+                                        {options}
+                                    </Select>
                                     <Row justify="center" type="flex" className="charts">
                                         <ResponsiveContainer width="80%" height="70%">
-                                            <LineChart data={data}
-                                                       margin={{top: 30, right: 30, left: 20, bottom: 5}}>
-                                                <XAxis dataKey="EmployeeName"/>
-                                                <YAxis/>
-                                                <CartesianGrid strokeDasharray="3 3"/>
-                                                <Tooltip/>
-                                                <Legend />
-                                                <Line type="monotone" dataKey="Year Salary" stroke="#8884d8"/>
-                                            </LineChart>
+                                            {lineChart}
                                         </ResponsiveContainer>
                                     </Row>
                                 </TabPane>
-                                <TabPane tab="Circle Chart" key="2" className="">
-                                    <Row justify="center" type="flex" className="charts">
-                                        <ResponsiveContainer width="80%" height="80%">
-                                            <LineChart data={chartData}
-                                                       margin={{top: 30, right: 30, left: 20, bottom: 5}}>
-                                                <XAxis dataKey="name"/>
-                                                <YAxis/>
-                                                <CartesianGrid strokeDasharray="3 3"/>
-                                                <Tooltip/>
-                                                <Legend />
-                                                <Line type="monotone" dataKey="pv" stroke="#8884d8"
-                                                      activeDot={{r: 8}}/>
-                                                <Line type="monotone" dataKey="uv" stroke="#82ca9d"/>
-                                            </LineChart>
-                                        </ResponsiveContainer>
-                                    </Row>
-                                </TabPane>
-                                <TabPane tab="Donut Chart" key="3" className="">
+                                <TabPane tab="Circle Chart" key="2" className="charts">
                                     <Row justify="center" type="flex" className="charts">
                                         <ResponsiveContainer width="80%" height="80%">
                                             <LineChart data={chartData}
