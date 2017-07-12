@@ -29,9 +29,7 @@ export function xlsx_to_json(file) {
                         key: `${++index}`
                     })
                 });
-
-                console.log(rows[0]);
-
+                
                 return {
                     tableName: name,
                     rows
