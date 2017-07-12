@@ -15,18 +15,19 @@ const propTypes = {
 };
 
 const chartData = [
-    {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
-    {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
-    {name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
-    {name: 'Page D', uv: 2780, pv: 3908, amt: 2000},
-    {name: 'Page E', uv: 1890, pv: 4800, amt: 2181},
-    {name: 'Page F', uv: 2390, pv: 3800, amt: 2500},
-    {name: 'Page G', uv: 3490, pv: 4300, amt: 2100},
+    {name: 'Sales Representative', uv: 0},
+    {name: 'Page B', uv: 1},
+    {name: 'Page C', uv: 2},
+    {name: 'Page D', uv: 3},
+    {name: 'Page E', uv: 4},
+    {name: 'Page F', uv: 5},
+    {name: 'Page G', uv: 6},
 ];
 
 class InsightContent extends React.Component {
     render() {
         if (this.props.dataState.selectedDataset && this.props.dataState.selectedDataset.attributes) {
+            const data = this.props.dataState.selectedDataset .attributes.tables[this.props.dataState.selectedTableIndex].rows;
             return (
                 <Layout >
                     <InsightsHeader {...this.props}/>
@@ -39,17 +40,15 @@ class InsightContent extends React.Component {
                             <Tabs tabPosition="top">
                                 <TabPane tab="Line Chart" key="1" >
                                     <Row justify="center" type="flex" className="charts">
-                                        <ResponsiveContainer width="65%" height="80%">
-                                            <LineChart data={chartData}
+                                        <ResponsiveContainer width="100%" height="80%">
+                                            <LineChart data={data}
                                                        margin={{top: 30, right: 30, left: 20, bottom: 5}}>
-                                                <XAxis dataKey="name"/>
+                                                <XAxis dataKey="EmployeeName"/>
                                                 <YAxis/>
                                                 <CartesianGrid strokeDasharray="3 3"/>
                                                 <Tooltip/>
                                                 <Legend />
-                                                <Line type="monotone" dataKey="pv" stroke="#8884d8"
-                                                      activeDot={{r: 8}}/>
-                                                <Line type="monotone" dataKey="uv" stroke="#82ca9d"/>
+                                                <Line type="monotone" dataKey="Year Salary" stroke="#8884d8"/>
                                             </LineChart>
                                         </ResponsiveContainer>
                                     </Row>
