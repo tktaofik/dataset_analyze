@@ -4,7 +4,9 @@ import _ from 'lodash';
 let initialStates = {
     datasets: [],
     selectedTableIndex: 0,
-    selectedDataset: null
+    selectedDataset: null,
+    xAxis: null,
+    yAxis: null
 };
 
 export default function dataState(state = initialStates, action) {
@@ -12,6 +14,16 @@ export default function dataState(state = initialStates, action) {
         case dataAction.ADD_TO_DATA_SETS:
             return Object.assign({}, state, {
                 datasets: _.uniqBy([...state.datasets, ...action.payload.dataset], 'id'),
+            });
+
+        case dataAction.CHANGE_XAXIS:
+            return Object.assign({}, state, {
+                xAxis: action.payload.xAxis
+            });
+
+        case dataAction.CHANGE_YAXIS:
+            return Object.assign({}, state, {
+                yAxis: action.payload.yAxis
             });
 
         case dataAction.SWITCH_TABLE:
