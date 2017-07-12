@@ -66,7 +66,7 @@ class InsightContent extends React.Component {
                                     <Select
                                         showSearch
                                         style={{width: 200}}
-                                        placeholder="Select a colume"
+                                        placeholder="Select a colume as your X axis"
                                         optionFilterProp="children"
                                         onChange={this.changeX}
                                         allowClear={true}
@@ -76,7 +76,7 @@ class InsightContent extends React.Component {
                                     <Select
                                         showSearch
                                         style={{width: 200}}
-                                        placeholder="Select a colume"
+                                        placeholder="Select a colume as your Y axis"
                                         optionFilterProp="children"
                                         onChange={this.changeY}
                                         allowClear={true}

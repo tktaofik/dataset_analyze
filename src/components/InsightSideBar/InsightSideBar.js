@@ -3,7 +3,7 @@ import {Menu, Icon} from 'antd';
 import {
     Link,
 } from 'react-router-dom'
-import {getDatasetById} from '../../actions/DataActions';
+import {getDatasetById, changexAxis, changeyAxis} from '../../actions/DataActions';
 
 const SubMenu = Menu.SubMenu;
 
@@ -17,6 +17,8 @@ class InsightSideBar extends React.Component {
         });
 
         dispatch(getDatasetById(datasetId));
+        dispatch(changexAxis(null));
+        dispatch(changeyAxis(null));
     };
 
     render() {
