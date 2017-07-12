@@ -30,18 +30,17 @@ class InsightContent extends React.Component {
     changeX = (value) => {
         const {dispatch} = this.props;
         dispatch(changexAxis(value));
-    }
+    };
 
     changeY = (value) => {
-        console.log("value: " + value);
         const {dispatch} = this.props;
         dispatch(changeyAxis(value));
-    }
+    };
 
     render() {
         const {selectedDataset, selectedTableIndex, xAxis, yAxis} = this.props.dataState;
 
-        if (selectedDataset && selectedDataset.attributes) {
+        if (selectedDataset && selectedDataset.attributes.tables.length) {
             const rows = selectedDataset.attributes.tables[selectedTableIndex].rows;
             const options = Object.keys(rows[0]).map((key, index) => {
                 return (
@@ -50,8 +49,8 @@ class InsightContent extends React.Component {
                     </Option>
                 );
             })
-            console.log(options)
-            const lineChart = (xAxis || yAxis) ? <LineChart data={rows}
+            const lineChart = (xAxis || yAxis) ? <ResponsiveContainer width="80%" height="70%">
+                <LineChart data={rows}
                     margin={{top: 30, right: 30, left: 20, bottom: 5}}
                 >
                     <XAxis dataKey={xAxis}/>
@@ -60,7 +59,8 @@ class InsightContent extends React.Component {
                     <Tooltip/>
                     <Legend />
                     <Line type="monotone" dataKey={yAxis} stroke="#8884d8"/>
-                </LineChart> : null
+                </LineChart>
+            </ResponsiveContainer> : null
             return (
                 <Layout >
                     <InsightsHeader {...this.props}/>
@@ -78,6 +78,7 @@ class InsightContent extends React.Component {
                                         placeholder="Select a colume as your X axis"
                                         optionFilterProp="children"
                                         onChange={this.changeX}
+                                        value={xAxis}
                                         allowClear={true}
                                     >
                                         {options}
@@ -88,14 +89,13 @@ class InsightContent extends React.Component {
                                         placeholder="Select a colume as your Y axis"
                                         optionFilterProp="children"
                                         onChange={this.changeY}
+                                        value={yAxis}
                                         allowClear={true}
                                     >
                                         {options}
                                     </Select>
                                     <Row justify="center" type="flex" className="charts">
-                                        <ResponsiveContainer width="80%" height="70%">
-                                            {lineChart}
-                                        </ResponsiveContainer>
+                                        {lineChart}
                                     </Row>
                                 </TabPane>
                                 <TabPane tab="Circle Chart" key="2" className="charts">
