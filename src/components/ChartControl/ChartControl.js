@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row, Select} from 'antd';
+import {Row, Col, Select} from 'antd';
 import {changexAxis, changeyAxis} from '../../actions/DataActions';
 import './ChartControl.css';
 
@@ -32,8 +32,8 @@ class ChartControl extends React.Component {
         });
 
         return (
-            <Row type="flex" justify="center">
-                    <div className="select-containter">
+            <Row type="flex" justify="center" gutter={16}>
+                    <Col className="select-containter">
                         <div className="select-label">
                             <p>Dimension:</p>
                         </div>
@@ -48,8 +48,8 @@ class ChartControl extends React.Component {
                         >
                             {options}
                         </Select>
-                    </div>
-                    <div className="select-containter">
+                    </Col>
+                    <Col className="select-containter">
                         <div className="select-label">
                             <p>Measure:</p>
                         </div>
@@ -64,7 +64,7 @@ class ChartControl extends React.Component {
                         >
                             {options}
                         </Select>
-                    </div>
+                    </Col>
             </Row>
         )
     }
