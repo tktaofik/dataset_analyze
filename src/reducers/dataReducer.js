@@ -5,8 +5,8 @@ let initialStates = {
     datasets: [],
     selectedTableIndex: 0,
     selectedDataset: null,
-    xAxis: null,
-    yAxis: null
+    xAxis: undefined,
+    yAxis: undefined
 };
 
 export default function dataState(state = initialStates, action) {

@@ -14,8 +14,8 @@ class TablesSelectControl extends React.Component {
     changeTable = (tableIndex) => {
         const {dispatch} = this.props;
         dispatch(switchTable(tableIndex));
-        dispatch(changexAxis(null));
-        dispatch(changeyAxis(null));
+        dispatch(changexAxis(undefined));
+        dispatch(changeyAxis(undefined));
     };
 
     deleteTable = () => {

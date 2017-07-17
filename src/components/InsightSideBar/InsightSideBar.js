@@ -17,12 +17,12 @@ class InsightSideBar extends React.Component {
         });
 
         dispatch(getDatasetById(datasetId));
-        dispatch(changexAxis(null));
-        dispatch(changeyAxis(null));
+        dispatch(changexAxis(undefined));
+        dispatch(changeyAxis(undefined));
     };
 
     render() {
-        const {datasets,selectedDataset} = this.props.dataState;
+        const {datasets, selectedDataset} = this.props.dataState;
         const datasetList = datasets.length ? datasets.map((dataset) => {
             return (
                 <Menu.Item key={dataset.id}>
