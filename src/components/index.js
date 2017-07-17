@@ -7,6 +7,7 @@ import LoginForm from './LoginForm/LoginForm';
 import InsightsHeader from './InsightHeader/InsightsHeader';
 import Spinner from './Spinner/Spinner';
 import InsightContent from './InsightContent/InsightContent';
+import ChartControl from './ChartControl/ChartControl';
 
 export {
     DataTable,
@@ -17,5 +18,6 @@ export {
     InsightsHeader,
     Spinner,
     InsightContent,
-    TablesSelectControl
+    TablesSelectControl,
+    ChartControl
 };

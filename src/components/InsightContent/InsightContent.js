@@ -1,14 +1,13 @@
 import React from 'react';
-import {Layout, Row, Tabs, Select} from 'antd';
+import {Layout, Row, Tabs} from 'antd';
 import PropTypes from 'proptypes';
-import {DataTable, DataTableHeader, DragAndDrop, InsightsHeader} from '../index';
+import {DataTable, DataTableHeader, DragAndDrop, InsightsHeader, ChartControl} from '../index';
 import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer} from 'recharts';
 import {changexAxis, changeyAxis} from '../../actions/DataActions';
 import './InsightContent.css'
 
 const TabPane = Tabs.TabPane;
 const {Content} = Layout;
-const Option = Select.Option;
 const propTypes = {
     dispatch: PropTypes.func.isRequired,
     data: PropTypes.object.isRequired,
@@ -42,13 +41,6 @@ class InsightContent extends React.Component {
 
         if (selectedDataset && selectedDataset.attributes.tables.length) {
             const rows = selectedDataset.attributes.tables[selectedTableIndex].rows;
-            const options = Object.keys(rows[0]).map((key, index) => {
-                return (
-                    <Option key={index} value={key}>
-                        {key}
-                    </Option>
-                );
-            })
             const lineChart = (xAxis || yAxis) ? <ResponsiveContainer width="80%" height="70%">
                 <LineChart data={rows}
                     margin={{top: 30, right: 30, left: 20, bottom: 5}}
@@ -60,7 +52,8 @@ class InsightContent extends React.Component {
                     <Legend />
                     <Line type="monotone" dataKey={yAxis} stroke="#8884d8"/>
                 </LineChart>
-            </ResponsiveContainer> : null
+            </ResponsiveContainer> : null;
+
             return (
                 <Layout >
                     <InsightsHeader {...this.props}/>
@@ -72,28 +65,7 @@ class InsightContent extends React.Component {
                         <Row className="insight-charts-container">
                             <Tabs tabPosition="top">
                                 <TabPane tab="Line Chart" key="1" >
-                                    <Select
-                                        showSearch
-                                        style={{width: 200}}
-                                        placeholder="Select a colume as your X axis"
-                                        optionFilterProp="children"
-                                        onChange={this.changeX}
-                                        value={xAxis}
-                                        allowClear={true}
-                                    >
-                                        {options}
-                                    </Select>
-                                    <Select
-                                        showSearch
-                                        style={{width: 200}}
-                                        placeholder="Select a colume as your Y axis"
-                                        optionFilterProp="children"
-                                        onChange={this.changeY}
-                                        value={yAxis}
-                                        allowClear={true}
-                                    >
-                                        {options}
-                                    </Select>
+                                    <ChartControl {...this.props}/>
                                     <Row justify="center" type="flex" className="charts">
                                         {lineChart}
                                     </Row>
