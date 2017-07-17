@@ -15,7 +15,7 @@ export function xlsx_to_json(file) {
                 const rows = xlsx.utils.sheet_to_json(dataSet.xlsxRawData.Sheets[name]).map((row, index) => {
                      for (let key in row) {
                          // Check if the data is a number / string
-                        if(/^\d+$/.test(row[key])) {
+                        if(!isNaN(row[key]) ) {
                             row[key] = +row[key]
                         }
 
