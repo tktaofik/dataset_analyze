@@ -82,7 +82,7 @@ class InsightContent extends React.Component {
     render() {
         const {selectedDataset, selectedTableIndex, xAxis, yAxis} = this.props.dataState;
 
-        if (selectedDataset && selectedDataset.attributes.tables.length) {
+        if (selectedDataset && selectedDataset.attributes.tables && selectedDataset.attributes.tables.length) {
             const rows = selectedDataset.attributes.tables[selectedTableIndex].rows;
             const lineChart = (xAxis || yAxis) ? <ResponsiveContainer width="80%" height="70%">
                 <LineChart data={rows}
