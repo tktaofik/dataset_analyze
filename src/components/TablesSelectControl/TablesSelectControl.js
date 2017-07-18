@@ -50,7 +50,7 @@ class TablesSelectControl extends React.Component {
                 </Option>
             );
         });
-        if (tables.length && tables[selectedTableIndex].tableName){
+        if (tables.length &&  tables[selectedTableIndex] && tables[selectedTableIndex].tableName){
             const selectedTableName = tables[selectedTableIndex].tableName;
             const deleteButton = tables.length ? <Button type="primary" className="delete-button" icon="delete" size="small" onClick={this.deleteTable}/> : null
             return (
