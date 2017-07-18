@@ -51,17 +51,17 @@ type Service struct {
 	Dao
 }
 
-func (fs Service) DatasetTableColumns(d Dataset) (dataset Dataset) {
+func (fs Service) DatasetTableColumns(d Dataset) (Dataset) {
 	tables := reflect.ValueOf(d.Attributes.Tables)
 
 	for i := 0; i < tables.Len(); i++ {
 		table := reflect.Value(tables.Index(i)).Interface().(Table)
-		for _, row := range table.Rows {
-			fmt.Println(i, row)
+		keys := reflect.ValueOf(table.Rows[0]).MapKeys()
 
-			keys := reflect.ValueOf(row).MapKeys()
-			fmt.Println(keys)
-		}
+		fmt.Println(keys)
+		//for _, row := range table.Rows {
+		//	fmt.Println(i, row)
+		//}
 	}
 	return d
 }

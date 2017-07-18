@@ -2,7 +2,24 @@ import React from 'react';
 import {Layout, Row, Tabs} from 'antd';
 import PropTypes from 'proptypes';
 import {DataTable, DataTableHeader, DragAndDrop, InsightsHeader, ChartControl} from '../index';
-import {LineChart, PieChart, BarChart, ComposedChart, ScatterChart, Scatter, Area, Bar, Pie, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer} from 'recharts';
+import {
+    LineChart,
+    PieChart,
+    BarChart,
+    ComposedChart,
+    ScatterChart,
+    Scatter,
+    Area,
+    Bar,
+    Pie,
+    Line,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    Legend,
+    ResponsiveContainer
+} from 'recharts';
 import {changexAxis, changeyAxis} from '../../actions/DataActions';
 import './InsightContent.css'
 
@@ -16,13 +33,13 @@ const propTypes = {
 };
 
 const data = [
-      {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
-      {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
-      {name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
-      {name: 'Page D', uv: 2780, pv: 3908, amt: 2000},
-      {name: 'Page E', uv: 1890, pv: 4800, amt: 2181},
-      {name: 'Page F', uv: 2390, pv: 3800, amt: 2500},
-      {name: 'Page G', uv: 3490, pv: 4300, amt: 2100},
+    {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
+    {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
+    {name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
+    {name: 'Page D', uv: 2780, pv: 3908, amt: 2000},
+    {name: 'Page E', uv: 1890, pv: 4800, amt: 2181},
+    {name: 'Page F', uv: 2390, pv: 3800, amt: 2500},
+    {name: 'Page G', uv: 3490, pv: 4300, amt: 2100},
 ];
 
 const data01 = [
@@ -69,7 +86,7 @@ class InsightContent extends React.Component {
             const rows = selectedDataset.attributes.tables[selectedTableIndex].rows;
             const lineChart = (xAxis || yAxis) ? <ResponsiveContainer width="80%" height="70%">
                 <LineChart data={rows}
-                    margin={{top: 30, right: 30, left: 20, bottom: 5}}
+                           margin={{top: 30, right: 30, left: 20, bottom: 5}}
                 >
                     <XAxis dataKey={xAxis}/>
                     <YAxis/>
@@ -90,28 +107,18 @@ class InsightContent extends React.Component {
                         </Row>
                         <Row className="insight-charts-container">
                             <Tabs tabPosition="top">
-                                <TabPane tab="Pie Chart" key="1">
-                                    <Row justify="center" type="flex" className="charts">
-                                        <ResponsiveContainer width="80%" height="80%">
-                                            <PieChart width={800} height={400}>
-                                                <Pie data={data01} cx="50%" cy="50%" outerRadius={50} fill="#8884d8"/>
-                                                <Pie data={data02} cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#82ca9d" label/>
-                                           </PieChart>
-                                        </ResponsiveContainer>
-                                    </Row>
-                                </TabPane>
                                 <TabPane tab="Bar Chart" key="2">
                                     <Row justify="center" type="flex" className="charts">
                                         <ResponsiveContainer width="80%" height="80%">
                                             <BarChart width={600} height={300} data={data}
-                                                margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                                                      margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                                                 <XAxis dataKey="name"/>
                                                 <YAxis/>
                                                 <CartesianGrid strokeDasharray="3 3"/>
                                                 <Tooltip/>
                                                 <Legend />
-                                                <Bar dataKey="pv" fill="#8884d8" />
-                                                <Bar dataKey="uv" fill="#82ca9d" />
+                                                <Bar dataKey="pv" fill="#8884d8"/>
+                                                <Bar dataKey="uv" fill="#82ca9d"/>
                                             </BarChart>
                                         </ResponsiveContainer>
                                     </Row>
@@ -120,29 +127,41 @@ class InsightContent extends React.Component {
                                     <Row justify="center" type="flex" className="charts">
                                         <ResponsiveContainer width="80%" height="80%">
                                             <ComposedChart width={600} height={400} data={data}
-                                                margin={{top: 20, right: 20, bottom: 20, left: 20}}>
-                                                  <XAxis dataKey="name"/>
-                                                  <YAxis />
-                                                  <Tooltip/>
-                                                  <Legend/>
-                                                  <CartesianGrid stroke='#f5f5f5'/>
-                                                  <Area type='monotone' dataKey='amt' fill='#8884d8' stroke='#8884d8'/>
-                                                  <Bar dataKey='pv' barSize={20} fill='#413ea0'/>
-                                                  <Line type='monotone' dataKey='uv' stroke='#ff7300'/>
-                                           </ComposedChart>
+                                                           margin={{top: 20, right: 20, bottom: 20, left: 20}}>
+                                                <XAxis dataKey="name"/>
+                                                <YAxis />
+                                                <Tooltip/>
+                                                <Legend/>
+                                                <CartesianGrid stroke='#f5f5f5'/>
+                                                <Area type='monotone' dataKey='amt' fill='#8884d8' stroke='#8884d8'/>
+                                                <Bar dataKey='pv' barSize={20} fill='#413ea0'/>
+                                                <Line type='monotone' dataKey='uv' stroke='#ff7300'/>
+                                            </ComposedChart>
                                         </ResponsiveContainer>
                                     </Row>
                                 </TabPane>
                                 <TabPane tab="Scatter Chart" key="4">
                                     <Row justify="center" type="flex" className="charts">
                                         <ResponsiveContainer width="80%" height="80%">
-                                            <ScatterChart width={400} height={400} margin={{top: 20, right: 20, bottom: 20, left: 20}}>
+                                            <ScatterChart width={400} height={400}
+                                                          margin={{top: 20, right: 20, bottom: 20, left: 20}}>
                                                 <XAxis dataKey={'x'} name='stature' unit='cm'/>
                                                 <YAxis dataKey={'y'} name='weight' unit='kg'/>
                                                 <Scatter name='A school' data={data03} fill='#8884d8'/>
                                                 <CartesianGrid />
                                                 <Tooltip cursor={{strokeDasharray: '3 3'}}/>
-                                          </ScatterChart>
+                                            </ScatterChart>
+                                        </ResponsiveContainer>
+                                    </Row>
+                                </TabPane>
+                                <TabPane tab="Pie Chart" key="1">
+                                    <Row justify="center" type="flex" className="charts">
+                                        <ResponsiveContainer width="80%" height="80%">
+                                            <PieChart width={800} height={400}>
+                                                <Pie dataKey="value" data={data01} cx="50%" cy="50%" outerRadius={50} fill="#8884d8"/>
+                                                <Pie dataKey="value" data={data02} cx="50%" cy="50%" innerRadius={60} outerRadius={80}
+                                                     fill="#82ca9d" label/>
+                                            </PieChart>
                                         </ResponsiveContainer>
                                     </Row>
                                 </TabPane>
