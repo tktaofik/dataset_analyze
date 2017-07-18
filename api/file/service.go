@@ -23,7 +23,7 @@ type Dataset struct {
 		Name    string `json:"name,omitempty"`
 		Size    int `json:"size,omitempty"`
 		RawData string `json:"raw_data,omitempty"`
-		Tables  []Table `json:"tables,omitempty"`
+		Tables  Tables `json:"tables,omitempty"`
 
 		Link string `json:"link,omitempty"`
 	} `json:"attributes"`
@@ -45,6 +45,8 @@ type Table struct {
 
 type Datasets []Dataset
 
+type Tables []Table
+
 type Service struct {
 	Dao
 }
@@ -54,29 +56,9 @@ func (fs Service) DatasetTableColumns(d Dataset) (dataset Dataset) {
 
 	for i := 0; i < tables.Len(); i++ {
 		table := reflect.Value(tables.Index(i)).Interface().(Table)
-
-		fmt.Println(table.Rows)
-		fmt.Println(table.TableName)
-
-		//fmt.Println(reflect.TypeOf(tables.Index(i)).Kind())
-		//fmt.Println(tables.Index(i))
-
-		//fmt.Println(reflect.ValueOf(table).Kind())
-
-		//for i := 0; i < tables.Len(); i++ {
-		//	fmt.Println(tables.Index(0))
-		//}
-		//
-		//if tables.Kind() == reflect.Slice {
-		//	for i := 0; i < tables.Len(); i++ {
-		//		fmt.Println(tables.Index(0))
-		//	}
-		//}
-
-		//
-		//for key, value := range table.rows {
-		//	fmt.Println("Key:", key, "Value:", value)
-		//}
+		for i, row := range table.Rows {
+			fmt.Println(i, row)
+		}
 	}
 	return d
 }
