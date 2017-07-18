@@ -16,22 +16,31 @@ type ServiceObj interface {
 }
 
 type Dataset struct {
-	Id         bson.ObjectId        `json:"id,omitempty" bson:"_id,omitempty" `
-	CreatedAt  time.Time             `json:"created_at"`
-	Type       string                `json:"type"`
+	Id        bson.ObjectId        `json:"id,omitempty" bson:"_id,omitempty" `
+	CreatedAt time.Time             `json:"created_at"`
+	Type      string                `json:"type"`
 	Attributes struct {
-			   Name    string `json:"name,omitempty"`
-			   Size    int `json:"size,omitempty"`
-			   RawData string `json:"raw_data,omitempty"`
-			   Tables  interface{} `json:"tables,omitempty"`
-			   Link    string `json:"link,omitempty"`
-			   //Columns    interface{} `json:"columns,omitempty"`
-		   } `json:"attributes"`
-	User       struct {
-			   Id   string `json:"id,omitempty" bson:"_id,omitempty" `
-			   Link string `json:"link,omitempty"`
-		   } `json:"user"`
-	Link       string                         `json:"link,omitempty"`
+		Name    string `json:"name,omitempty"`
+		Size    int `json:"size,omitempty"`
+		RawData string `json:"raw_data,omitempty"`
+		Tables  []Table `json:"tables,omitempty"`
+
+		Link string `json:"link,omitempty"`
+	} `json:"attributes"`
+	User struct {
+		Id   string `json:"id,omitempty" bson:"_id,omitempty" `
+		Link string `json:"link,omitempty"`
+	} `json:"user"`
+	Link string                         `json:"link,omitempty"`
+}
+
+type Table struct {
+	Rows []map[string]interface{} `json:"rows,omitempty"`
+	Columns []struct {
+		Name string `json:"name,omitempty"`
+		Data []interface{} `json:"columnName,omitempty"`
+	} `json:"columns,omitempty"`
+	TableName string `json:"tableName,omitempty"`
 }
 
 type Datasets []Dataset
@@ -41,40 +50,16 @@ type Service struct {
 }
 
 func (fs Service) DatasetTableColumns(d Dataset) (dataset Dataset) {
-	dataset = d
-	//dataset.Attributes.Columns = d
-
 	tables := reflect.ValueOf(d.Attributes.Tables)
 
 	for i := 0; i < tables.Len(); i++ {
-		//type datasetTable interface {}
+		table := reflect.Value(tables.Index(i)).Interface().(Table)
 
-		//rows := tables.Index(i).rows
-		//fmt.Println(tables.Index(0))
-		//x := table.MapKeys()
-		//
-		//fmt.Println(x)
-		//fmt.Println(table.tableName)
+		fmt.Println(table.Rows)
+		fmt.Println(table.TableName)
 
-
-		//table := table(tables.Index(i))
-
-
-
-
-		type datasetTable struct {
-			Rows interface{} `json:"rows,omitempty"`
-			TableName interface{} `json:"tableName,omitempty"`
-		}
-
-		fmt.Println(tables.Index(i))
-
-
-		//table := reflect.ValueOf(tables.Index(i))
 		//fmt.Println(reflect.TypeOf(tables.Index(i)).Kind())
 		//fmt.Println(tables.Index(i))
-
-
 
 		//fmt.Println(reflect.ValueOf(table).Kind())
 
@@ -93,13 +78,8 @@ func (fs Service) DatasetTableColumns(d Dataset) (dataset Dataset) {
 		//	fmt.Println("Key:", key, "Value:", value)
 		//}
 	}
-
-	//fmt.Print(tables)
-
-	//b, _ := json.MarshalIndent(tables, "", "  ")
-	//println(string(b))
-	//
-	//dataset = d
-	//
-	return dataset
+	return d
 }
+
+//b, _ := json.MarshalIndent(tables, "", "  ")
+//println(string(b))
