@@ -26,7 +26,7 @@ class DataTable extends React.Component {
             const selectedDataSetTable = selectedDataset.attributes.tables[tableIndex];
             const {rows} = selectedDataSetTable;
             const columns = [];
-            if (rows[0]) {
+            if (rows && rows[0]) {
                 Object.keys(rows[0]).forEach(key => {
                     if (key !== "key") {
                         const column = {
