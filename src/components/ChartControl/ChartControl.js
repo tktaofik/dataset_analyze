@@ -21,15 +21,17 @@ class ChartControl extends React.Component {
         const rows = selectedDataset.attributes.tables[selectedTableIndex].rows;
         const options = []
 
-        Object.keys(rows[0]).forEach((key, index) => {
-            if(key !== 'key') {
-                options.push(
-                    <Option key={index} value={key}>
-                        {key}
-                    </Option>
-                );
-            }
-        });
+        if(rows.length) {
+            Object.keys(rows[0]).forEach((key, index) => {
+                if(key !== 'key') {
+                    options.push(
+                        <Option key={index} value={key}>
+                            {key}
+                        </Option>
+                    );
+                }
+            });
+        }
 
         return (
             <Row type="flex" justify="center" gutter={16}>
