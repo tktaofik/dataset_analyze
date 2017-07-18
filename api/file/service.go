@@ -34,6 +34,8 @@ type Dataset struct {
 	Link string                         `json:"link,omitempty"`
 }
 
+type Datasets []Dataset
+
 type Table struct {
 	Rows []map[string]interface{} `json:"rows,omitempty"`
 	Columns []struct {
@@ -42,8 +44,6 @@ type Table struct {
 	} `json:"columns,omitempty"`
 	TableName string `json:"tableName,omitempty"`
 }
-
-type Datasets []Dataset
 
 type Tables []Table
 
@@ -56,8 +56,11 @@ func (fs Service) DatasetTableColumns(d Dataset) (dataset Dataset) {
 
 	for i := 0; i < tables.Len(); i++ {
 		table := reflect.Value(tables.Index(i)).Interface().(Table)
-		for i, row := range table.Rows {
+		for _, row := range table.Rows {
 			fmt.Println(i, row)
+
+			keys := reflect.ValueOf(row).MapKeys()
+			fmt.Println(keys)
 		}
 	}
 	return d
