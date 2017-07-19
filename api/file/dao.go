@@ -44,6 +44,15 @@ func (d Dao) GetDatasetById(id string, s *mgo.Session) (Dataset, error) {
 }
 
 func (d Dao) SaveDataset(dataset Dataset, s *mgo.Session) (Dataset, error) {
+	//Get the column values of each table from its rows
+	if (dataset.Attributes.Tables != nil) {
+		for i, table := range dataset.Attributes.Tables {
+			if (len(table.Rows) > 0) {
+				dataset.Attributes.Tables[i].Columns = fs.TableColumnsFromRows(table)
+			}
+		}
+	}
+	
 	dataset.Id = bson.NewObjectId()
 	dataset.CreatedAt = time.Now()
 
