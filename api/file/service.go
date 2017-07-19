@@ -10,6 +10,16 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+type Columns map[string][]interface{}
+
+type Table struct {
+	Rows      []map[string]interface{} `json:"rows,omitempty"`
+	Columns   Columns `json:"columns,omitempty"`
+	TableName string `json:"tableName,omitempty"`
+}
+
+type Tables []Table
+
 type Dataset struct {
 	Id         bson.ObjectId        `json:"id,omitempty" bson:"_id,omitempty" `
 	CreatedAt  time.Time             `json:"created_at"`
@@ -31,18 +41,6 @@ type Dataset struct {
 
 type Datasets []Dataset
 
-type Table struct {
-	Rows      []map[string]interface{} `json:"rows,omitempty"`
-	Columns   Columns `json:"columns,omitempty"`
-	TableName string `json:"tableName,omitempty"`
-}
-
-type Tables []Table
-
-type Column map[string][]interface{}
-
-type Columns []Column
-
 type Service struct {
 	Dao
 }
@@ -57,18 +55,16 @@ func (fs Service) DatasetTableColumns(d Dataset) (Dataset) {
 
 		for _, key := range keys {
 			key := reflect.Value(key).Interface().(string)
-			values := make([]interface{}, len(table.Rows))
+			columns[key] = make([]interface{}, 0)
+		}
 
-			for i, row := range table.Rows {
+		for _, row := range table.Rows {
+			for _, key := range keys {
+				key := reflect.Value(key).Interface().(string)
 				if row[key] != nil {
-					values[i] = row[key]
+					columns[key] = append(columns[key], row[key])
 				}
 			}
-
-			c := make(Column)
-			c[key] = values
-
-			columns = append(columns, c)
 		}
 
 		fmt.Println(columns)
