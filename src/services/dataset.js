@@ -27,7 +27,7 @@ export const datasetApi = {
                     reject(response.data)
                 }
             }).catch(function (error) {
-                if (error.response.data){
+                if (error.response && error.response.data){
                     reject(error.response.data);
                 }
 

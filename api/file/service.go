@@ -4,7 +4,6 @@ package file
 
 import (
 	"time"
-	"fmt"
 	"reflect"
 
 	"gopkg.in/mgo.v2/bson"
@@ -46,28 +45,23 @@ type Service struct {
 }
 
 // Extract column values of a dataset table from its rows
-func (fs Service) DatasetTableColumns(d Dataset) (Dataset) {
-	tables := reflect.ValueOf(d.Attributes.Tables)
-	for i := 0; i < tables.Len(); i++ {
-		columns := make(Columns, 0)
-		table := reflect.Value(tables.Index(i)).Interface().(Table)
-		keys := reflect.ValueOf(table.Rows[0]).MapKeys()
+func (fs Service) TableColumnsFromRows(table Table) (Columns) {
+	columns := make(Columns, 0)
+	keys := reflect.ValueOf(table.Rows[0]).MapKeys()
 
+	for _, key := range keys {
+		key := reflect.Value(key).Interface().(string)
+		columns[key] = make([]interface{}, 0)
+	}
+
+	for _, row := range table.Rows {
 		for _, key := range keys {
 			key := reflect.Value(key).Interface().(string)
-			columns[key] = make([]interface{}, 0)
-		}
-
-		for _, row := range table.Rows {
-			for _, key := range keys {
-				key := reflect.Value(key).Interface().(string)
-				if row[key] != nil {
-					columns[key] = append(columns[key], row[key])
-				}
+			if row[key] != nil {
+				columns[key] = append(columns[key], row[key])
 			}
 		}
-
-		fmt.Println(columns)
 	}
-	return d
+
+	return columns
 }

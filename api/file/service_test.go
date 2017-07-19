@@ -12,8 +12,8 @@ var _ = Describe("File Service", func() {
 
 	})
 
-	Context("when calling DatasetTableColumns()", func() {
-		It("should return the dataset with each table columns", func() {
+	Context("when calling TableColumnsFromRows()", func() {
+		It("should return the columns of a table obtained from its rows", func() {
 			var (
 				dataset Dataset
 				fs Service
@@ -23,7 +23,15 @@ var _ = Describe("File Service", func() {
 				panic(err)
 			}
 
-			Expect(fs.DatasetTableColumns(dataset)).To(Equal(dataset))
+			columns := fs.TableColumnsFromRows(dataset.Attributes.Tables[0])
+
+			Ω(columns).Should(HaveLen(4))
+			Ω(columns).Should(HaveKey("92"))
+			Ω(columns).Should(HaveKey("2006-"))
+			Ω(columns).Should(HaveKey("Joachim Löw"))
+			Ω(columns["92"]).Should(HaveLen(10))
+			Ω(columns["2006-"]).Should(HaveLen(10))
+			Ω(columns["Joachim Löw"]).Should(HaveLen(9))
 		})
 	})
 })

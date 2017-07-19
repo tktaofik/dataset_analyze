@@ -52,6 +52,13 @@ func saveFileAsDatasetHandler(c echo.Context) error {
 
 	defer s.Close()
 
+	//Get the column values of each table from its rows
+	if (dataset.Attributes.Tables != nil) {
+		for i, table := range dataset.Attributes.Tables {
+			dataset.Attributes.Tables[i].Columns = fs.TableColumnsFromRows(table)
+		}
+	}
+
 	result, err := fs.Dao.SaveDataset(*dataset, s)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
