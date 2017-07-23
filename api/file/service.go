@@ -16,13 +16,13 @@ func (fs Service) TableColumnsFromRows(table Table) (Columns) {
 	keys := reflect.ValueOf(table.Rows[0]).MapKeys()
 
 	for _, key := range keys {
-		key := reflect.Value(key).Interface().(string)
+		key := key.Interface().(string)
 		columns[key] = make([]interface{}, 0)
 	}
 
 	for _, row := range table.Rows {
 		for _, key := range keys {
-			key := reflect.Value(key).Interface().(string)
+			key := key.Interface().(string)
 			if row[key] != nil {
 				columns[key] = append(columns[key], row[key])
 			}
