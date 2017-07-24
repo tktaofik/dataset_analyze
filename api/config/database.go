@@ -7,18 +7,23 @@ import (
 )
 
 type DB struct {
-	Session *mgo.Session
-}
-
-func (db *DB) DoDial() (s *mgo.Session, err error) {
-	return mgo.Dial(DBUrl())
+	//Session *mgo.Session
 }
 
 func (db *DB) Name() string {
 	return "qlik_analyze"
 }
 
-func DBUrl() string {
+func (db *DB) Session() (s *mgo.Session, err error) {
+	s, err = mgo.Dial(db.Url())
+	if err != nil {
+		return s, err
+	}
+
+	return s, nil
+}
+
+func (db *DB) Url() string {
 	dbURL := os.Getenv("MONGOHQ_URL")
 
 	if dbURL == "" {
