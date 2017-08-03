@@ -7,13 +7,6 @@ import (
 
 var service Service
 
-type customResponse struct {
-	Message string `json:"message"`
-	Err     string `json:"error"`
-	Id      string `json:"id"`
-	Result  string `json:"result"`
-}
-
 func Init(r *echo.Echo, s *mgo.Session) {
 
 	service.DBSession = s

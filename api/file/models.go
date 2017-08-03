@@ -35,3 +35,10 @@ type Dataset struct {
 }
 
 type Datasets []Dataset
+
+type customResponse struct {
+	Message string `json:"message"`
+	Err     string `json:"error"`
+	Id      string `json:"id"`
+	Result  string `json:"result"`
+}
