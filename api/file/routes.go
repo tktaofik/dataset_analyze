@@ -1,14 +1,11 @@
 package file
 
 import (
-	"net/http"
-
 	"github.com/labstack/echo"
+	"gopkg.in/mgo.v2"
 )
 
-var (
-	fs = new(Service)
-)
+var service Service
 
 type customResponse struct {
 	Message string `json:"message"`
@@ -17,81 +14,13 @@ type customResponse struct {
 	Result  string `json:"result"`
 }
 
-func Init(r *echo.Echo) {
-	r.POST("/api/v1/dataset/", saveFileAsDatasetHandler)
-	r.GET("/api/v1/dataset/:id", getDatasetByIdHandler)
-	r.GET("/api/v1/datasets/", getDatasetsHandler)
-	r.PATCH("/api/v1/dataset/:id", updateDatasetHandler)
-	r.DELETE("/api/v1/dataset/:id", deleteDatasetHandler)
-}
+func Init(r *echo.Echo, s *mgo.Session) {
 
-func saveFileAsDatasetHandler(c echo.Context) error {
-	dataset := new(Dataset)
+	service.DBSession = s
 
-	if err := c.Bind(dataset); err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-	}
-
-	result, err := fs.Dao.SaveDataset(*dataset)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-	}
-
-	return c.JSON(http.StatusCreated, result)
-}
-
-func getDatasetsHandler(c echo.Context) error {
-	result, err := fs.Dao.GetDatasets()
-	if err != nil {
-		return echo.NewHTTPError(http.StatusNotFound, err.Error())
-	}
-
-	return c.JSON(http.StatusOK, result)
-}
-
-func getDatasetByIdHandler(c echo.Context) error {
-	id := c.Param("id")
-
-	if len(id) == 24 {
-		result, err := fs.Dao.GetDatasetById(id)
-		if err != nil {
-			return echo.NewHTTPError(http.StatusNotFound, err.Error())
-		}
-
-		return c.JSON(http.StatusOK, result)
-	} else {
-		return echo.NewHTTPError(http.StatusNotFound, "Invalid id length, length should be 24")
-	}
-}
-
-func updateDatasetHandler(c echo.Context) error {
-	dataset := new(Dataset)
-
-	id := c.Param("id")
-
-	if err := c.Bind(dataset); err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-	}
-
-	result, err := fs.Dao.UpdateDataset(id, *dataset)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusForbidden, err.Error())
-	}
-
-	return c.JSON(http.StatusOK, result)
-}
-
-func deleteDatasetHandler(c echo.Context) error {
-	id := c.Param("id")
-
-	if id != "" {
-		result, err := fs.Dao.DeleteDataset(id)
-		if err != nil {
-			return echo.NewHTTPError(http.StatusInternalServerError, err)
-		}
-
-		return c.JSON(http.StatusOK, customResponse{Message: "Dataset deleted", Id: id, Result: result})
-	}
-
-	return echo.NewHTTPError(http.StatusInternalServerError, "Missing the dataset id in the request body")
+	r.POST("/api/v1/dataset/", service.saveFileAsDatasetHandler)
+	r.GET("/api/v1/dataset/:id", service.getDatasetByIdHandler)
+	r.GET("/api/v1/datasets/", service.getDatasetsHandler)
+	r.PATCH("/api/v1/dataset/:id", service.updateDatasetHandler)
+	r.DELETE("/api/v1/dataset/:id", service.deleteDatasetHandler)
 }

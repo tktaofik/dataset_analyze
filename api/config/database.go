@@ -14,7 +14,7 @@ func (db *DB) Name() string {
 	return "qlik_analyze"
 }
 
-func (db *DB) Session() (s *mgo.Session, err error) {
+func (db *DB) Dial() (s *mgo.Session, err error) {
 	s, err = mgo.Dial(db.Url())
 	if err != nil {
 		return s, err

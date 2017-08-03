@@ -7,6 +7,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 
 	"github.com/tktaofik/qlik_analyze/api/config"
+	"gopkg.in/mgo.v2"
 )
 
 var (
@@ -14,19 +15,18 @@ var (
 	collection string = "file"
 )
 
-type Dao struct{}
+type Dao struct{
+	DBSession *mgo.Session
+}
 
 func (d Dao) GetDatasets() (Datasets, error) {
-	s, err := db.Session()
-	if err != nil {
-		return Datasets{}, err
-	}
+	s := d.DBSession.Copy()
 
 	defer s.Close()
 
 	datasets := Datasets{}
 	c := s.DB(db.Name()).C(collection)
-	err = c.Find(bson.M{}).All(&datasets)
+	err := c.Find(bson.M{}).All(&datasets)
 
 	if err != nil {
 		return datasets, err
@@ -36,10 +36,8 @@ func (d Dao) GetDatasets() (Datasets, error) {
 }
 
 func (d Dao) GetDatasetById(id string) (Dataset, error) {
-	s, err := db.Session()
-	if err != nil {
-		return Dataset{}, err
-	}
+	s := d.DBSession.Copy()
+
 
 	defer s.Close()
 
@@ -47,7 +45,7 @@ func (d Dao) GetDatasetById(id string) (Dataset, error) {
 
 	c := s.DB(db.Name()).C(collection)
 
-	err = c.Find(bson.M{"_id": bson.ObjectIdHex(id)}).One(&dataset)
+	err := c.Find(bson.M{"_id": bson.ObjectIdHex(id)}).One(&dataset)
 	if err != nil {
 		return Dataset{}, err
 	}
@@ -56,18 +54,16 @@ func (d Dao) GetDatasetById(id string) (Dataset, error) {
 }
 
 func (d Dao) SaveDataset(dataset Dataset) (Dataset, error) {
-	s, err := db.Session()
-	if err != nil {
-		return Dataset{}, err
-	}
+	s := d.DBSession.Copy()
+
 
 	defer s.Close()
 
 	//Get the column values of each table from its rows
-	if (dataset.Attributes.Tables != nil) {
+	if dataset.Attributes.Tables != nil {
 		for i, table := range dataset.Attributes.Tables {
-			if (len(table.Rows) > 0) {
-				dataset.Attributes.Tables[i].Columns = fs.TableColumnsFromRows(table)
+			if len(table.Rows) > 0 {
+				dataset.Attributes.Tables[i].Columns = service.TableColumnsFromRows(table)
 			}
 		}
 	}
@@ -77,7 +73,7 @@ func (d Dao) SaveDataset(dataset Dataset) (Dataset, error) {
 
 	c := s.DB(db.Name()).C(collection)
 
-	err = c.Insert(dataset);
+	err := c.Insert(dataset)
 	if err != nil {
 		return dataset, err
 	}
@@ -86,16 +82,13 @@ func (d Dao) SaveDataset(dataset Dataset) (Dataset, error) {
 }
 
 func (d Dao) UpdateDataset(id string, dataset Dataset) (Dataset, error) {
-	s, err := db.Session()
-	if err != nil {
-		return Dataset{}, err
-	}
+	s := d.DBSession.Copy()
 
 	defer s.Close()
 
 	c := s.DB(db.Name()).C(collection)
 
-	err = c.Update(bson.M{"_id": bson.ObjectIdHex(id)}, dataset)
+	err := c.Update(bson.M{"_id": bson.ObjectIdHex(id)}, dataset)
 	if err != nil {
 		return dataset, err
 	}
@@ -104,16 +97,13 @@ func (d Dao) UpdateDataset(id string, dataset Dataset) (Dataset, error) {
 }
 
 func (d Dao) DeleteDataset(id string) (string, error) {
-	s, err := db.Session()
-	if err != nil {
-		return id, err
-	}
+	s := d.DBSession.Copy()
 
 	defer s.Close()
 
 	c := s.DB(db.Name()).C(collection)
 
-	err = c.Remove(bson.M{"_id": bson.ObjectIdHex(id)})
+	err := c.Remove(bson.M{"_id": bson.ObjectIdHex(id)})
 	if err != nil {
 		fmt.Println(err)
 		return id, err
