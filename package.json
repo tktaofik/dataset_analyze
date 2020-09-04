@@ -8,7 +8,7 @@
     "bfj": "^4.0.1",
     "json-api-normalizer": "^0.4.1",
     "lodash": "^4.17.4",
-    "lodash.merge": "^4.6.0",
+    "lodash.merge": "^4.6.2",
     "prop-types": "^15.5.10",
     "proptypes": "^1.0.0",
     "q": "^1.5.0",
